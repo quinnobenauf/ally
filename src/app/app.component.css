@@ -14,21 +14,21 @@ nav a {
     text-decoration: none;
     margin-top: 10px;
     display: inline-block;
-    background-color: #eee;
-    border-radius: 4px;
+    color:white;
+    background-color: rgb(66, 66, 66);
 }
 
 nav a:visited, a:link {
-    color: #607d8b;
+    color:white;
 }
 
 nav a:hover {
     color: #039be5;
-    background-color: #cfd8dc;
+    background-color:lightgray;
 }
 
 nav a.active {
-    color: #039be5;
+    color:white;
 }
 
 .dash {

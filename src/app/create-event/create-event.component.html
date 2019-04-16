@@ -1,37 +1,55 @@
-<fieldset>
-  <legend>Create Event</legend>
-  <form class="forms">
-    <div class="box">
-      <fieldset>
-        <legend >Event Details</legend>
-        <div class="form-group">
-          <label for="eventName">Event name:</label><br/>
-          <input type="text" class="form-control" id="eventName" required>
-        </div>
+  <div class="main-div">
+  <fieldset>
+    <legend>Create Event</legend>
+    <form>
+      <div>
+        <fieldset>
+          <legend >Event Details</legend>
+          <div class="form-group">
+            <label for="eventName">Event name:</label><br/>
+            <input type="text" class="form-control" id="eventName" required>
+          </div>
 
-        <div class="form-group">
-          <label for="address">Address:</label><br/>
-          <input type="text" class="form-control" id="address" required>
-        </div>
+          <div class="form-group">
+            <label for="address">Address:</label><br/>
+            <input type="text" class="form-control" id="address" required>
+          </div>
 
-        <div class="form-group">
-          <label for="description">Description:</label><br/>
-          <textarea name="description" class="form-control" id="description" cols="50" rows="10"></textarea>
-        </div>
-      </fieldset>
+          <div class="form-group">
+            <label for="description">Description:</label><br/>
+            <textarea name="description" class="form-control" id="description" cols="50" rows="10"></textarea>
+          </div>
+        </fieldset>
 
-      <fieldset>
-        <legend>Guest List</legend>
-        <button>Add</button>
-        <button>Clear</button>
-      </fieldset>
+        <fieldset>
+          <legend>Guest List</legend>
+          <select name="guests" class="selection"> 
+            <option value="Jared Alonza">Jared Alonza</option>
+            <option value="Bridger Zoske">Bridger Zoske</option>
+            <option value="Omer Burstein">Omer Burstein</option>
+            <option value="Quinn Obenauf">Quinn Obenauf</option>
+          </select>
+          <div>
+            <button class="Half_Button" style="background-color:rgb(66,66,66)">Add</button>
+            <button class="Half_Button" style="background-color: lightcoral">Clear</button>
+          </div>
+        </fieldset>
 
-      <fieldset>
-        <legend>Invitation Message</legend>
-        <div class="form-group">
-          <textarea name="inviteMsg" class="form-control" id="inviteMsg" cols="50" rows="10"></textarea>
+        <fieldset>
+          <legend>Invitation Message</legend>
+          <div class="form-group">
+            <textarea name="inviteMsg" class="form-control" id="inviteMsg" cols="50" rows="10"></textarea>
+            <div>
+              <p><input type="checkbox"/> Guests can invite guests?</p>
+              <p><input type="checkbox"/> Attach guest list to invite?</p>
+            </div>
+          </div>
+        </fieldset>
+
+        <div>
+          <button class="Finish_Button">Finish</button>
         </div>
-      </fieldset>
-    </div>
-  </form>
-</fieldset>
+      </div>
+    </form>
+  </fieldset>
+</div>

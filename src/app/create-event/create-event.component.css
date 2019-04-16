@@ -7,3 +7,39 @@
     margin: 0 0 2em 0;
     padding: 0;
 }
+
+.Half_Button {
+    width:50%;
+    border:none;
+    color: white;
+    padding:5pt;
+    cursor: pointer;
+}
+
+.selection{
+    display: block;
+    width: 80%;
+    margin: 10pt auto;
+}
+
+.main-div {
+    background-color: lightgray;
+    padding: 10pt;
+}
+
+.Finish_Button {
+    display:block;
+    width:80%;
+    margin: 10pt auto;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    border:none;
+    background-color: lightgreen;
+    color:White;
+    border-radius: 4pt;
+    padding:5pt;
+}
