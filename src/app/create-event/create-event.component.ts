@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { Guest } from '../guest';
+import { User } from '../user';
+import { USERS } from '../mock-users';
 
 @Component({
   selector: 'app-create-event',
@@ -20,4 +21,5 @@ export class CreateEventComponent implements OnInit {
   ngOnInit() {
   }
 
+  log(x: string) { console.log(x) }
 }

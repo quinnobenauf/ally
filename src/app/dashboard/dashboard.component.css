@@ -3,6 +3,11 @@ ul {
     list-style: none;
 }
 
+.main-div {
+    background-color: lightgray;
+    padding: 10pt;
+}
+
 .events li {
     position: relative;
     background-color: #EEE;

@@ -7,38 +7,45 @@
           <legend >Event Details</legend>
           <div class="form-group">
             <label for="eventName">Event name:</label><br/>
-            <input type="text" class="form-control" id="eventName" required>
+            <input required minlength="3" maxlength="15" ngModel name="eventName" #eventName="ngModel" (change)="log(eventName)" type="text" class="form-control" id="eventName">
+            <div *ngIf="eventName.touched && !eventName.valid">
+              <div *ngIf="eventName.errors.required">Event name is required!</div>
+              <div *ngIf="eventName.errors.minlength">Event name should be atleast 3 characters</div>
+            </div>
           </div>
 
           <div class="form-group">
-            <label for="address">Address:</label><br/>
-            <input type="text" class="form-control" id="address" required>
+            <label required for="address">Address:</label><br/>
+            <input ngModel name="address" #address="ngModel" type="text" class="form-control" id="address" required>
+            <div *ngIf="address.touched && !address.valid">
+              <div *ngIf="address.errors.required">Address is required!</div>
+            </div>
           </div>
 
           <div class="form-group">
             <label for="description">Description:</label><br/>
-            <textarea name="description" class="form-control" id="description" cols="50" rows="10"></textarea>
+            <textarea ngModel name="description" class="form-control" id="description" cols="50" rows="10"></textarea>
           </div>
         </fieldset>
 
-        <fieldset>
+        <fieldset class="select">
           <legend>Guest List</legend>
           <select name="guests" class="selection"> 
-            <option value="Jared Alonza">Jared Alonza</option>
+            <option value="Jared Alonzo">Jared Alonzo</option>
             <option value="Bridger Zoske">Bridger Zoske</option>
             <option value="Omer Burstein">Omer Burstein</option>
             <option value="Quinn Obenauf">Quinn Obenauf</option>
           </select>
-          <div>
-            <button class="Half_Button" style="background-color:rgb(66,66,66)">Add</button>
-            <button class="Half_Button" style="background-color: lightcoral">Clear</button>
+          <div class="guestButtons">
+            <button class="halfButton">Add</button>
+            <button class="halfButton">Clear</button>
           </div>
         </fieldset>
 
         <fieldset>
           <legend>Invitation Message</legend>
           <div class="form-group">
-            <textarea name="inviteMsg" class="form-control" id="inviteMsg" cols="50" rows="10"></textarea>
+            <textarea ngModel name="inviteMsg" class="form-control" id="inviteMsg" cols="50" rows="10"></textarea>
             <div>
               <p><input type="checkbox"/> Guests can invite guests?</p>
               <p><input type="checkbox"/> Attach guest list to invite?</p>

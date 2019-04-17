@@ -1,11 +1,11 @@
 #content {
-    width: 600px;
+    width: 70%;
     float: left;
 }
 
-#events {
-    width: 300px;
-    margin: 10px;
+aside {
+    width: 20%;
+    margin: 1px;
     float: right;
 }
 
