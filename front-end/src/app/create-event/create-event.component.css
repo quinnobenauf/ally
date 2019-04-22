@@ -1,0 +1,17 @@
+.selection{
+    display: block;
+    margin: 10pt auto;
+}
+
+.select {
+    width: 30%;
+}
+
+.guestButtons {
+    justify-content: center;
+    margin-left: 35%;
+}
+
+.main-div {
+    padding: 10pt;
+}

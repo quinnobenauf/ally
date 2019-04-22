@@ -1,0 +1,27 @@
+<mat-card>Create Account
+  <div>
+    <br/>
+    <mat-form-field appearance="outline">
+      <mat-label>ID</mat-label>
+      <input matInput placeholder="ID" #i>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" #n>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="Username" #u>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" #p>
+    </mat-form-field>
+    <mat-icon matSuffix (click)="hide = !hide">{{ hide ? "visibility_off" : "visibility" }}
+    </mat-icon>
+    <br/>
+    <button mat-raised-button (click)="register(i.value, n.value, u.value)" color="primary">Submit</button>
+  </div>
+</mat-card>
