@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { User } from '../user';
 import { CreateAccountService } from '../create-account.service';
 
 @Component({
@@ -9,21 +10,19 @@ import { CreateAccountService } from '../create-account.service';
 })
 export class CreateAccountComponent implements OnInit {
   hide: boolean = true;
-  user: string;
-  users: string[];
-
+  user: User;
   constructor(private createAccountService: CreateAccountService) { }
 
   ngOnInit() {
   }
 
-  register(i: string, n: string, u: string): void {
-    this.createAccountService.register(JSON.stringify({
-      id: i,
-      userName: u,
-      name: n
-    })).subscribe(user => {});
-
+  createUser(first: string, last: string, user: string, pass: string): void {
+    this.user = new User();
+    this.user.firstName = first;
+    this.user.lastName = last;
+    this.user.userName = user;
+    this.user.password = pass;
+    this.createAccountService.createUser(this.user).subscribe(res => console.log(res));
   }
 
 }

@@ -1,6 +1,6 @@
 {
-  "name": "ally-prototype",
-  "version": "0.0.0",
+  "name": "ally-frontend",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

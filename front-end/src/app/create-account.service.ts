@@ -17,7 +17,27 @@ export class CreateAccountService {
 
   constructor(private http: HttpClient) { }
 
-  register(user: string): Observable<any> {
-    return this.http.post(this.usersUrl, user, httpOptions);
+  // TODO
+  getAllusers(): Observable<any>[] {
+    return
+  }
+
+  // TODO
+  getUserById(id: string): Observable<any> {
+    return
+  }
+
+  // TODO
+  modifyUser(user: User): Observable<any> {
+    return
+  }
+
+  // TODO
+  deleteUser(user: User): Observable<any> {
+    return
+  }
+
+  createUser(user: User): Observable<any> {
+    return this.http.post(this.usersUrl, JSON.stringify(user), httpOptions);
   }
 }
