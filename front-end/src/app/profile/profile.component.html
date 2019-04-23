@@ -1,21 +1,39 @@
-<fieldset>
-  <legend>Profile</legend>
-  <div class="profile-group">
-    <label>Name:</label>{{ user.name }}
-  </div>
-
-  <div class="profile-group">
-    <label>Info:</label>{{ user.info }}
-  </div>
-
-  <div class="dietary-restrictions">
-    <table width="400" cellpadding="10" cellspacing="5">
-      <thead>
-        <tr>
-          <th>Allergies</th>
-          <th>Restrictions</th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-</fieldset>
+<div *ngIf="isUserLoaded">
+  <mat-card id="main">
+    <mat-card-title>Information</mat-card-title>
+    <div>
+      <mat-card id="info">
+        <mat-card-header>
+          <mat-card-title>{{ user.firstName }} {{ user.lastName }}</mat-card-title>
+          <mat-card-subtitle>{{ user.userName }}</mat-card-subtitle>
+          <mat-card-subtitle>*info*</mat-card-subtitle>
+          <mat-card-subtitle>*info*</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+      <br/>
+      <mat-card id="restrictions">
+        <mat-card-header>
+          <mat-card-title>Diet</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-grid-list cols="2">
+            <mat-grid-tile>
+              <mat-grid-tile-header>Allergies</mat-grid-tile-header>
+              <mat-selection-list dense>
+                <mat-list-option>Allergy1</mat-list-option>
+                <mat-list-option>Allergy2</mat-list-option>
+              </mat-selection-list>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <mat-grid-tile-header>Diet</mat-grid-tile-header>
+              <mat-selection-list dense>
+                <mat-list-option>Type1</mat-list-option>
+                <mat-list-option>Type2</mat-list-option>
+              </mat-selection-list>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card>
+</div>

@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { 
+  MatToolbarModule,
   MatCheckboxModule,
   MatFormFieldModule,
   MatInputModule,
@@ -13,7 +14,12 @@ import {
   MatExpansionModule,
   MatCardModule,
   MatButtonModule,
-  MatIconModule
+  MatIconModule,
+  MatTabsModule,
+  MatButtonToggleModule,
+  MatDividerModule,
+  MatListModule,
+  MatGridListModule,
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -38,6 +44,7 @@ import { CreateAccountComponent } from './create-account/create-account.componen
     AppRoutingModule,
     NoopAnimationsModule,
     BrowserAnimationsModule,
+    MatToolbarModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
@@ -46,7 +53,12 @@ import { CreateAccountComponent } from './create-account/create-account.componen
     MatExpansionModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule,
+    MatButtonToggleModule,
+    MatDividerModule,
+    MatListModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

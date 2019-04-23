@@ -1,12 +1,14 @@
 <div id="content">
-    <h1> {{ title }} </h1>
-    <app-create-account></app-create-account>
-    <!-- <nav>
-        <a routerLink="/profile">Profile</a>
-        <a routerLink="/create-event">Create Event</a>
+    <mat-toolbar id=#toolbar color="primary">{{ title }}</mat-toolbar>
+    <!--<app-create-account></app-create-account> -->
+    <nav>
+        <mat-button-toggle routerLink="/profile">Profile</mat-button-toggle>
+        <mat-button-toggle routerLink="/create-event">Create Event</mat-button-toggle>
     </nav>
-    <router-outlet id="main"></router-outlet>
-</div> -->
+</div> 
+<div id=#outlet>
+    <router-outlet></router-outlet>
+</div>
 <!--
 <aside>
     <app-dashboard id="events"></app-dashboard>

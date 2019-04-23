@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { User } from '../user';
-import { CreateAccountService } from '../create-account.service';
+import { AccountService } from '../account.service';
 
 @Component({
   selector: 'app-create-account',
@@ -11,7 +11,8 @@ import { CreateAccountService } from '../create-account.service';
 export class CreateAccountComponent implements OnInit {
   hide: boolean = true;
   user: User;
-  constructor(private createAccountService: CreateAccountService) { }
+
+  constructor(private accountService: AccountService) { }
 
   ngOnInit() {
   }
@@ -22,7 +23,7 @@ export class CreateAccountComponent implements OnInit {
     this.user.lastName = last;
     this.user.userName = user;
     this.user.password = pass;
-    this.createAccountService.createUser(this.user).subscribe(res => console.log(res));
+    this.accountService.createUser(this.user).subscribe(res => console.log(res));
   }
 
 }

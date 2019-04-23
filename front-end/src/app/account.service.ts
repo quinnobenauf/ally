@@ -12,19 +12,19 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class CreateAccountService {
+export class AccountService {
   private usersUrl = "http://localhost:4100/users"
 
   constructor(private http: HttpClient) { }
 
   // TODO
-  getAllusers(): Observable<any>[] {
-    return
+  getAllusers(): Observable<any> {
+    return this.http.get(this.usersUrl, httpOptions);
   }
 
   // TODO
   getUserById(id: string): Observable<any> {
-    return
+    return this.http.get(`${this.usersUrl}/${id}`, httpOptions);
   }
 
   // TODO
