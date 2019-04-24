@@ -1,9 +1,10 @@
-<div class="main-div">
-  <mat-card>Create Event
+<div>
+  <mat-card id="main">
+    <mat-card-title>Create Event</mat-card-title>
     <div>
       <br/>
       <mat-accordion>
-        <mat-expansion-panel>
+        <mat-expansion-panel id="detail">
           <mat-expansion-panel-header>
             <mat-panel-title>
               Event details
@@ -35,38 +36,41 @@
 
           <mat-form-field appearance="outline">
             <mat-label>Description</mat-label>
-            <textarea matInput placeholder="Description" rows="5"></textarea>
+            <textarea matInput placeholder="Description"></textarea>
           </mat-form-field>
         </mat-expansion-panel>
-
       </mat-accordion>
-      <fieldset class="select">
-        <legend>Guest List</legend>
-        <select name="guests" class="selection"> 
-          <option value="Jared Alonzo">Jared Alonzo</option>
-          <option value="Bridger Zoske">Bridger Zoske</option>
-          <option value="Omer Burstein">Omer Burstein</option>
-          <option value="Quinn Obenauf">Quinn Obenauf</option>
-        </select>
-        <div class="guestButtons">
-          <button class="halfButton">Add</button>
-          <button class="halfButton">Clear</button>
-        </div>
-      </fieldset>
+      <br/>
 
-      <fieldset>
-        <legend>Invitation Message</legend>
-        <div class="form-group">
-          <textarea ngModel name="inviteMsg" class="form-control" id="inviteMsg" cols="50" rows="10"></textarea>
-          <div>
-            <p><mat-checkbox>Guests can invite guests?</mat-checkbox></p>
-            <p><mat-checkbox>Attach guest list to invitation?</mat-checkbox></p>
-          </div>
-        </div>
-      </fieldset>
+      <mat-card id="guestList">
+        <mat-card-header>
+          <mat-card-title>Guest List</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <button mat-raised-button>Modify</button>
+          <button mat-raised-button>Clear</button>
+        </mat-card-content>
+      </mat-card>
+      <br/>
 
-      <div>
-        <button class="Finish_Button">Finish</button>
+      <mat-card id="inviteMsg">
+        <mat-card-header>
+          <mat-card-title>Invitation Message</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field appearance="outline">
+            <mat-label>Message</mat-label>
+            <textarea id="msg" matInput placeholder="Leave a message"></textarea>
+          </mat-form-field>
+          <br/>
+          <mat-checkbox>Guests can invite guests?</mat-checkbox>
+          <br/>
+          <mat-checkbox>Attach guest list to invitation?</mat-checkbox>
+        </mat-card-content>
+      </mat-card>
+
+      <div id="save">  
+        <button mat-raised-button color="primary">Submit</button>
       </div>
     </div>
   </mat-card>

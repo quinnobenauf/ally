@@ -1,7 +1,7 @@
 import * as express from 'express';
 import Controller from '../interfaces/controller.interface';
 import Allergy from '../interfaces/allergy.interface';
-import allergyModel from './allergies.model';
+import allergyModel from './allergy.model';
 
 class AllergiesController implements Controller {
     public path = '/allergies';

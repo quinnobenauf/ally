@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { 
   MatToolbarModule,
   MatCheckboxModule,
@@ -20,6 +21,8 @@ import {
   MatDividerModule,
   MatListModule,
   MatGridListModule,
+  MatOptionModule,
+  MatSelectModule,
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -44,6 +47,7 @@ import { CreateAccountComponent } from './create-account/create-account.componen
     AppRoutingModule,
     NoopAnimationsModule,
     BrowserAnimationsModule,
+    DragDropModule,
     MatToolbarModule,
     MatCheckboxModule,
     MatFormFieldModule,
@@ -58,7 +62,9 @@ import { CreateAccountComponent } from './create-account/create-account.componen
     MatButtonToggleModule,
     MatDividerModule,
     MatListModule,
-    MatGridListModule
+    MatGridListModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

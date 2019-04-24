@@ -13,25 +13,38 @@
       <br/>
       <mat-card id="restrictions">
         <mat-card-header>
-          <mat-card-title>Diet</mat-card-title>
+          <mat-card-title>Restrictions</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <mat-grid-list cols="2">
-            <mat-grid-tile>
-              <mat-grid-tile-header>Allergies</mat-grid-tile-header>
-              <mat-selection-list dense>
-                <mat-list-option>Allergy1</mat-list-option>
-                <mat-list-option>Allergy2</mat-list-option>
-              </mat-selection-list>
-            </mat-grid-tile>
-            <mat-grid-tile>
-              <mat-grid-tile-header>Diet</mat-grid-tile-header>
-              <mat-selection-list dense>
-                <mat-list-option>Type1</mat-list-option>
-                <mat-list-option>Type2</mat-list-option>
-              </mat-selection-list>
-            </mat-grid-tile>
-          </mat-grid-list>
+          <div class="restrictionChoices">
+            <h3>My Allergies</h3>
+            <div 
+              cdkDropList
+              #selectedList="cdkDropList"
+              [cdkDropListData]="userAllergies"
+              [cdkDropListConnectedTo]="[allergyList]"
+              class="restrictionsList"
+              (cdkDropListDropped)="drop($event)">
+              <div class="restrictionBox" *ngFor="let userAllergy of userAllergies" cdkDrag>
+                {{ userAllergy.type }}
+              </div>
+            </div>
+          </div>
+
+          <div class="restrictionChoices">
+            <h3>Allergies List</h3>
+            <div
+              cdkDropList
+              #allergyList="cdkDropList"
+              [cdkDropListData]="allergies"
+              [cdkDropListConnectedTo]="[selectedList]"
+              class="restrictionsList"
+              (cdkDropListDropped)="drop($event)">
+              <div class="restrictionBox" *ngFor="let allergy of allergies" cdkDrag>
+                {{ allergy.type }}
+              </div>
+            </div>
+          </div>
         </mat-card-content>
       </mat-card>
     </div>

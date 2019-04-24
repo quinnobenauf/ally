@@ -1,17 +1,19 @@
-.selection{
-    display: block;
-    margin: 10pt auto;
+#main {
+    max-width: 70%;
 }
 
-.select {
-    width: 30%;
+#detail {
+    max-width: 70%;
 }
 
-.guestButtons {
-    justify-content: center;
-    margin-left: 35%;
+#guestList {
+    max-width: 25%;
 }
 
-.main-div {
-    padding: 10pt;
+#inviteMsg{
+    max-width: 40%;
+}
+
+#save {
+    text-align: right;
 }
