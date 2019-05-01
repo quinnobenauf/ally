@@ -21,12 +21,12 @@
             <div 
               cdkDropList
               #selectedList="cdkDropList"
-              [cdkDropListData]="userAllergies"
+              [cdkDropListData]="user.allergies"
               [cdkDropListConnectedTo]="[allergyList]"
               class="restrictionsList"
               (cdkDropListDropped)="drop($event)">
-              <div class="restrictionBox" *ngFor="let userAllergy of userAllergies" cdkDrag>
-                {{ userAllergy.type }}
+              <div class="restrictionBox" *ngFor="let allergy of user.allergies" cdkDrag>
+                {{ allergy.type }}
               </div>
             </div>
           </div>
@@ -44,6 +44,11 @@
                 {{ allergy.type }}
               </div>
             </div>
+          </div>
+          <div class="updateChoices">
+            <mat-card-actions>
+              <button mat-raised-button (click)="updateProfile()" color="primary">Update</button>
+            </mat-card-actions>
           </div>
         </mat-card-content>
       </mat-card>

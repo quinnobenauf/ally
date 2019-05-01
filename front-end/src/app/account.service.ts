@@ -28,8 +28,8 @@ export class AccountService {
   }
 
   // TODO
-  modifyUser(user: User): Observable<any> {
-    return
+  modifyUser(id: string, user: User): Observable<any> {
+    return this.http.put(`${this.usersUrl}/${id}`, user, httpOptions);
   }
 
   // TODO
