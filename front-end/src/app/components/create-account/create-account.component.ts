@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '../user';
-import { AccountService } from '../account.service';
+import { User } from '../../interfaces/user';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-create-account',

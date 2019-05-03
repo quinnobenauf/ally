@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
-import { User } from '../user';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-create-event',

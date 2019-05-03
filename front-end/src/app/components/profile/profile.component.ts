@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '../user';
-import { Allergy } from '../allergy';
-import { Diet } from '../diet';
-import { AccountService } from '../account.service';
-import { AllergyService } from '../allergy.service';
-import { DietService } from '../diet.service';
+import { User } from '../../interfaces/user';
+import { Allergy } from '../../interfaces/allergy';
+import { Diet } from '../../interfaces/diet';
+import { AccountService } from '../../services/account.service';
+import { AllergyService } from '../../services/allergy.service';
+import { DietService } from '../../services/diet.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 

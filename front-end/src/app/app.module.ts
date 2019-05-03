@@ -26,11 +26,11 @@ import {
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { CreateEventComponent } from './create-event/create-event.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { CreateEventComponent } from './components/create-event/create-event.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ProfileComponent } from './profile/profile.component';
-import { CreateAccountComponent } from './create-account/create-account.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { CreateAccountComponent } from './components/create-account/create-account.component';
 
 @NgModule({
   declarations: [
