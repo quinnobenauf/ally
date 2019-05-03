@@ -38,8 +38,12 @@ class UsersController implements Controller {
         const userData: User = req.body;
 
         this.user.updateOne({'_id': id}, {$set: {'allergies': userData.allergies}}).then((user) => {
-            console.log('test');
-        })
+            console.log('allergies');
+        });
+
+        this.user.updateOne({'_id': id}, {$set: {'diets': userData.diets}}).then((user) => {
+            console.log('diets');
+        });
 
         // userData.allergies.forEach(element => {
         //     if (!this.user.find().where({$and: [{_id: id}, {allergies: {$in: element}}]})) {

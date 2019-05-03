@@ -1,7 +1,6 @@
 import * as express from 'express';
 import Controller from '../interfaces/controller.interface';
 import Allergy from '../interfaces/allergy.interface';
-import User from 'interfaces/user.interface';
 import allergyModel from '../model/allergy.model';
 import userModel from '../model/user.model';
 
@@ -26,13 +25,13 @@ class AllergiesController implements Controller {
     private getAllAllergies = (req: express.Request, res: express.Response) => {
         // get user data first and then get allergies (excluding user allergies!)
         const id = req.params.id;
-        let allergies: Array<String> = new Array<String>();
+        let allergies: Array<string> = new Array<string>();
         this.user.findById(id).then((r) => {
             r.allergies.forEach(element => {
                 allergies.push(element.type);
                 // console.log(allergies);
-            })
-            let query = {"type": {"$nin": allergies}};  
+            });
+            let query = {'type': {'$nin': allergies}};  
             this.allergy.find(query).then((allergies) => {
                 res.send(allergies);
             })
@@ -46,12 +45,12 @@ class AllergiesController implements Controller {
         // });
     }
 
-    private getAllergyById = (req: express.Request, res: express.Response) => {
-        const id = req.params.id;
-        this.allergy.findById(id).then((allergy) => {
-            res.send(allergy);
-        });
-    }
+    // private getAllergyById = (req: express.Request, res: express.Response) => {
+    //     const id = req.params.id;
+    //     this.allergy.findById(id).then((allergy) => {
+    //         res.send(allergy);
+    //     });
+    // }
 
     // private modifyAllergy = (req: express.Request, res: express.Response) => {
     //     const id = req.params.id;

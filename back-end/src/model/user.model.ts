@@ -6,6 +6,11 @@ const allergySchema = new mongoose.Schema({
     type: String
 });
 
+const dietSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    type: String
+});
+
 const userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
@@ -14,7 +19,7 @@ const userSchema = new mongoose.Schema({
     email: String,
     phone: String,
     allergies: [allergySchema],
-    diets: [String]
+    diets: [dietSchema]
 });
 
 const userModel = mongoose.model<User & mongoose.Document>('User', userSchema);

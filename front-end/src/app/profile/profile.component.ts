@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { User } from '../user';
 import { Allergy } from '../allergy';
+import { Diet } from '../diet';
 import { AccountService } from '../account.service';
 import { AllergyService } from '../allergy.service';
+import { DietService } from '../diet.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 
@@ -15,25 +17,61 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 export class ProfileComponent implements OnInit {
   user: User = new User();
   allergies: Allergy[] = new Array<Allergy>();
+  diets: Diet[] = new Array<Diet>();
   isUserLoaded: boolean = false;
 
-  constructor(private accountService: AccountService, private allergyService: AllergyService) { }
+  constructor(private accountService: AccountService,
+              private allergyService: AllergyService,
+              private dietService: DietService) { }
 
   ngOnInit() {
-    /* TODO: how to implement a find by ID without exposing user record */
-    this.getUserById('5ccbab6bb16cb8a673f90b63');
-    this.getAllergyList();
-    this.isUserLoaded = true; // this is not a fix must wait for get response before rendering profile page
+    // fetch user data then fetch allergy list
+    this.accountService.getUserById('5ccbab5db16cb8a673f90b62').subscribe((user) => {
+      this.user = user;
+      this.getAllergyList(this.user._id);
+      this.getDietList(this.user._id);
+      this.isUserLoaded = true;
+    });
   }
 
+  // update user profile (restrictions)
   updateProfile(): void {
-    console.log(this.user);
-    this.accountService.modifyUser('5ccbab6bb16cb8a673f90b63', this.user)
+    this.accountService.modifyUser(this.user._id, this.user)
     .subscribe((res: User) => {
+      // reload component?
       console.log(res);
     });
   }
 
+  // fetch diet list
+  getDietList(id: string): void {
+    this.dietService.getDietList(id, this.user)
+    .subscribe((res: Diet[]) => {
+      res.forEach((item) => {
+        var diet = new Diet();
+        diet.type = item.type;
+        diet._id = item._id;
+        this.diets.push(diet);
+      });
+    });
+    console.log(this.diets);
+  }
+
+  // fetch allergy list
+  getAllergyList(id: string) {
+    this.allergyService.getAllergyList(id, this.user)
+    .subscribe((res: Allergy[]) => {
+      res.forEach((item) => {
+        var allergy = new Allergy();
+        allergy.type = item.type;
+        allergy._id = item._id;
+        this.allergies.push(allergy);
+      });
+    });
+    console.log(this.allergies);
+  }
+
+  // drag & drop cards functionality
   drop(event: CdkDragDrop<Allergy[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -44,39 +82,6 @@ export class ProfileComponent implements OnInit {
                         event.currentIndex);
     }
   }
-
-  isSelected(allergy: Allergy): Boolean {
-    this.user.allergies.forEach(element => {
-      if(allergy.type === element.type) {
-        return true;
-      }
-    })
-    return false;
-  }
-
-  getUserById(id: string): void {
-    this.accountService.getUserById(id)
-    .subscribe((res: User) => {
-      this.user = res;
-      console.log(res.allergies);
-    });
-  }
-
-  getDietList(): void {
-  }
-
-  getAllergyList() {
-    this.allergyService.getAllergyList('5ccbab6bb16cb8a673f90b63', this.user)
-    .subscribe((res: Allergy[]) => {
-      res.forEach((item) => {
-        var allergy = new Allergy();
-        allergy.type = item.type;
-        allergy._id = item._id;
-        this.allergies.push(allergy);
-      })
-    });
-  }
-
 }
 
 /*  USER IDs

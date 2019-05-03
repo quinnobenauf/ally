@@ -20,7 +20,7 @@
             <h3>My Allergies</h3>
             <div 
               cdkDropList
-              #selectedList="cdkDropList"
+              #userAllergyList="cdkDropList"
               [cdkDropListData]="user.allergies"
               [cdkDropListConnectedTo]="[allergyList]"
               class="restrictionsList"
@@ -37,7 +37,7 @@
               cdkDropList
               #allergyList="cdkDropList"
               [cdkDropListData]="allergies"
-              [cdkDropListConnectedTo]="[selectedList]"
+              [cdkDropListConnectedTo]="[userAllergyList]"
               class="restrictionsList"
               (cdkDropListDropped)="drop($event)">
               <div class="restrictionBox" *ngFor="let allergy of allergies" cdkDrag>
@@ -45,6 +45,37 @@
               </div>
             </div>
           </div>
+
+          <div class="restrictionChoices">
+            <h3>My Diet</h3>
+            <div
+              cdkDropList
+              #userDietList="cdkDropList"
+              [cdkDropListData]="user.diets"
+              [cdkDropListConnectedTo]="[dietList]"
+              class="restrictionsList"
+              (cdkDropListDropped)="drop($event)">
+              <div class="restrictionBox" *ngFor="let diet of user.diets" cdkDrag>
+                {{ diet.type }}
+              </div>
+            </div>
+          </div>
+
+          <div class="restrictionChoices">
+            <h3>Diets List</h3>
+            <div
+              cdkDropList
+              #dietList="cdkDropList"
+              [cdkDropListData]="diets"
+              [cdkDropListConnectedTo]="[userDietList]"
+              class="restrictionsList"
+              (cdkDropListDropped)="drop($event)">
+              <div class="restrictionBox" *ngFor="let diet of diets" cdkDrag>
+                {{ diet.type }}
+              </div>
+            </div>
+          </div>
+
           <div class="updateChoices">
             <mat-card-actions>
               <button mat-raised-button (click)="updateProfile()" color="primary">Update</button>

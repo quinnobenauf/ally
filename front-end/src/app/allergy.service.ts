@@ -13,11 +13,11 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AllergyService {
-  private allergiesUrl = "http://localhost:4100/allergies"
+  private allergiesUrl = 'http://localhost:4100/allergies';
 
   constructor(private http: HttpClient) { }
 
-  getAllergyList(id: String, user: User): Observable<any> {
+  getAllergyList(id: string, user: User): Observable<any> {
     return this.http.get(`${this.allergiesUrl}/${id}`, httpOptions);
   }
 }
