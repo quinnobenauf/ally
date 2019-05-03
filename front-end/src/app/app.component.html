@@ -1,4 +1,4 @@
-<div id="content">
+<div id="head">
     <mat-toolbar id=#toolbar color="primary">{{ title }}</mat-toolbar>
     <!--<app-create-account></app-create-account> -->
     <nav>
@@ -6,11 +6,15 @@
         <mat-button-toggle routerLink="/create-event">Create Event</mat-button-toggle>
     </nav>
 </div> 
-<div id=#outlet>
-    <router-outlet></router-outlet>
+<div id=#page>
+    <div class="outlet">
+        <router-outlet></router-outlet>
+    </div>
+    <div class="side">
+        <mat-card id="sidebar">
+            <mat-card-title>Current Events</mat-card-title>
+            <app-dashboard id="events"></app-dashboard>
+        </mat-card>
+    </div> 
 </div>
-<!--
-<aside>
-    <app-dashboard id="events"></app-dashboard>
-</aside> -->
 

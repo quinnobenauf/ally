@@ -1,14 +1,31 @@
-#content {
+#head {
     text-align: center;
 }
 
-aside {
-    width: 20%;
-    margin: 1px;
-    float: right;
+#page {
+    display: inline-block;
+    max-width: 100%;
+    margin: 0 25px 25px 0;
+    vertical-align: top;
 }
 
-nav a {
+.outlet {
+    width: 77%;
+    max-width: 80%;
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px 10px;
+}
+
+.side {
+    width: 23%;
+    max-width: 20%;
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px 10px;
+}
+/* 
+nav mat-button-toggle {
     padding: 5px 10px;
     text-decoration: none;
     margin-top: 10px;
@@ -17,21 +34,15 @@ nav a {
     background-color: rgb(66, 66, 66);
 }
 
-nav a:visited, a:link {
+nav mat-button-toggle:visited, a:link {
     color:white;
 }
 
-nav a:hover {
+nav mat-button-toggle:hover {
     color: #039be5;
     background-color:lightgray;
 }
 
-nav a.active {
+nav mat-button-toggle.active {
     color:white;
-}
-
-.dash {
-    float: right;
-    width: 250px;
-    margin: 1px;
-}
+} */

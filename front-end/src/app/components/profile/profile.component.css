@@ -1,5 +1,5 @@
 #main {
-    max-width: 70%;
+    max-width: 100%;
 }
 
 #info {
@@ -8,6 +8,7 @@
 
 #restrictions {
     max-width: 100%;
+    text-align: center;
 }
 
 .restrictionChoices {
@@ -40,8 +41,8 @@
     font-size: 15px;
 }
 
-.updateChoides {
-    justify-content: right;
+.updateChoices {
+    text-align: right;
 }
 
 .restrictionBox:last-child {
