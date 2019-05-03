@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
+import { User } from './user';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -15,7 +17,7 @@ export class AllergyService {
 
   constructor(private http: HttpClient) { }
 
-  getAllergyList(): Observable<any> {
-    return this.http.get(this.allergiesUrl, httpOptions);
+  getAllergyList(id: String, user: User): Observable<any> {
+    return this.http.get(`${this.allergiesUrl}/${id}`, httpOptions);
   }
 }

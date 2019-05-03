@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import App from './app';
-import UsersController from './model/users.controller';
-import AllergiesController from './model/allergies.controller';
-import DietsController from './model/diets.controller';
+import UsersController from './controllers/users.controller';
+import AllergiesController from './controllers/allergies.controller';
+import DietsController from './controllers/diets.controller';
 
 const app = new App(
     [

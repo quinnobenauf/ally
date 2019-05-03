@@ -1,7 +1,7 @@
 import * as express from 'express';
 import Controller from '../interfaces/controller.interface';
 import Diet from '../interfaces/diet.interface';
-import dietModel from './diet.model';
+import dietModel from '../model/diet.model';
 
 class DietsController implements Controller {
     public path = '/diets';

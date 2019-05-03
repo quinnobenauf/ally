@@ -21,14 +21,14 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     /* TODO: how to implement a find by ID without exposing user record */
-    this.getUserById('5cc8c0423d80bd59b7c1217d');
+    this.getUserById('5ccbab6bb16cb8a673f90b63');
     this.getAllergyList();
     this.isUserLoaded = true; // this is not a fix must wait for get response before rendering profile page
   }
 
   updateProfile(): void {
     console.log(this.user);
-    this.accountService.modifyUser('5cc8c0423d80bd59b7c1217d', this.user)
+    this.accountService.modifyUser('5ccbab6bb16cb8a673f90b63', this.user)
     .subscribe((res: User) => {
       console.log(res);
     });
@@ -66,23 +66,13 @@ export class ProfileComponent implements OnInit {
   }
 
   getAllergyList() {
-    this.allergyService.getAllergyList()
+    this.allergyService.getAllergyList('5ccbab6bb16cb8a673f90b63', this.user)
     .subscribe((res: Allergy[]) => {
       res.forEach((item) => {
         var allergy = new Allergy();
         allergy.type = item.type;
         allergy._id = item._id;
-        let allergyExists: boolean = false;
-        this.user.allergies.forEach((userAllergy) => {
-          if (userAllergy._id === allergy._id) {
-            allergyExists = true;
-          }
-        })
-        if (!allergyExists) {
-          console.log(this.user.allergies.entries);
-          this.allergies.push(allergy);
-          return;
-        }
+        this.allergies.push(allergy);
       })
     });
   }
@@ -91,8 +81,8 @@ export class ProfileComponent implements OnInit {
 
 /*  USER IDs
     TODO: how to get ids not generate by mongodb?
-    alonzoj:    5cc8c0423d80bd59b7c1217d
-    bursteino:  5cbd803e7e97260c2f7771bd
-    obenaufq:   5cbd80267e97260c2f7771bb
-    zoskeb:     5cbd80347e97260c2f7771bc
+    alonzoj:    5ccbab20b16cb8a673f90b5f
+    bursteino:  5ccbab5db16cb8a673f90b62
+    obenaufq:   5ccbab4cb16cb8a673f90b61
+    zoskeb:     5ccbab6bb16cb8a673f90b63
 */

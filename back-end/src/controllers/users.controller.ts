@@ -1,7 +1,7 @@
 import * as express from 'express';
 import Controller from '../interfaces/controller.interface';
 import User from '../interfaces/user.interface';
-import userModel from './user.model';
+import userModel from '../model/user.model';
 
 class UsersController implements Controller {
     public path = '/users';
@@ -36,9 +36,24 @@ class UsersController implements Controller {
     private modifyUser = (req: express.Request, res: express.Response) => {
         const id = req.params.id;
         const userData: User = req.body;
-        this.user.findByIdAndUpdate(id, userData, { new: true }).then((user) => {
-            res.send(user);
-        });
+
+        this.user.updateOne({'_id': id}, {$set: {'allergies': userData.allergies}}).then((user) => {
+            console.log('test');
+        })
+
+        // userData.allergies.forEach(element => {
+        //     if (!this.user.find().where({$and: [{_id: id}, {allergies: {$in: element}}]})) {
+        //         console.log('hi');
+        //     }
+        //     this.user.updateOne({'_id': id}, {$addToSet: {'allergies': element}}).then((user) => {
+        //         console.log("updated allergies!");
+        //     });
+        // });
+        // find element in array within the document
+        //this.user.find().where({$and: [{fistName: 'Jared'}, {allergies:{$in:{type:'Peanut'}}}]})
+        //.exec(() => {
+            //console.log('found');
+        //});
     }
 
     private deleteUser = (req: express.Request, res: express.Response) => {

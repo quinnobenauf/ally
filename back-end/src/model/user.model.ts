@@ -1,14 +1,19 @@
 import * as mongoose from 'mongoose';
 import User from '../interfaces/user.interface';
-import Allergy from '../interfaces/allergy.interface';
-import Diet from '../interfaces/diet.interface';
+
+const allergySchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    type: String
+});
 
 const userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     userName: String,
     password: String,
-    allergies: [String],
+    email: String,
+    phone: String,
+    allergies: [allergySchema],
     diets: [String]
 });
 
