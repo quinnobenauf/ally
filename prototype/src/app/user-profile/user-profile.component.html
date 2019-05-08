@@ -1,0 +1,69 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Edit Profile</h4>
+                      <p class="card-category">Complete your profile</p>
+                  </div>
+                  <div class="card-body">
+                      <form>
+                          <div class="row">
+                              <div class="col-md-3">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Username">
+                                  </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Email address" type="email">
+                                  </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Fist Name" type="text">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Last Name" type="text">
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <mat-form-field class="example-full-width">
+                                    <mat-select [(value)]="selected" placeholder="Food Preferences">
+                                      <mat-option value="Vegan">Vegan</mat-option>
+                                      <mat-option value="Gluten">Gluten Intolerance</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                              </div>
+                              <div class="col-md-3">
+                                  <button mat-raised-button type="submit" class="btn btn-danger">Add Preference</button>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="card-body">
+                              <p class="card-category">Link your social media!
+                                <a href="www.facebook.com">
+                                  <img src="/assets/img/facebook-button.png" class="socialButton"/>
+                                </a>
+                                <a href="www.twitter.com">
+                                  <img src="/assets/img/twitter-button.png" class="socialButton"/>
+                              </a>
+                              </p>
+                            </div>
+                          </div>
+                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
