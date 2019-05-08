@@ -13,7 +13,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AllergyService {
-  private allergiesUrl = 'http://localhost:4100/allergies';
+  private allergiesUrl = 'http://localhost:4100/allergies/filter';
 
   constructor(private http: HttpClient) { }
 

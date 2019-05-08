@@ -15,14 +15,21 @@ class DietsController implements Controller {
     }
 
     public initializeRoutes() {
-        this.router.get(`${this.path}/:id`, this.getAllDiets);
-        // this.router.get(`${this.path}/:id`, this.getDietById);
+        this.router.get(this.path, this.getAllDiets);
+        this.router.get(`${this.path}/filter/:id`, this.filterDiets);
+        this.router.get(`${this.path}/:id`, this.getDietById);
         // this.router.put(`${this.path}/:id`, this.modifyDiet);
         this.router.delete(`${this.path}/:id`, this.deleteDiet);
         this.router.post(this.path, this.createDiet);
     }
 
     private getAllDiets = (req: express.Request, res: express.Response) => {
+        this.user.find().then((diets) => {
+            res.send(diets);
+        });
+    }
+
+    private filterDiets = (req: express.Request, res: express.Response) => {
         // get user data fist and then get diets (exluding user diet selections)
         const id = req.params.id;
         let diets: Array<string> = new Array<string>();
@@ -37,12 +44,18 @@ class DietsController implements Controller {
         });
     }
 
-    // private getDietById = (req: express.Request, res: express.Response) => {
-    //     const id = req.params.id;
-    //     this.diet.findById(id).then((diet) => {
-    //         res.send(diet);
-    //     });
-    // }
+    private getDietById = (req: express.Request, res: express.Response) => {
+        const id = req.params.id;
+        if (id.length == 24) {
+            this.diet.findById(id).then((diet) => {
+                res.send(diet);
+            });
+        } else {
+            this.diet.find({'type': id}).then((diet) => {
+                res.send(diet);
+            })
+        }
+    }
 
     // private modifyDiet = (req: express.Request, res: express.Response) => {
     //     const id = req.params.id;

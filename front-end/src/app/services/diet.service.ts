@@ -13,7 +13,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class DietService {
-  private dietsUrl = 'http://localhost:4100/diets';
+  private dietsUrl = 'http://localhost:4100/diets/filter';
 
   constructor(private http: HttpClient) { }
 

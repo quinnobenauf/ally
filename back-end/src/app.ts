@@ -10,32 +10,34 @@ class App {
 
     constructor(controllers: Controller[]) {
         this.app = express();
-
-        this.app.use(cors());
-
-        this.connectToDatabase();
+        this.connectToDB();
         this.initializeMiddlewares();
-        this.initializeControllers(controllers);
+        this.mountControllers(controllers);
     }
 
     private initializeMiddlewares() {
         this.app.use(bodyParser.json());
+        this.app.use(cors());
     }
 
-    private initializeControllers(controllers: Controller[]) {
+    private mountControllers(controllers: Controller[]) {
         controllers.forEach((controller) => {
             this.app.use('/', controller.router);
         });
     }
 
-    private connectToDatabase() {
+    private connectToDB() {
         const {
             MONGO_USER,
             MONGO_PASSWORD,
             MONGO_PATH
         } = process.env;
-        // mongoose.connect(`mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`, { useNewUrlParser: true}).then(() => console.log("connected to db"));
-        mongoose.connect('mongodb://localhost:3000/ally').then(() => console.log('connected'));
+        mongoose.connect(`mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`, { useNewUrlParser: true}).then(() =>  {
+            console.log("connected to db");
+        });
+        // mongoose.connect('mongodb://localhost:3000/ally').then(() => { 
+        //     console.log('connected to db');
+        // });
     }
 
     public listen() {

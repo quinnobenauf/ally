@@ -15,14 +15,21 @@ class AllergiesController implements Controller {
     }
 
     public initializeRoutes() {
-        this.router.get(`${this.path}/:id`, this.getAllAllergies);
-        // this.router.get(`${this.path}/:id`, this.getAllergyById);
+        this.router.get(this.path, this.getAllAllergies);
+        this.router.get(`${this.path}/filter/:id`, this.filterAllergies);
+        this.router.get(`${this.path}/:id`, this.getAllergyById);
         // this.router.put(`${this.path}/:id`, this.modifyAllergy);
         this.router.delete(`${this.path}/:id`, this.deleteAllergy);
         this.router.post(this.path, this.createAllergy);
     }
 
     private getAllAllergies = (req: express.Request, res: express.Response) => {
+        this.allergy.find().then((allergies) => {
+            res.send(allergies);
+        });
+    }
+
+    private filterAllergies = (req: express.Request, res: express.Response) => {
         // get user data first and then get allergies (excluding user allergies!)
         const id = req.params.id;
         let allergies: Array<string> = new Array<string>();
@@ -45,12 +52,18 @@ class AllergiesController implements Controller {
         // });
     }
 
-    // private getAllergyById = (req: express.Request, res: express.Response) => {
-    //     const id = req.params.id;
-    //     this.allergy.findById(id).then((allergy) => {
-    //         res.send(allergy);
-    //     });
-    // }
+    private getAllergyById = (req: express.Request, res: express.Response) => {
+        const id = req.params.id;
+        if (id.length == 24) {
+            this.allergy.findById(id).then((allergy) => {
+                res.send(allergy);
+            });
+        } else {
+            this.allergy.find({'type': id}).then((allergy) => {
+                res.send(allergy);
+            });
+        }
+    }
 
     // private modifyAllergy = (req: express.Request, res: express.Response) => {
     //     const id = req.params.id;

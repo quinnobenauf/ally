@@ -28,9 +28,15 @@ class UsersController implements Controller {
 
     private getUserById = (req: express.Request, res: express.Response) => {
         const id = req.params.id;
-        this.user.findById(id).then((user) => {
-            res.send(user);
-        });
+        if (id.length == 24) {
+            this.user.findById(id).then((user) => {
+                res.send(user);
+            });
+        } else {
+            this.user.find({'userName': id}).then((user) => {
+                res.send(user);
+            });
+        }
     }
 
     private modifyUser = (req: express.Request, res: express.Response) => {
