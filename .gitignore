@@ -47,3 +47,5 @@ Thumbs.db
 
 # environment vars for backend
 back-end/.env
+
+/db

@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     // fetch user data then fetch allergy list
-    this.accountService.getUserById('5ccbab5db16cb8a673f90b62').subscribe((user) => {
+    this.accountService.getUserById('5ccbab20b16cb8a673f90b5f').subscribe((user) => {
       this.user = user;
       this.getAllergyList(this.user._id);
       this.getDietList(this.user._id);
