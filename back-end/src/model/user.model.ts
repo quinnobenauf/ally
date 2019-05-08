@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
     diets: [dietSchema]
 });
 
+// send key: value(type)
 const userModel = mongoose.model<User & mongoose.Document>('User', userSchema);
 
 export default userModel;

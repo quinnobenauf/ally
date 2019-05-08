@@ -18,11 +18,11 @@ usersCollection.insert(
     password: "pword123",
     email: "burstei3@seattleu.edu",
     phone: "425-555-1212",
-    allergies: null,
-    diets: null
+    allergies: ["wheat", "gluten"],
+    diets: []
   }
 )
-listsCollection.insert(
+usersCollection.insert(
   {
     firstName: "Quinn",
     lastName: "Obenauf",
@@ -30,11 +30,11 @@ listsCollection.insert(
     password: "pword123",
     email: "quin@seattleu.edu",
     phone: "425-123-4567",
-    allergies: null,
-    diets: null
+    allergies: ["Soy"],
+    diets: ["Vegetarian"]
   }
 )
-listsCollection.insert(
+usersCollection.insert(
   {
     firstName: "Jared",
     lastName: "Alonzo",
@@ -42,20 +42,20 @@ listsCollection.insert(
     password: "pword123",
     email: "jared@seattleu.edu",
     phone: "425-789-0000",
-    allergies: null,
-    diets: null
+    allergies: ["Dairy", "Shellfish", "Fish"],
+    diets: []
   }
 )
-listsCollection.insert(
+usersCollection.insert(
   {
     firstName: "Bridger",
-    lastName: "Zosky",
+    lastName: "Zoske",
     userName: "bridgy",
     password: "pword123",
-    email: "bridge@seattleu.edu",
+    email: "bridger@seattleu.edu",
     phone: "425-100-1999",
-    allergies: null,
-    diets: null
+    allergies: ["Shellfish", "Peanut"],
+    diets: ["Vegan"]
   }
 )
 
@@ -65,12 +65,13 @@ db.createCollection('allergies')
 allergyCollection = db.getCollection("allergies")
 allergyCollection.remove({})
 allergyCollection.insertMany([
-  { type: "wheat" },
-  { type: "peanut" },
-  { type: "chocolate" },
-  { type: "gluten" },
-  { type: "shellfish" },
-  { type: "soy" }]
+  { type: "Wheat" },
+  { type: "Peanut" },
+  { type: "Chocolate" },
+  { type: "Gluten" },
+  { type: "Shellfish" },
+  { type: "Soy" },
+  { type: "Fish" }]
 )
 
 // Create Diets

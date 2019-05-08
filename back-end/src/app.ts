@@ -34,7 +34,8 @@ class App {
             MONGO_PASSWORD,
             MONGO_PATH
         } = process.env;
-        mongoose.connect(`mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`, { useNewUrlParser: true}).then(() => console.log("connected to db"));
+        // mongoose.connect(`mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`, { useNewUrlParser: true}).then(() => console.log("connected to db"));
+        mongoose.connect('mongodb://localhost:3000/ally').then(() => console.log('connected'));
     }
 
     public listen() {

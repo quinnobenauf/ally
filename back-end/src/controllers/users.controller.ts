@@ -54,10 +54,10 @@ class UsersController implements Controller {
         //     });
         // });
         // find element in array within the document
-        //this.user.find().where({$and: [{fistName: 'Jared'}, {allergies:{$in:{type:'Peanut'}}}]})
-        //.exec(() => {
-            //console.log('found');
-        //});
+        this.user.find().where({$and: [{fistName: 'Jared'}, {allergies:{$in:{type:'Peanut'}}}]})
+        .exec(() => {
+            console.log('found');
+        });
     }
 
     private deleteUser = (req: express.Request, res: express.Response) => {
