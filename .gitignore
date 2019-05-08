@@ -8,7 +8,8 @@
 /bazel-out
 
 # dependencies
-/node_modules
+front-end/node_modules
+back-end/node_modules
 
 # profiling files
 chrome-profiler-events.json
@@ -47,5 +48,4 @@ Thumbs.db
 
 # environment vars for backend
 back-end/.env
-
-/db
+back-end/db
