@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,9 +12,7 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
-import {MatIconModule} from '@angular/material/icon';
-
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import {
   MatButtonModule,
   MatInputModule,
@@ -21,13 +20,27 @@ import {
   MatFormFieldModule,
   MatTooltipModule,
   MatSelectModule,
-  MatListModule
+  MatListModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatCheckboxModule,
+  MatNativeDateModule,
+  MatDatepickerModule,
+  MatExpansionModule,
+  MatCardModule,
+  MatTabsModule,
+  MatDividerModule,
+  MatGridListModule,
+  MatOptionModule,
 } from '@angular/material';
+
 @NgModule({
   imports: [
     CommonModule,
+    HttpClientModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
+    DragDropModule,
     MatButtonModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -35,7 +48,17 @@ import {
     MatSelectModule,
     MatTooltipModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatToolbarModule,
+    MatCheckboxModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatExpansionModule,
+    MatCardModule,
+    MatTabsModule,
+    MatDividerModule,
+    MatGridListModule,
+    MatOptionModule
   ],
   declarations: [
     DashboardComponent,

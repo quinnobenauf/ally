@@ -1,69 +1,127 @@
 <div class="main-content">
   <div class="container-fluid">
-      <div class="row">
-          <div class="col-md-12">
-              <div class="card">
-                  <div class="card-header card-header-danger">
-                      <h4 class="card-title">Edit Profile</h4>
-                      <p class="card-category">Complete your profile</p>
-                  </div>
-                  <div class="card-body">
-                      <form>
-                          <div class="row">
-                              <div class="col-md-3">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Username">
-                                  </mat-form-field>
-                              </div>
-                              <div class="col-md-4">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Email address" type="email">
-                                  </mat-form-field>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-6">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Fist Name" type="text">
-                                </mat-form-field>
-                              </div>
-                              <div class="col-md-6">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Last Name" type="text">
-                                </mat-form-field>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <mat-form-field class="example-full-width">
-                                    <mat-select [(value)]="selected" placeholder="Food Preferences">
-                                      <mat-option value="Vegan">Vegan</mat-option>
-                                      <mat-option value="Gluten">Gluten Intolerance</mat-option>
-                                    </mat-select>
-                                  </mat-form-field>
-                              </div>
-                              <div class="col-md-3">
-                                  <button mat-raised-button type="submit" class="btn btn-danger">Add Preference</button>
-                              </div>
-                          </div>
-                          <div class="row">
-                            <div class="card-body">
-                              <p class="card-category">Link your social media!
-                                <a href="www.facebook.com">
-                                  <img src="/assets/img/facebook-button.png" class="socialButton"/>
-                                </a>
-                                <a href="www.twitter.com">
-                                  <img src="/assets/img/twitter-button.png" class="socialButton"/>
-                              </a>
-                              </p>
-                            </div>
-                          </div>
-                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
-                          <div class="clearfix"></div>
-                      </form>
-                  </div>
-              </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Your Profile</h4>
+            <p class="card-category">Current Information</p>
           </div>
+          <div class="card-body">
+            <h3 class="card-title">{{ user.firstName }} {{ user.lastName }}</h3>
+            <p class="card-category">{{ user.userName }}</p>
+            <p class="card-category">{{ user.email }}</p>
+            <p class="card-category">{{ user.phone }}</p>
+          </div>
+        </div>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Edit Profile</h4>
+            <p class="card-category">Complete your profile</p>
+          </div>
+          <div class="card-body">
+            <div class="col-md-10">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Preferences</h4>
+                </div>
+                <div class="card-body" id="restrictions">
+                  <div class="restrictionChoices">
+                    <h3>Your Allergies</h3>
+                    <div cdkDropList #userAllergyList="cdkDropList" [cdkDropListData]="user.allergies"
+                      [cdkDropListConnectedTo]="[allergyList]" class="restrictionsList"
+                      (cdkDropListDropped)="drop($event)">
+                      <div class="restrictionBox" *ngFor="let allergy of user.allergies" cdkDrag>
+                        {{ allergy.type }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="restrictionChoices">
+                    <h3>Allergies</h3>
+                    <div cdkDropList #allergyList="cdkDropList" [cdkDropListData]="allergies"
+                      [cdkDropListConnectedTo]="[userAllergyList]" class="restrictionsList"
+                      (cdkDropListDropped)="drop($event)">
+                      <div class="restrictionBox" *ngFor="let allergy of allergies" cdkDrag>
+                        {{ allergy.type }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="restrictionChoices">
+                    <h3>Dietary Preference</h3>
+                    <div cdkDropList #userDietList="cdkDropList" [cdkDropListData]="user.diets"
+                      [cdkDropListConnectedTo]="[dietList]" class="restrictionsList"
+                      (cdkDropListDropped)="drop($event)">
+                      <div class="restrictionBox" *ngFor="let diet of user.diets" cdkDrag>
+                        {{ diet.type }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="restrictionChoices">
+                    <h3>Diets</h3>
+                    <div cdkDropList #dietList="cdkDropList" [cdkDropListData]="diets"
+                      [cdkDropListConnectedTo]="[userDietList]" class="restrictionsList"
+                      (cdkDropListDropped)="drop($event)">
+                      <div class="restrictionBox" *ngFor="let diet of diets" cdkDrag>
+                        {{ diet.type }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="updateChoices">
+                    <button mat-raised-button (click)="updateProfile()" class="btn btn-danger pull-right">Update Restrictions</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <form>
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Username">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email address" type="email">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Fist Name" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Last Name" type="text">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="card-body">
+                  <p class="card-category">Link your social media!
+                    <a href="www.facebook.com">
+                      <img src="/assets/img/facebook-button.png" class="socialButton" />
+                    </a>
+                    <a href="www.twitter.com">
+                      <img src="/assets/img/twitter-button.png" class="socialButton" />
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
