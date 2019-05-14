@@ -31,7 +31,7 @@
                 </div>
                 <div class="card-body" id="restrictions">
                   <div class="restrictionChoices">
-                    <h3>Your Allergies</h3>
+                    <h6>Your Allergies</h6>
                     <div cdkDropList #userAllergyList="cdkDropList" [cdkDropListData]="user.allergies"
                       [cdkDropListConnectedTo]="[allergyList]" class="restrictionsList"
                       (cdkDropListDropped)="drop($event)">
@@ -42,7 +42,7 @@
                   </div>
 
                   <div class="restrictionChoices">
-                    <h3>Allergies</h3>
+                    <h6>Allergies</h6>
                     <div cdkDropList #allergyList="cdkDropList" [cdkDropListData]="allergies"
                       [cdkDropListConnectedTo]="[userAllergyList]" class="restrictionsList"
                       (cdkDropListDropped)="drop($event)">
@@ -53,7 +53,7 @@
                   </div>
 
                   <div class="restrictionChoices">
-                    <h3>Dietary Preference</h3>
+                    <h6>Dietary Preference</h6>
                     <div cdkDropList #userDietList="cdkDropList" [cdkDropListData]="user.diets"
                       [cdkDropListConnectedTo]="[dietList]" class="restrictionsList"
                       (cdkDropListDropped)="drop($event)">
@@ -64,7 +64,7 @@
                   </div>
 
                   <div class="restrictionChoices">
-                    <h3>Diets</h3>
+                    <h6>Diets</h6>
                     <div cdkDropList #dietList="cdkDropList" [cdkDropListData]="diets"
                       [cdkDropListConnectedTo]="[userDietList]" class="restrictionsList"
                       (cdkDropListDropped)="drop($event)">
