@@ -2,6 +2,7 @@ import * as express from 'express';
 import Controller from '../interfaces/controller.interface';
 import User from '../interfaces/user.interface';
 import userModel from '../model/user.model';
+import UserNotFoundException from '../exceptions/UserNotFoundException';
 
 class UsersController implements Controller {
     public path = '/users';
@@ -26,15 +27,23 @@ class UsersController implements Controller {
         });
     }
 
-    private getUserById = (req: express.Request, res: express.Response) => {
+    private getUserById = (req: express.Request, res: express.Response, next: express.NextFunction) => {
         const id = req.params.id;
         if (id.length == 24) {
             this.user.findById(id).then((user) => {
-                res.send(user);
+                if (user) {
+                    res.send(user);
+                } else {
+                    next(new UserNotFoundException(id));
+                }
             });
         } else {
             this.user.find({'userName': id}).then((user) => {
-                res.send(user);
+                if (user) {
+                    res.send(user);
+                } else {
+                    next( new UserNotFoundException(id));
+                }
             });
         }
     }
@@ -51,6 +60,10 @@ class UsersController implements Controller {
             console.log('diets');
         });
 
+        this.user.updateOne({'_id': id}, {$set: {'friends': userData.friends}}).then((user) => {
+            console.log('friends');
+        });
+
         // userData.allergies.forEach(element => {
         //     if (!this.user.find().where({$and: [{_id: id}, {allergies: {$in: element}}]})) {
         //         console.log('hi');
@@ -60,19 +73,20 @@ class UsersController implements Controller {
         //     });
         // });
         // find element in array within the document
-        this.user.find().where({$and: [{fistName: 'Jared'}, {allergies:{$in:{type:'Peanut'}}}]})
-        .exec(() => {
-            console.log('found');
-        });
+ 
+        // this.user.find().where({$and: [{fistName: 'Jared'}, {allergies:{$in:{type:'Peanut'}}}]})
+        // .exec(() => {
+        //     console.log('found');
+        // });
     }
 
-    private deleteUser = (req: express.Request, res: express.Response) => {
+    private deleteUser = (req: express.Request, res: express.Response, next: express.NextFunction) => {
         const id = req.params.id;
         this.user.findByIdAndDelete(id).then((successResponse) => {
             if (successResponse) {
                 res.send(200);
             } else {
-                res.send(404);
+                next(new UserNotFoundException(id));
             }
         });
     }

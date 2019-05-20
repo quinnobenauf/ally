@@ -2,6 +2,7 @@ import Allergy from './allergy.interface';
 import Diet from './diet.interface';
 
 interface User {
+    _id: string;
     firstName: string;
     lastName: string;
     userName: string;
@@ -10,6 +11,7 @@ interface User {
     phone: string;
     allergies: Allergy[];
     diets: Diet[];
+    friends: [string];
 }
 
 export default User;

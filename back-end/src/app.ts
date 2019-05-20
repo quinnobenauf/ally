@@ -1,9 +1,11 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
 import * as mongoose from 'mongoose';
 import * as cors from 'cors';
 
 import Controller from './interfaces/controller.interface';
+import errorMiddleware from './middlewares/error.middleware';
 
 class App {
     public app: express.Application;
@@ -12,12 +14,18 @@ class App {
         this.app = express();
         this.connectToDB();
         this.initializeMiddlewares();
+        this.initializeErrorHandling();
         this.mountControllers(controllers);
     }
 
     private initializeMiddlewares() {
         this.app.use(bodyParser.json());
+        this.app.use(cookieParser());
         this.app.use(cors());
+    }
+
+    private initializeErrorHandling() {
+        this.app.use(errorMiddleware);
     }
 
     private mountControllers(controllers: Controller[]) {
