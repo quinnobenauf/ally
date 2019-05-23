@@ -11,6 +11,7 @@ const dietSchema = new mongoose.Schema({
     type: String
 });
 
+
 const userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
