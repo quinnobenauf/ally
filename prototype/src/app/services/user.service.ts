@@ -23,8 +23,8 @@ export class UserService {
   }
 
   // TODO
-  getUserById(id: string): Observable<any> {
-    return this.http.get(`${this.usersUrl}/${id}`, httpOptions);
+  getUserById(id: string): Observable<User> {
+    return this.http.get<User>(`${this.usersUrl}/${id}`, httpOptions);
   }
 
   // TODO
@@ -37,7 +37,7 @@ export class UserService {
     return
   }
 
-  createUser(user: User): Observable<any> {
-    return this.http.post(this.usersUrl, JSON.stringify(user), httpOptions);
+  createUser(user: User): Observable<User> {
+    return this.http.post<User>(this.usersUrl, JSON.stringify(user), httpOptions);
   }
 }

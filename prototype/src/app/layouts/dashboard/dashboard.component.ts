@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 import * as Chartist from 'chartist';
+
+import { User } from '../../interfaces/user';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,8 +12,13 @@ import * as Chartist from 'chartist';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  user: User = new User;
+  id$: string;
 
-  constructor() { }
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private accountService: UserService) { }
+
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -145,6 +155,9 @@ export class DashboardComponent implements OnInit {
 
       //start animation for the Emails Subscription Chart
       this.startAnimationForBarChart(websiteViewsChart);
+
+      let id = this.route.snapshot.paramMap.get('id');
+      console.log(id);
   }
 
 }

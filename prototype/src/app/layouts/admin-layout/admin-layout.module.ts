@@ -1,64 +1,33 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AdminLayoutRoutes } from './admin-layout.routing';
-import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { UserProfileComponent } from '../../user-profile/user-profile.component';
-import { TableListComponent } from '../../table-list/table-list.component';
-import { TypographyComponent } from '../../typography/typography.component';
-import { IconsComponent } from '../../icons/icons.component';
-import { MapsComponent } from '../../maps/maps.component';
-import { NotificationsComponent } from '../../notifications/notifications.component';
-import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import {
-  MatButtonModule,
-  MatInputModule,
-  MatRippleModule,
-  MatFormFieldModule,
-  MatTooltipModule,
-  MatSelectModule,
-  MatListModule,
-  MatIconModule,
-  MatToolbarModule,
-  MatCheckboxModule,
-  MatNativeDateModule,
-  MatDatepickerModule,
-  MatExpansionModule,
-  MatCardModule,
-  MatTabsModule,
-  MatDividerModule,
-  MatGridListModule,
-  MatOptionModule,
-} from '@angular/material';
+
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { ComponentsModule } from '../components/components.module';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { TableListComponent } from '../table-list/table-list.component';
+import { TypographyComponent } from '../typography/typography.component';
+import { IconsComponent } from '../icons/icons.component';
+import { MapsComponent } from '../maps/maps.component';
+import { NotificationsComponent } from '../notifications/notifications.component';
+import { MaterialModule } from '../material.module';
+import { LoginComponent } from '../auth/login/login.component';
+import { AdminLayoutComponent } from './admin-layout.component';
+import { AdminLayoutRoutingModule } from './admin-layout.routing';
+import { CreateUserComponent } from '../auth/create-user/create-user.component';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
+    ReactiveFormsModule,
     DragDropModule,
-    MatButtonModule,
-    MatRippleModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatTooltipModule,
-    MatListModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatCheckboxModule,
-    MatNativeDateModule,
-    MatDatepickerModule,
-    MatExpansionModule,
-    MatCardModule,
-    MatTabsModule,
-    MatDividerModule,
-    MatGridListModule,
-    MatOptionModule
+    ComponentsModule,
+    MaterialModule,
+    AdminLayoutRoutingModule
   ],
   declarations: [
     DashboardComponent,
@@ -68,8 +37,10 @@ import {
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
-    UpgradeComponent,
+    LoginComponent,
+    CreateUserComponent,
+    AdminLayoutComponent
   ]
 })
 
-export class AdminLayoutModule {}
+export class AdminLayoutModule { }

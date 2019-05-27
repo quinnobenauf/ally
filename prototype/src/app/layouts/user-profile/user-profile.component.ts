@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
-import { User } from '../interfaces/user';
-import { Allergy } from '../interfaces/allergy';
-import { Diet } from '../interfaces/diet';
-import { UserService } from '../services/user.service';
-import { AllergyService } from '../services/allergy.service';
-import { DietService } from '../services/diet.service';
+import { User } from '../../interfaces/user';
+import { Allergy } from '../../interfaces/allergy';
+import { Diet } from '../../interfaces/diet';
+import { UserService } from '../../services/user.service';
+import { AllergyService } from '../../services/allergy.service';
+import { DietService } from '../../services/diet.service';
 
 
 @Component({
@@ -26,7 +26,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     // fetch user data then fetch allergy list
-    this.accountService.getUserById('5ccbab4cb16cb8a673f90b61').subscribe((user) => {
+    this.accountService.getUserById('5ccbab6bb16cb8a673f90b63').subscribe((user) => {
       this.user = user;
       this.getAllergyList(this.user._id);
       this.getDietList(this.user._id);
@@ -36,6 +36,7 @@ export class UserProfileComponent implements OnInit {
 
   // update user profile (restrictions)
   updateProfile(): void {
+    console.log(this.user)
     this.accountService.modifyUser(this.user._id, this.user)
     .subscribe((res: User) => {
       // reload component?

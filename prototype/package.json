@@ -52,7 +52,7 @@
     "zone.js": "0.8.26"
   },
   "devDependencies": {
-    "@angular/cli": "6.0.3",
+    "@angular/cli": "7.3.7",
     "@angular/compiler-cli": "7.0.2",
     "@angular/language-service": "7.0.2",
     "@types/bootstrap": "3.3.32",

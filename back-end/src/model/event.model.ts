@@ -15,6 +15,6 @@ const eventSchema = new mongoose.Schema({
     location: String
 }, {versionKey: false});
 
-const eventModel = mongoose.model<Event & mongoose.Document>('Allergy', eventSchema);
+const eventModel = mongoose.model<Event & mongoose.Document>('Event', eventSchema);
 
 export default eventModel;

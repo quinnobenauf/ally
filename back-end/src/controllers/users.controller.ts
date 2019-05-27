@@ -51,6 +51,8 @@ class UsersController implements Controller {
     private modifyUser = (req: express.Request, res: express.Response) => {
         const id = req.params.id;
         const userData: User = req.body;
+        console.log(`data: ${userData.allergies}`);
+        console.log(`id: ${id}`);
 
         this.user.updateOne({'_id': id}, {$set: {'allergies': userData.allergies}}).then((user) => {
             console.log('allergies');
