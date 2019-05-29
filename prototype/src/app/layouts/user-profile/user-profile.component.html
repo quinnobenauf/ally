@@ -21,12 +21,14 @@
             <h4 class="card-title">Friends</h4>
             <p class="card-category">Current Friends</p>
           </div>
-          <h6>Your Friends</h6>
-          <div cdkDropList #userFriendsList="cdkDropList" [cdkDropListData]="user.friends"
-            [cdkDropListConnectedTo]="[friendsList]" class="friendsList"
-            (cdkDropListDropped)="drop($event)">
-            <div class="restrictionBox" *ngFor="let friend of friends" cdkDrag>
-              {{ friend.firstName }} {{ friend.lastName}}
+          <div class="card-body">
+            <h6>Your Friends</h6>
+            <div cdkDropList #userFriendsList="cdkDropList" [cdkDropListData]="user.friends"
+              [cdkDropListConnectedTo]="[friendsList]" class="friendsList"
+              (cdkDropListDropped)="drop($event)">
+              <div class="restrictionBox" *ngFor="let friend of friends" cdkDrag>
+                {{ friend.firstName }} {{ friend.lastName}}
+              </div>
             </div>
           </div>
         </div>
@@ -36,7 +38,7 @@
           <div class="card-header card-header-danger">
             <h4 class="card-title">Add Friend</h4>
           </div>
-          <div>
+          <div class="card-body">
             <p class="card-category">Search by username</p>
             <mat-form-field class="example-full-width">
               <input matInput placeholder="Username" type="text" id="userNameSearch">

@@ -69,10 +69,9 @@ export class UserProfileComponent implements OnInit {
       .subscribe((res: User) => {
         this.accountService.getUserById(this.user._id).subscribe((user) => {
           this.user = user;
-          
         })
       });
-        // sessionStorage.setItem('currentUser', JSON.stringify(this.user));
+      window.location.reload();
   }
 
   validateUpdateFields(): void {
