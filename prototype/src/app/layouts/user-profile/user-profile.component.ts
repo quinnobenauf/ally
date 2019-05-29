@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Component, OnInit } from "@angular/core";
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem
+} from "@angular/cdk/drag-drop";
 
-import { User } from '../../interfaces/user';
-import { Allergy } from '../../interfaces/allergy';
-import { Diet } from '../../interfaces/diet';
-import { UserService } from '../../services/user.service';
-import { AllergyService } from '../../services/allergy.service';
-import { DietService } from '../../services/diet.service';
-import { AuthService } from '../../auth/auth.service';
-import { Subscription } from 'rxjs';
+import { User } from "../../interfaces/user";
+import { Allergy } from "../../interfaces/allergy";
+import { Diet } from "../../interfaces/diet";
+import { UserService } from "../../services/user.service";
+import { AllergyService } from "../../services/allergy.service";
+import { DietService } from "../../services/diet.service";
+import { AuthService } from "../../auth/auth.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-user-profile",
@@ -22,26 +26,25 @@ export class UserProfileComponent implements OnInit {
   diets: Diet[] = new Array<Diet>();
   friends: User[] = new Array<User>();
   isUserLoaded: boolean = false;
-  
 
-  constructor(private accountService: UserService,
-              private allergyService: AllergyService,
-              private dietService: DietService,
-              private authService: AuthService) { }
+  constructor(
+    private accountService: UserService,
+    private allergyService: AllergyService,
+    private dietService: DietService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-
     // fetch user data then fetch allergy list
-      this.user = JSON.parse(sessionStorage.getItem('currentUser'));
-      this.accountService.getUserById(this.user._id).subscribe((user) => {
-        this.user = user;
-        this.getAllergyList(this.user._id);
-        this.getDietList(this.user._id);
-        this.getFriendsList(this.user._id);
-        this.isUserLoaded = true;
-      });
-
-    }
+    this.user = JSON.parse(sessionStorage.getItem("currentUser"));
+    this.accountService.getUserById(this.user._id).subscribe(user => {
+      this.user = user;
+      this.getAllergyList(this.user._id);
+      this.getDietList(this.user._id);
+      this.getFriendsList(this.user._id);
+      this.isUserLoaded = true;
+    });
+  }
 
   addFriend(): void {
     var userName = (document.getElementById(
@@ -50,10 +53,9 @@ export class UserProfileComponent implements OnInit {
     if (userName != "") {
       var user = this.accountService
         .getUserById(userName)
-        .subscribe((user: User) => {
-          this.friends.push(user);
-          this.user.friends = this.friends;
-          console.log("THIS.FRIENDS ADDFRIEND(): ", this.user.friends);
+        .subscribe((res: User) => {
+          this.friends.push(res[0]);
+          this.user.friends.push(res[0]._id);
           this.updateProfile();
         });
     }
@@ -61,18 +63,16 @@ export class UserProfileComponent implements OnInit {
 
   // update user profile (restrictions)
   updateProfile(): void {
-    console.log("THIS.FRIENDS UPDATING: ", this.user.friends);
     this.validateUpdateFields();
 
     this.accountService
       .modifyUser(this.user._id, this.user)
       .subscribe((res: User) => {
-        this.accountService.getUserById(this.user._id).subscribe((user) => {
+        this.accountService.getUserById(this.user._id).subscribe(user => {
           this.user = user;
-          
-        })
+        });
       });
-        // sessionStorage.setItem('currentUser', JSON.stringify(this.user));
+    // sessionStorage.setItem('currentUser', JSON.stringify(this.user));
   }
 
   validateUpdateFields(): void {
@@ -120,7 +120,6 @@ export class UserProfileComponent implements OnInit {
         this.diets.push(diet);
       });
     });
-    console.log("DIETS " + this.diets);
   }
 
   // fetch allergy list

@@ -29,7 +29,6 @@ export class UserService {
 
   // TODO
   modifyUser(id: string, user: User): Observable<any> {
-    console.log("SERVICE USER FRIENDS: ", user.friends);
     return this.http.put(`${this.usersUrl}/${id}`, user, httpOptions);
   }
 
@@ -39,7 +38,11 @@ export class UserService {
   }
 
   createUser(user: User): Observable<User> {
-    return this.http.post<User>(this.usersUrl, JSON.stringify(user), httpOptions);
+    return this.http.post<User>(
+      this.usersUrl,
+      JSON.stringify(user),
+      httpOptions
+    );
   }
 
   getFriendsList(id: string): Observable<any> {

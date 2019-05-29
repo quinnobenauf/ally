@@ -27,7 +27,6 @@ var UsersController = /** @class */ (function () {
             });
         };
         this.getUserById = function (req, res, next) {
-            console.log("Getting user");
             var id = req.params.id;
             if (id.length == 24) {
                 _this.user.findById(id).then(function (user) {
@@ -35,7 +34,14 @@ var UsersController = /** @class */ (function () {
                         res.send(user);
                     }
                     else {
-                        next(new UserNotFoundException_1["default"](id));
+                        _this.user.find({ 'userName': id }).then(function (user) {
+                            if (user) {
+                                res.send(user);
+                            }
+                            else {
+                                next(new UserNotFoundException_1["default"](id));
+                            }
+                        });
                     }
                 });
             }
@@ -53,7 +59,6 @@ var UsersController = /** @class */ (function () {
         this.modifyUser = function (req, res) {
             var id = req.params.id;
             var userData = req.body;
-            console.log("CONTROLLER FRIENDS: ", userData.friends);
             _this.user
                 .updateOne({ _id: id }, {
                 $set: {
@@ -69,31 +74,12 @@ var UsersController = /** @class */ (function () {
                 }
             })
                 .then(function (user) {
-                console.log("UPDATED??");
             });
-            res.send("Updated!");
-
-            // userData.allergies.forEach(element => {
-            //     if (!this.user.find().where({$and: [{_id: id}, {allergies: {$in: element}}]})) {
-            //         console.log('hi');
-            //     }
-            //     this.user.updateOne({'_id': id}, {$addToSet: {'allergies': element}}).then((user) => {
-            //         console.log("updated allergies!");
-            //     });
-            // });
-            // find element in array within the document
-            // this.user.find().where({$and: [{fistName: 'Jared'}, {allergies:{$in:{type:'Peanut'}}}]})
-            // .exec(() => {
-            //     console.log('found');
-            // });
+            _this.user.updateOne({ '_id': id }, { $set: { 'friends': userData.friends } }).then(function (user) {
+                res.send(user);
+            });
         };
         this.deleteUser = function (req, res, next) {
-            _this.user.find().where({ $and: [{ fistName: 'Jared' }, { allergies: { $in: { type: 'Peanut' } } }] })
-                .exec(function () {
-                console.log('found');
-            });
-        };
-        this.deleteUser = function (req, res) {
             var id = req.params.id;
             _this.user.findByIdAndDelete(id).then(function (successResponse) {
                 if (successResponse) {
@@ -101,7 +87,6 @@ var UsersController = /** @class */ (function () {
                 }
                 else {
                     next(new UserNotFoundException_1["default"](id));
-                    res.send(404);
                 }
             });
         };

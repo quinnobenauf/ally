@@ -21,5 +21,5 @@ var userSchema = new mongoose.Schema({
     friends: [mongoose.SchemaTypes.ObjectId]
 });
 // send key: value(type)
-var userModel = mongoose.model('User', userSchema);
+var userModel = mongoose.model("User", userSchema);
 exports["default"] = userModel;

@@ -46,7 +46,6 @@ class UsersController implements Controller {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    console.log("Getting user");
     const id = req.params.id;
     if (id.length == 24) {
       this.user.findById(id).then(user => {
@@ -77,7 +76,6 @@ class UsersController implements Controller {
   private modifyUser = (req: express.Request, res: express.Response) => {
     const id = req.params.id;
     const userData: User = req.body;
-    console.log("CONTROLLER FRIENDS: ", userData.friends);
     this.user
       .updateOne(
         { _id: id },
@@ -96,29 +94,11 @@ class UsersController implements Controller {
         }
       )
       .then(user => {
-        console.log("UPDATED??");
+        
       });
-
-    // firstName: String,
-    // lastName: String,
-    // userName: String,
-    // password: String,
-    // email: String,
-    // phone: String,
-        // this.user
-        // .updateOne({ _id: id }, { $set: { diets: userData.diets } })
-        // .then(user => {});
-
         this.user.updateOne({'_id': id}, {$set: {'friends': userData.friends}}).then((user) => {
             res.send(user);
-            console.log('friends');
         });
-
-
-    // this.user.find().where({$and: [{fistName: 'Jared'}, {allergies:{$in:{type:'Peanut'}}}]})
-    // .exec(() => {
-    //     console.log('found');
-    // });
   };
 
   private deleteUser = (
