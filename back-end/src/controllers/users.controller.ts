@@ -42,7 +42,7 @@ class UsersController implements Controller {
                 if (user) {
                     res.send(user);
                 } else {
-                    next( new UserNotFoundException(id));
+                    next(new UserNotFoundException(id));
                 }
             });
         }
@@ -51,8 +51,6 @@ class UsersController implements Controller {
     private modifyUser = (req: express.Request, res: express.Response) => {
         const id = req.params.id;
         const userData: User = req.body;
-        console.log(`data: ${userData.allergies}`);
-        console.log(`id: ${id}`);
 
         this.user.updateOne({'_id': id}, {$set: {'allergies': userData.allergies}}).then((user) => {
             console.log('allergies');
@@ -63,6 +61,7 @@ class UsersController implements Controller {
         });
 
         this.user.updateOne({'_id': id}, {$set: {'friends': userData.friends}}).then((user) => {
+            res.send(user);
             console.log('friends');
         });
 
