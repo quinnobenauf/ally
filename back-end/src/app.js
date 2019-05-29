@@ -6,6 +6,7 @@ var cookieParser = require("cookie-parser");
 var mongoose = require("mongoose");
 var cors = require("cors");
 var error_middleware_1 = require("./middlewares/error.middleware");
+
 var App = /** @class */ (function () {
     function App(controllers) {
         this.app = express();
@@ -22,6 +23,7 @@ var App = /** @class */ (function () {
     App.prototype.initializeErrorHandling = function () {
         this.app.use(error_middleware_1["default"]);
     };
+
     App.prototype.mountControllers = function (controllers) {
         var _this = this;
         controllers.forEach(function (controller) {

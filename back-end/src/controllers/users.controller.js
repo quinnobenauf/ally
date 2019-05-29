@@ -71,19 +71,8 @@ var UsersController = /** @class */ (function () {
                 .then(function (user) {
                 console.log("UPDATED??");
             });
-            // firstName: String,
-            // lastName: String,
-            // userName: String,
-            // password: String,
-            // email: String,
-            // phone: String,
-            // this.user
-            //   .updateOne({ _id: id }, { $set: { diets: userData.diets } })
-            //   .then(user => {});
-            // this.user
-            //   .updateOne({ _id: id }, { $set: { friends: userData.friends } })
-            //   .then(user => {});
             res.send("Updated!");
+
             // userData.allergies.forEach(element => {
             //     if (!this.user.find().where({$and: [{_id: id}, {allergies: {$in: element}}]})) {
             //         console.log('hi');
@@ -99,6 +88,12 @@ var UsersController = /** @class */ (function () {
             // });
         };
         this.deleteUser = function (req, res, next) {
+            _this.user.find().where({ $and: [{ fistName: 'Jared' }, { allergies: { $in: { type: 'Peanut' } } }] })
+                .exec(function () {
+                console.log('found');
+            });
+        };
+        this.deleteUser = function (req, res) {
             var id = req.params.id;
             _this.user.findByIdAndDelete(id).then(function (successResponse) {
                 if (successResponse) {
@@ -106,6 +101,7 @@ var UsersController = /** @class */ (function () {
                 }
                 else {
                     next(new UserNotFoundException_1["default"](id));
+                    res.send(404);
                 }
             });
         };

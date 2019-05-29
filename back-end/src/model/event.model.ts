@@ -23,4 +23,5 @@ const eventModel = mongoose.model<Event & mongoose.Document>(
   eventSchema
 );
 
+
 export default eventModel;

@@ -13,3 +13,4 @@ export class User {
   diets: Diet[] = new Array<Diet>();
   friends: User[] = new Array<User>();
 }
+

@@ -63,6 +63,7 @@ export class UserProfileComponent implements OnInit {
   updateProfile(): void {
     console.log("THIS.FRIENDS UPDATING: ", this.user.friends);
     this.validateUpdateFields();
+
     this.accountService
       .modifyUser(this.user._id, this.user)
       .subscribe((res: User) => {
