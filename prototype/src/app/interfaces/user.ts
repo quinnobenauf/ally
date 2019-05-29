@@ -11,4 +11,5 @@ export class User {
     phone: string;
     allergies: Allergy[] = new Array<Allergy>();
     diets: Diet[] = new Array<Diet>();
+    friends: User[] = new Array<User>();
 }
