@@ -47,13 +47,13 @@
           <input matInput placeholder="Password"
             class="form-control"
             formControlName="password">
-            <mat-hint>Must be at least <strong>8 characters</strong>, must have 1 lowercae letter, 1 uppercase letter, 1 digit, and 1 special character @$!%*?&</mat-hint>
+            <mat-hint>At least <strong>8 characters</strong>, 1 lowercase, 1 uppercase, 1 digit, and 1 special character @$!%*?&</mat-hint>
             <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
               <div *ngIf="password.errors.required">
                 Password is <strong>required</strong>
               </div>
               <div *ngIf="password.errors.pattern">
-                Password did not meet criteria: Must be at least <strong>7 characters</strong>, must have 1 lowercae letter, 1 uppercase letter, 1 digit, and 1 special character 
+                Must be at least <strong>8 characters</strong>, 1 lowercase, 1 uppercase, 1 digit, and 1 special character 
               </div>
             </mat-error>
         </mat-form-field>
@@ -74,7 +74,10 @@
           <input matInput placeholder="Phone number">
         </mat-form-field>
 
-        <button mat-raised-button type="submit" [disabled]="!userForm.valid">
+        <button mat-raised-button 
+          type="submit" 
+          [disabled]="!userForm.valid"
+          class="btn btn-primary">
           Register 
         </button>
         <a routerLink="/login" class="btn btn-link">Cancel</a>

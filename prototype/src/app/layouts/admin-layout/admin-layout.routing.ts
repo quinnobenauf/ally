@@ -4,10 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { TableListComponent } from '../table-list/table-list.component';
-import { LoginComponent } from '../auth/login/login.component';
+import { LoginComponent } from '../../auth/login/login.component';
 import { AdminLayoutComponent } from './admin-layout.component';
-import { AuthGuard } from 'app/layouts/auth/auth.guard';
-import { CreateUserComponent } from '../auth/create-user/create-user.component';
+import { AuthGuard } from '../../auth/auth.guard';
+import { CreateUserComponent } from '../../auth/create-user/create-user.component';
 
 const adminLayoutRoutes: Routes = [
     {

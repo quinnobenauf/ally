@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { tap, delay, map } from 'rxjs/operators';
 
-import { User } from '../../interfaces/user';
+import { User } from '../interfaces/user';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })

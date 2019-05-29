@@ -4,7 +4,8 @@ import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms'
 import { first } from 'rxjs/operators';
 
 import { AuthService } from '../auth.service';
-import { User } from 'app/interfaces/user';
+import { AlertService } from '../../services/alert.service';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-login',
@@ -21,9 +22,10 @@ export class LoginComponent implements OnInit {
   passwordCtrl: FormControl;
   redirectUrl: string;
 
-  constructor(public authService: AuthService,
+  constructor(private authService: AuthService,
+              private alertService: AlertService,
               private formBuilder: FormBuilder,       
-              public router: Router,
+              private router: Router,
               private route: ActivatedRoute) { 
                 if (this.authService.currentUserValue) {
                   this.router.navigate(['/']);
@@ -54,9 +56,11 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          console.log(data);
           this.router.navigate([this.redirectUrl]);
         },
         error => {
+          this.alertService.error(error);
           this.loading = false;
         });
   }

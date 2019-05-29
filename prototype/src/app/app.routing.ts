@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './layouts/auth/login/login.component';
-import { CreateUserComponent } from './layouts/auth/create-user/create-user.component';
+import { LoginComponent } from './auth/login/login.component';
+import { CreateUserComponent } from './auth/create-user/create-user.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { AuthGuard } from './layouts/auth/auth.guard';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes =[
   { path: '', component: AdminLayoutComponent, canActivate: [AuthGuard] },

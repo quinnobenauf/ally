@@ -6,8 +6,8 @@ import { AppRoutingModule } from './app.routing';
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { MaterialModule } from './layouts/material.module';
 import { AppComponent } from './app.component';
-import { CreateUserComponent } from './layouts/auth/create-user/create-user.component';
-import { LoginComponent } from './layouts/auth/login/login.component';
+import { CreateUserComponent } from './auth/create-user/create-user.component';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   imports: [

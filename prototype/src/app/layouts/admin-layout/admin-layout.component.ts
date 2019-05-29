@@ -5,7 +5,7 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { UserService } from 'app/services/user.service';
 import { User } from 'app/interfaces/user';
 

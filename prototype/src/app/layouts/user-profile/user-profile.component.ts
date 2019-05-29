@@ -7,7 +7,7 @@ import { Diet } from '../../interfaces/diet';
 import { UserService } from '../../services/user.service';
 import { AllergyService } from '../../services/allergy.service';
 import { DietService } from '../../services/diet.service';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -69,6 +69,7 @@ export class UserProfileComponent implements OnInit {
       .subscribe((res: User) => {
         this.accountService.getUserById(this.user._id).subscribe((user) => {
           this.user = user;
+          
         })
       });
         // sessionStorage.setItem('currentUser', JSON.stringify(this.user));
