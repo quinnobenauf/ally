@@ -15,6 +15,58 @@
           </div>
         </div>
       </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Friends</h4>
+            <p class="card-category">Current Friends</p>
+          </div>
+          <h6>Your Friends</h6>
+          <div cdkDropList #userFriendsList="cdkDropList" [cdkDropListData]="user.friends"
+            [cdkDropListConnectedTo]="[friendsList]" class="friendsList"
+            (cdkDropListDropped)="drop($event)">
+            <div class="restrictionBox" *ngFor="let friend of friends" cdkDrag>
+              {{ friend.firstName }} {{ friend.lastName}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Add Friend</h4>
+          </div>
+          <div>
+            <p class="card-category">Search by username</p>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Username" type="text" id="userNameSearch">
+            </mat-form-field>
+            <button mat-raised-button type="submit" (click)="addFriend()" class="btn btn-danger pull-right">Add Friend</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Your Friends</h4>
+            <p class="card-category">Friends List</p>
+          </div>
+          <div class="card-body">
+            <div class="restrictionChoices">
+              <h6>Your Friends</h6>
+              <div cdkDropList #userFriendList="cdkDropList" [cdkDropListData]="user.friends"
+                [cdkDropListConnectedTo]="[friendList]" class="restrictionsList"
+                (cdkDropListDropped)="drop($event)">
+                <div class="restrictionBox" *ngFor="let friend of user.friends" cdkDrag>
+                  {{ friend.firstName }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -51,7 +103,6 @@
                       </div>
                     </div>
                   </div>
-
                   <div class="restrictionChoices">
                     <h6>Dietary Preference</h6>
                     <div cdkDropList #userDietList="cdkDropList" [cdkDropListData]="user.diets"
@@ -73,9 +124,6 @@
                       </div>
                     </div>
                   </div>
-                  <div class="updateChoices">
-                    <button mat-raised-button (click)="updateProfile()" class="btn btn-danger pull-right">Update Restrictions</button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -83,24 +131,34 @@
               <div class="row">
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Username">
+                    <input matInput placeholder="Username" type="text" id="userName">
                   </mat-form-field>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email address" type="email">
+                    <input matInput placeholder="Email address" type="email" id="email">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Password" type="password" id="password">
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Fist Name" type="text">
+                    <input matInput placeholder="First Name" type="text" id="firstName">
                   </mat-form-field>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Last Name" type="text">
+                    <input matInput placeholder="Last Name" type="text" id="lastName">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Phone Number" type="number" id="phone">
                   </mat-form-field>
                 </div>
               </div>
@@ -116,7 +174,7 @@
                   </p>
                 </div>
               </div>
-              <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
+              <button mat-raised-button type="submit" (click)="updateProfile()" class="btn btn-danger pull-right">Update Profile</button>
               <div class="clearfix"></div>
             </form>
           </div>
