@@ -53,7 +53,14 @@ class UsersController implements Controller {
         if (user) {
           res.send(user);
         } else {
-          next(new UserNotFoundException(id));
+            this.user.find({'userName': id}).then((user) => {
+                if (user) {
+                    res.send(user);
+                } else {
+                    next(new UserNotFoundException(id));
+                }
+            });
+
         }
       });
     } else {
@@ -98,24 +105,15 @@ class UsersController implements Controller {
     // password: String,
     // email: String,
     // phone: String,
-    // this.user
-    //   .updateOne({ _id: id }, { $set: { diets: userData.diets } })
-    //   .then(user => {});
+        // this.user
+        // .updateOne({ _id: id }, { $set: { diets: userData.diets } })
+        // .then(user => {});
 
-    // this.user
-    //   .updateOne({ _id: id }, { $set: { friends: userData.friends } })
-    //   .then(user => {});
+        this.user.updateOne({'_id': id}, {$set: {'friends': userData.friends}}).then((user) => {
+            res.send(user);
+            console.log('friends');
+        });
 
-    res.send("Updated!");
-    // userData.allergies.forEach(element => {
-    //     if (!this.user.find().where({$and: [{_id: id}, {allergies: {$in: element}}]})) {
-    //         console.log('hi');
-    //     }
-    //     this.user.updateOne({'_id': id}, {$addToSet: {'allergies': element}}).then((user) => {
-    //         console.log("updated allergies!");
-    //     });
-    // });
-    // find element in array within the document
 
     // this.user.find().where({$and: [{fistName: 'Jared'}, {allergies:{$in:{type:'Peanut'}}}]})
     // .exec(() => {

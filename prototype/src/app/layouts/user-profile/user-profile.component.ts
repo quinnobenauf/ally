@@ -1,16 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem
-} from "@angular/cdk/drag-drop";
+import { Component, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
-import { User } from "../interfaces/user";
-import { Allergy } from "../interfaces/allergy";
-import { Diet } from "../interfaces/diet";
-import { UserService } from "../services/user.service";
-import { AllergyService } from "../services/allergy.service";
-import { DietService } from "../services/diet.service";
+import { User } from '../../interfaces/user';
+import { Allergy } from '../../interfaces/allergy';
+import { Diet } from '../../interfaces/diet';
+import { UserService } from '../../services/user.service';
+import { AllergyService } from '../../services/allergy.service';
+import { DietService } from '../../services/diet.service';
+import { AuthService } from '../auth/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "app-user-profile",
@@ -19,29 +17,31 @@ import { DietService } from "../services/diet.service";
 })
 export class UserProfileComponent implements OnInit {
   user: User = new User();
+  userSub: Subscription;
   allergies: Allergy[] = new Array<Allergy>();
   diets: Diet[] = new Array<Diet>();
   friends: User[] = new Array<User>();
   isUserLoaded: boolean = false;
+  
 
-  constructor(
-    private accountService: UserService,
-    private allergyService: AllergyService,
-    private dietService: DietService
-  ) {}
+  constructor(private accountService: UserService,
+              private allergyService: AllergyService,
+              private dietService: DietService,
+              private authService: AuthService) { }
 
   ngOnInit() {
+
     // fetch user data then fetch allergy list
-    this.accountService
-      .getUserById("5ccbab4cb16cb8a673f90b61")
-      .subscribe(user => {
+      this.user = JSON.parse(sessionStorage.getItem('currentUser'));
+      this.accountService.getUserById(this.user._id).subscribe((user) => {
         this.user = user;
         this.getAllergyList(this.user._id);
         this.getDietList(this.user._id);
         this.getFriendsList(this.user._id);
         this.isUserLoaded = true;
       });
-  }
+
+    }
 
   addFriend(): void {
     var userName = (document.getElementById(
@@ -67,8 +67,11 @@ export class UserProfileComponent implements OnInit {
     this.accountService
       .modifyUser(this.user._id, this.user)
       .subscribe((res: User) => {
-        // reload component?
+        this.accountService.getUserById(this.user._id).subscribe((user) => {
+          this.user = user;
+        })
       });
+        // sessionStorage.setItem('currentUser', JSON.stringify(this.user));
   }
 
   validateUpdateFields(): void {
@@ -89,11 +92,11 @@ export class UserProfileComponent implements OnInit {
         "userName"
       ) as HTMLInputElement).value;
     }
-    if ((document.getElementById("password") as HTMLInputElement).value != "") {
-      this.user.password = (document.getElementById(
-        "password"
-      ) as HTMLInputElement).value;
-    }
+    // if ((document.getElementById("password") as HTMLInputElement).value != "") {
+    //   this.user.password = (document.getElementById(
+    //     "password"
+    //   ) as HTMLInputElement).value;
+    // }
     if ((document.getElementById("email") as HTMLInputElement).value != "") {
       this.user.email = (document.getElementById(
         "email"
@@ -162,11 +165,3 @@ export class UserProfileComponent implements OnInit {
     }
   }
 }
-
-/*  USER IDs
-    TODO: how to get ids not generate by mongodb?
-    alonzoj:    5ccbab20b16cb8a673f90b5f
-    bursteino:  5ccbab5db16cb8a673f90b62
-    obenaufq:   5ccbab4cb16cb8a673f90b61
-    zoskeb:     5ccbab6bb16cb8a673f90b63
-*/

@@ -22,7 +22,6 @@ class EventsController implements Controller {
         this.router.post(this.path, this.createEvent);
     }
 
-
   private getAllEvents = (req: express.Request, res: express.Response) => {
     this.event.find().then(events => {
       res.send(events);

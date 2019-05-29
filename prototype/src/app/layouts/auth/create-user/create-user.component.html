@@ -1,0 +1,86 @@
+<div class="container register-card" *ngIf="!authService.isLoggedIn">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>User Information</mat-card-title>
+      <mat-card-subtitle>Please fill out form, submit button is disabled until inputs are valid</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="userForm" (ngSubmit)="createUser()">
+        <mat-form-field>
+          <input matInput placeholder="Username"
+            class="form-control"
+            formControlName="userName">
+          <mat-error *ngIf="userName.invalid && (userName.dirty || userName.touched)">
+            <div *ngIf="userName.errors.minlength">
+              Username must be at least <strong>5 characters</strong>
+            </div>
+            <div *ngIf="userName.errors.required">
+              Username us <strong>required</strong>
+            </div>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Firstname" 
+            class="form-control"
+            formControlName="firstName">
+          <mat-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+            <div *ngIf="firstName.errors.required">
+              Firstname is <strong>required</strong>
+            </div>
+            <div *ngIf="firstName.errors.minlength">
+              Firstname must be at least <strong>3 characters</strong>
+            </div>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Lastname" 
+          class="form-control"
+          formControlName="lastName">
+          <mat-error *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+            Lastname is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Password"
+            class="form-control"
+            formControlName="password">
+            <mat-hint>Must be at least <strong>8 characters</strong>, must have 1 lowercae letter, 1 uppercase letter, 1 digit, and 1 special character @$!%*?&</mat-hint>
+            <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+              <div *ngIf="password.errors.required">
+                Password is <strong>required</strong>
+              </div>
+              <div *ngIf="password.errors.pattern">
+                Password did not meet criteria: Must be at least <strong>7 characters</strong>, must have 1 lowercae letter, 1 uppercase letter, 1 digit, and 1 special character 
+              </div>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Email address" 
+          class="form-control"
+          formControlName="email">
+          <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="email.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Phone number">
+        </mat-form-field>
+
+        <button mat-raised-button type="submit" [disabled]="!userForm.valid">
+          Register 
+        </button>
+        <a routerLink="/login" class="btn btn-link">Cancel</a>
+      </form>
+  </mat-card-content>
+  </mat-card>
+</div>
+
+<router-outlet *ngIf="authService.isLoggedIn"></router-outlet>
