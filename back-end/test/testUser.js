@@ -33,7 +33,6 @@ describe('Test users APIs', function () {
     it('Test some properties within user object in the response array', function () {
         expect(requestResult[0]).to.include.keys('firstName');
         expect(requestResult[0]).to.include.keys('lastName');
-        expect(requestResult[0]).to.have.property('friends').that.is.a('Array');
         expect(requestResult[0]).to.have.property('email').that.is.a('string');
     });
 
@@ -46,7 +45,6 @@ describe('Test users APIs', function () {
                     expect(body[i]).to.have.property('userName');
                     expect(body[i]).to.have.property('email');
                     expect(body[i]).to.have.property('allergies');
-                    expect(body[i]).to.have.property('friends');
                     expect(body[i]).to.have.property('diets');
 				}
 				return true;
@@ -57,7 +55,7 @@ describe('Test users APIs', function () {
 describe("Test GET User by userName", function() {
     var requestResult;
     var response;
-    var user = 'bursteino'
+    var user = 'obenaufq'
 
     before(function (done) {
         chai.request("http://localhost:4100")
@@ -76,14 +74,12 @@ describe("Test GET User by userName", function() {
         expect(response).to.have.headers;
         expect(response).to.not.be.null;
         expect(response).to.be.json;
-        expect(requestResult).to.have.length.above(0);
     });
 
     it('Test specific values of properties in response of GET User', function () {
-        assert(requestResult.length == 1);
-        expect(requestResult[0]).to.have.property('firstName').that.equals('Omer');
-        expect(requestResult[0]).to.have.property('lastName').that.equals('Burstein');
-        expect(requestResult[0]).to.have.property('userName').that.equals('bursteino');
+        expect(requestResult[0]).to.have.property('firstName').that.equals('Quinn');
+        expect(requestResult[0]).to.have.property('lastName').that.equals('Obenauf');
+        expect(requestResult[0]).to.have.property('userName').that.equals('obenaufq');
     });
 
 

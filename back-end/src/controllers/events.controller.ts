@@ -16,7 +16,7 @@ class EventsController implements Controller {
 
     public initializeRoutes() {
         this.router.get(this.path, this.getAllEvents);
-        this.router.get(`${this.path}/filter/:id`, this.filterEvents);
+        // this.router.get(`${this.path}/filter/:id`, this.filterEvents);
         this.router.get(`${this.path}/:id`, this.getEventById);
         this.router.delete(`${this.path}/:id`, this.deleteEvent);
         this.router.post(this.path, this.createEvent);
@@ -28,20 +28,20 @@ class EventsController implements Controller {
         });
     }
 
-    private filterEvents = (req: express.Request, res: express.Response) => {
-        // get user data first and then get events (excluding user events!)
-        const id = req.params.id;
-        let events: Array<string> = new Array<string>();
-        this.user.findById(id).then((r) => {
-            r.events.forEach(element => {
-                events.push(element.type);
-            });
-            let query = {'type': {'$nin': events}};  
-            this.event.find(query).then((events) => {
-                res.send(events);
-            })
-        });
-    }
+    // private filterEvents = (req: express.Request, res: express.Response) => {
+    //     // get user data first and then get events (excluding user events!)
+    //     const id = req.params.id;
+    //     let events: Array<string> = new Array<string>();
+    //     this.user.findById(id).then((r) => {
+    //         r.events.forEach(element => {
+    //             events.push(element.type);
+    //         });
+    //         let query = {'type': {'$nin': events}};  
+    //         this.event.find(query).then((events) => {
+    //             res.send(events);
+    //         })
+    //     });
+    // }
 
     private getEventById = (req: express.Request, res: express.Response) => {
         const id = req.params.id;
