@@ -7,6 +7,8 @@ import { Diet } from '../../interfaces/diet';
 import { UserService } from '../../services/user.service';
 import { AllergyService } from '../../services/allergy.service';
 import { DietService } from '../../services/diet.service';
+import { AuthService } from '../auth/auth.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -16,22 +18,28 @@ import { DietService } from '../../services/diet.service';
 })
 export class UserProfileComponent implements OnInit {
   user: User = new User();
+  userSub: Subscription;
   allergies: Allergy[] = new Array<Allergy>();
   diets: Diet[] = new Array<Diet>();
   isUserLoaded: boolean = false;
+  
 
   constructor(private accountService: UserService,
               private allergyService: AllergyService,
-              private dietService: DietService) { }
+              private dietService: DietService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     // fetch user data then fetch allergy list
-    this.accountService.getUserById('5ccbab6bb16cb8a673f90b63').subscribe((user) => {
-      this.user = user;
+    // this.accountService.getUserById(currUser[]).subscribe((user) => {
+      this.userSub = this.authService.currentUser.subscribe(user => {
+        this.user = user;
+      });
+      console.log(this.user);
       this.getAllergyList(this.user._id);
       this.getDietList(this.user._id);
       this.isUserLoaded = true;
-    });
+    // });
   }
 
   // update user profile (restrictions)
@@ -84,11 +92,3 @@ export class UserProfileComponent implements OnInit {
     }
   }
 }
-
-/*  USER IDs
-    TODO: how to get ids not generate by mongodb?
-    alonzoj:    5ccbab20b16cb8a673f90b5f
-    bursteino:  5ccbab5db16cb8a673f90b62
-    obenaufq:   5ccbab4cb16cb8a673f90b61
-    zoskeb:     5ccbab6bb16cb8a673f90b63
-*/

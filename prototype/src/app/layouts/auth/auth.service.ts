@@ -1,27 +1,53 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { tap, delay } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, BehaviorSubject, of } from 'rxjs';
+import { tap, delay, map } from 'rxjs/operators';
+
+import { User } from '../../interfaces/user';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private authUrl = "http://localhost:4100/auth";
+  private currentUserSubject: BehaviorSubject<User>;
+  currentUser: Observable<User>;
+  public isLoggedIn: boolean = false;
 
-  constructor() { }
-
-  isLoggedIn = false;
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
   redirectUrl: string;
 
-  login(): Observable<boolean> {
-    return of(true).pipe(
-      delay(1000),
-      tap(val => this.isLoggedIn = true)
-    );
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
+
+  login(email: string, password: string) {
+    var user = new User;
+    user.email = email;
+    user.password = password;
+    return this.http.post<any>(`${this.authUrl}/login`, JSON.stringify(user), httpOptions)
+      .pipe(map(res => {
+        if (user) {
+          localStorage.setItem('currentUser', JSON.stringify(res));
+          this.currentUserSubject.next(res);
+          this.isLoggedIn = true;
+        }
+        console.log(res);
+        return res;
+    }));
   }
 
   logout(): void {
-    this.isLoggedIn = false;
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
   }
 
 }

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
+import { first } from 'rxjs/operators';
 
 import { AuthService } from '../auth.service';
-import { UserService } from 'app/services/user.service';
 import { User } from 'app/interfaces/user';
-
 
 @Component({
   selector: 'app-login',
@@ -14,15 +13,22 @@ import { User } from 'app/interfaces/user';
 })
 export class LoginComponent implements OnInit {
   user: User;
+  loading = false;
+  submitted = false;
   hide: boolean = true;
   loginForm: FormGroup;
   userNameCtrl: FormControl;
   passwordCtrl: FormControl;
+  redirectUrl: string;
 
   constructor(public authService: AuthService,
-              private accountService: UserService,
               private formBuilder: FormBuilder,       
-              public router: Router) { }
+              public router: Router,
+              private route: ActivatedRoute) { 
+                if (this.authService.currentUserValue) {
+                  this.router.navigate(['/']);
+                }
+              }
 
   ngOnInit() {
     this.user = new User;
@@ -33,27 +39,26 @@ export class LoginComponent implements OnInit {
       userName: this.userNameCtrl,
       password: this.passwordCtrl,
     });
+
+    this.redirectUrl = this.route.snapshot.queryParams['redirectUrl'] || '/auth';
+    console.log(this.redirectUrl);
   }
 
   get userName() { return this.loginForm.get('userName'); }
   get password() { return this.loginForm.get('password'); }
 
-  login() {
-    this.authService.login().subscribe(() => {
-      if (this.authService.isLoggedIn) {
-        this.accountService.getUserById(this.userNameCtrl.value).subscribe((user) => {
-          this.user = user;
-          console.log(this.user)
-          let redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : 'login/user';
-
-          this.router.navigateByUrl(redirect);
+  onSubmit() {
+    this.submitted = true;
+    this.loading = true;
+    this.authService.login(this.userNameCtrl.value, this.passwordCtrl.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate([this.redirectUrl]);
+        },
+        error => {
+          this.loading = false;
         });
-        
-      }
-    });
   }
 
-  logout() {
-    this.authService.logout();
-  }
 }

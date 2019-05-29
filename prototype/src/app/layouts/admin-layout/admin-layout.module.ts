@@ -13,10 +13,9 @@ import { IconsComponent } from '../icons/icons.component';
 import { MapsComponent } from '../maps/maps.component';
 import { NotificationsComponent } from '../notifications/notifications.component';
 import { MaterialModule } from '../material.module';
-import { LoginComponent } from '../auth/login/login.component';
 import { AdminLayoutComponent } from './admin-layout.component';
 import { AdminLayoutRoutingModule } from './admin-layout.routing';
-import { CreateUserComponent } from '../auth/create-user/create-user.component';
+
 
 @NgModule({
   imports: [
@@ -37,8 +36,6 @@ import { CreateUserComponent } from '../auth/create-user/create-user.component';
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
-    LoginComponent,
-    CreateUserComponent,
     AdminLayoutComponent
   ]
 })

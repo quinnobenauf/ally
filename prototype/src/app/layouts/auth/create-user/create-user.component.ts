@@ -53,7 +53,7 @@ export class CreateUserComponent implements OnInit {
     this.userData = this.userForm.value;
     this.accountService.createUser(this.userData)
     .subscribe((res: User) => {
-      let redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : `${res._id}/auth`;
+      let redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/';
       console.log(res);
       this.router.navigateByUrl(redirect);
     });

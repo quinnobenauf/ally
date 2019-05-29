@@ -15,42 +15,18 @@ import { CreateUserComponent } from '../auth/create-user/create-user.component';
 
 const adminLayoutRoutes: Routes = [
     {
-        path: 'create-user',
-        component: CreateUserComponent,
+        path: '',
+        component: AdminLayoutComponent,
+        canActivate: [AuthGuard],
         children: [
-            {
-                path: '',
-                component: AdminLayoutComponent,
-                children: [
-                    { path: 'dashboard',      component: DashboardComponent },
-                    { path: 'user-profile',   component: UserProfileComponent },
-                    { path: 'table-list',     component: TableListComponent },
-                    { path: 'typography',     component: TypographyComponent },
-                    { path: 'icons',          component: IconsComponent },
-                    { path: 'maps',           component: MapsComponent },
-                    { path: 'notifications',  component: NotificationsComponent }
-                ]
-            }
-        ]
-    },
-    {
-        path: 'login',
-        component: LoginComponent,
-        children: [
-            {
-                path: '',
-                component: AdminLayoutComponent,
-                children: [
-                    { path: 'user', redirectTo: '/dashboard', pathMatch: 'full' },
-                    { path: 'dashboard',      component: DashboardComponent },
-                    { path: 'user-profile',   component: UserProfileComponent },
-                    { path: 'table-list',     component: TableListComponent },
-                    { path: 'typography',     component: TypographyComponent },
-                    { path: 'icons',          component: IconsComponent },
-                    { path: 'maps',           component: MapsComponent },
-                    { path: 'notifications',  component: NotificationsComponent }
-                ]
-            }
+            { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+            { path: 'dashboard',      component: DashboardComponent },
+            { path: 'user-profile',   component: UserProfileComponent },
+            { path: 'table-list',     component: TableListComponent },
+            { path: 'typography',     component: TypographyComponent },
+            { path: 'icons',          component: IconsComponent },
+            { path: 'maps',           component: MapsComponent },
+            { path: 'notifications',  component: NotificationsComponent }
         ]
     }
 ];

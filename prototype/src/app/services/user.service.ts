@@ -13,7 +13,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserService {
-  private usersUrl = "http://localhost:4100/users"
+  private usersUrl = "http://localhost:4100/users";
 
   constructor(private http: HttpClient) { }
 
