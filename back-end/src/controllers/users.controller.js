@@ -2,10 +2,11 @@
 exports.__esModule = true;
 var express = require("express");
 var user_model_1 = require("../model/user.model");
+var UserNotFoundException_1 = require("../exceptions/UserNotFoundException");
 var UsersController = /** @class */ (function () {
     function UsersController() {
         var _this = this;
-        this.path = '/users';
+        this.path = "/users";
         this.router = express.Router();
         this.user = user_model_1["default"];
         this.getAllUsers = function (req, res) {
@@ -13,28 +14,65 @@ var UsersController = /** @class */ (function () {
                 res.send(users);
             });
         };
-        this.getUserById = function (req, res) {
+        this.getFriends = function (req, res) {
+            var id = req.params.id;
+            _this.user.findById(id).then(function (user) {
+                _this.user
+                    .find({
+                    _id: { $in: user.friends }
+                })
+                    .then(function (friends) {
+                    res.send(friends);
+                });
+            });
+        };
+        this.getUserById = function (req, res, next) {
+            console.log("Getting user");
             var id = req.params.id;
             if (id.length == 24) {
                 _this.user.findById(id).then(function (user) {
-                    res.send(user);
+                    if (user) {
+                        res.send(user);
+                    }
+                    else {
+                        next(new UserNotFoundException_1["default"](id));
+                    }
                 });
             }
             else {
-                _this.user.find({ 'userName': id }).then(function (user) {
-                    res.send(user);
+                _this.user.find({ userName: id }).then(function (user) {
+                    if (user) {
+                        res.send(user);
+                    }
+                    else {
+                        next(new UserNotFoundException_1["default"](id));
+                    }
                 });
             }
         };
         this.modifyUser = function (req, res) {
             var id = req.params.id;
             var userData = req.body;
-            _this.user.updateOne({ '_id': id }, { $set: { 'allergies': userData.allergies } }).then(function (user) {
-                console.log('allergies');
+            console.log("CONTROLLER FRIENDS: ", userData.friends);
+            _this.user
+                .updateOne({ _id: id }, {
+                $set: {
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    userName: userData.userName,
+                    password: userData.password,
+                    email: userData.email,
+                    phone: userData.phone,
+                    allergies: userData.allergies,
+                    diets: userData.diets,
+                    friends: userData.friends
+                }
+            })
+                .then(function (user) {
+                console.log("UPDATED??");
             });
-            _this.user.updateOne({ '_id': id }, { $set: { 'diets': userData.diets } }).then(function (user) {
-                console.log('diets');
-            });
+            res.send("Updated!");
+
             // userData.allergies.forEach(element => {
             //     if (!this.user.find().where({$and: [{_id: id}, {allergies: {$in: element}}]})) {
             //         console.log('hi');
@@ -44,6 +82,12 @@ var UsersController = /** @class */ (function () {
             //     });
             // });
             // find element in array within the document
+            // this.user.find().where({$and: [{fistName: 'Jared'}, {allergies:{$in:{type:'Peanut'}}}]})
+            // .exec(() => {
+            //     console.log('found');
+            // });
+        };
+        this.deleteUser = function (req, res, next) {
             _this.user.find().where({ $and: [{ fistName: 'Jared' }, { allergies: { $in: { type: 'Peanut' } } }] })
                 .exec(function () {
                 console.log('found');
@@ -56,6 +100,7 @@ var UsersController = /** @class */ (function () {
                     res.send(200);
                 }
                 else {
+                    next(new UserNotFoundException_1["default"](id));
                     res.send(404);
                 }
             });
@@ -76,6 +121,7 @@ var UsersController = /** @class */ (function () {
         this.router.put(this.path + "/:id", this.modifyUser);
         this.router["delete"](this.path + "/:id", this.deleteUser);
         this.router.post(this.path, this.createUser);
+        this.router.get(this.path + "/:id/friends", this.getFriends);
     };
     return UsersController;
 }());

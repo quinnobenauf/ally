@@ -2,19 +2,28 @@
 exports.__esModule = true;
 var express = require("express");
 var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
 var mongoose = require("mongoose");
 var cors = require("cors");
+var error_middleware_1 = require("./middlewares/error.middleware");
+
 var App = /** @class */ (function () {
     function App(controllers) {
         this.app = express();
         this.connectToDB();
         this.initializeMiddlewares();
+        this.initializeErrorHandling();
         this.mountControllers(controllers);
     }
     App.prototype.initializeMiddlewares = function () {
         this.app.use(bodyParser.json());
+        this.app.use(cookieParser());
         this.app.use(cors());
     };
+    App.prototype.initializeErrorHandling = function () {
+        this.app.use(error_middleware_1["default"]);
+    };
+
     App.prototype.mountControllers = function (controllers) {
         var _this = this;
         controllers.forEach(function (controller) {

@@ -17,7 +17,8 @@ var userSchema = new mongoose.Schema({
     email: String,
     phone: String,
     allergies: [allergySchema],
-    diets: [dietSchema]
+    diets: [dietSchema],
+    friends: [mongoose.SchemaTypes.ObjectId]
 });
 // send key: value(type)
 var userModel = mongoose.model('User', userSchema);
