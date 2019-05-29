@@ -21,7 +21,7 @@ export class UserProfileComponent implements OnInit {
   user: User = new User();
   allergies: Allergy[] = new Array<Allergy>();
   diets: Diet[] = new Array<Diet>();
-  friends: string[] = new Array<string>();
+  friends: User[] = new Array<User>();
   isUserLoaded: boolean = false;
 
   constructor(
@@ -43,14 +43,67 @@ export class UserProfileComponent implements OnInit {
       });
   }
 
+  addFriend(): void {
+    var userName = (document.getElementById(
+      "userNameSearch"
+    ) as HTMLInputElement).value;
+    if (userName != "") {
+      var user = this.accountService
+        .getUserById(userName)
+        .subscribe((user: User) => {
+          this.friends.push(user);
+          this.user.friends = this.friends;
+          console.log("THIS.FRIENDS ADDFRIEND(): ", this.user.friends);
+          this.updateProfile();
+        });
+    }
+  }
+
   // update user profile (restrictions)
   updateProfile(): void {
+    console.log("THIS.FRIENDS UPDATING: ", this.user.friends);
+    this.validateUpdateFields();
+
     this.accountService
       .modifyUser(this.user._id, this.user)
       .subscribe((res: User) => {
         // reload component?
-        console.log(res);
       });
+  }
+
+  validateUpdateFields(): void {
+    if (
+      (document.getElementById("firstName") as HTMLInputElement).value != ""
+    ) {
+      this.user.firstName = (document.getElementById(
+        "firstName"
+      ) as HTMLInputElement).value;
+    }
+    if ((document.getElementById("lastName") as HTMLInputElement).value != "") {
+      this.user.lastName = (document.getElementById(
+        "lastName"
+      ) as HTMLInputElement).value;
+    }
+    if ((document.getElementById("userName") as HTMLInputElement).value != "") {
+      this.user.userName = (document.getElementById(
+        "userName"
+      ) as HTMLInputElement).value;
+    }
+    if ((document.getElementById("password") as HTMLInputElement).value != "") {
+      this.user.password = (document.getElementById(
+        "password"
+      ) as HTMLInputElement).value;
+    }
+    if ((document.getElementById("email") as HTMLInputElement).value != "") {
+      this.user.email = (document.getElementById(
+        "email"
+      ) as HTMLInputElement).value;
+    }
+    if ((document.getElementById("phone") as HTMLInputElement).value != "") {
+      this.user.phone = (document.getElementById(
+        "phone"
+      ) as HTMLInputElement).value;
+    }
   }
 
   // fetch diet list
@@ -63,7 +116,7 @@ export class UserProfileComponent implements OnInit {
         this.diets.push(diet);
       });
     });
-    console.log(this.diets);
+    console.log("DIETS " + this.diets);
   }
 
   // fetch allergy list
@@ -81,10 +134,12 @@ export class UserProfileComponent implements OnInit {
     console.log(this.allergies);
   }
 
+  // fetch friends list
   getFriendsList(id: string) {
-    this.accountService.getUserById(id).subscribe((res: string[]) => {
-      res.forEach(item => {
-        this.friends.push(item);
+    this.accountService.getFriendsList(id).subscribe((res: User[]) => {
+      res.forEach(friend => {
+        this.friends.push(friend);
+        console.log("FRIEND: ", friend.firstName);
       });
     });
   }
