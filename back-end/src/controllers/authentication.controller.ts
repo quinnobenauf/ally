@@ -66,7 +66,7 @@ class AuthenticationController implements Controller {
             const isPasswordMatching = user.password === loginData.password; //await bcrypt.compare(hash, user.password);
             console.log(isPasswordMatching);
             if (isPasswordMatching) {
-                user.password = undefined;
+                // user.password = undefined;
                 // const tokenData = this.createToken(user);
                 // res.setHeader('Set-Cookie', [this.createCookie(tokenData)]);
                 res.send(user);

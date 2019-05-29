@@ -15,7 +15,7 @@ const httpOptions = {
 export class AuthService {
   private authUrl = "http://localhost:4100/auth";
   private currentUserSubject: BehaviorSubject<User>;
-  currentUser: Observable<User>;
+  public currentUser: Observable<User>;
   public isLoggedIn: boolean = false;
 
   constructor(private http: HttpClient) {
@@ -36,7 +36,7 @@ export class AuthService {
     return this.http.post<any>(`${this.authUrl}/login`, JSON.stringify(user), httpOptions)
       .pipe(map(res => {
         if (user) {
-          localStorage.setItem('currentUser', JSON.stringify(res));
+          sessionStorage.setItem('currentUser', JSON.stringify(res));
           this.currentUserSubject.next(res);
           this.isLoggedIn = true;
         }

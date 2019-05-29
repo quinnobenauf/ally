@@ -105,18 +105,15 @@ class UsersController implements Controller {
     // password: String,
     // email: String,
     // phone: String,
-    // this.user
-    //   .updateOne({ _id: id }, { $set: { diets: userData.diets } })
-    //   .then(user => {});
-
-    // this.user
-    //   .updateOne({ _id: id }, { $set: { friends: userData.friends } })
-    //   .then(user => {});
+        // this.user
+        // .updateOne({ _id: id }, { $set: { diets: userData.diets } })
+        // .then(user => {});
 
         this.user.updateOne({'_id': id}, {$set: {'friends': userData.friends}}).then((user) => {
             res.send(user);
             console.log('friends');
         });
+
 
     // this.user.find().where({$and: [{fistName: 'Jared'}, {allergies:{$in:{type:'Peanut'}}}]})
     // .exec(() => {

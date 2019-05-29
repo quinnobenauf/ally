@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       password: this.passwordCtrl,
     });
 
-    this.redirectUrl = this.route.snapshot.queryParams['redirectUrl'] || '/auth';
+    this.redirectUrl = this.route.snapshot.queryParams['redirectUrl'] || '/';
     console.log(this.redirectUrl);
   }
 

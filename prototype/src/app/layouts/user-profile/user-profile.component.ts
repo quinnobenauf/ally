@@ -30,16 +30,17 @@ export class UserProfileComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit() {
+
     // fetch user data then fetch allergy list
-    // this.accountService.getUserById(currUser[]).subscribe((user) => {
-      this.userSub = this.authService.currentUser.subscribe(user => {
+      this.user = JSON.parse(sessionStorage.getItem('currentUser'));
+      this.accountService.getUserById(this.user._id).subscribe((user) => {
         this.user = user;
+        this.getAllergyList(this.user._id);
+        this.getDietList(this.user._id);
+        this.getFriendsList(this.user._id);
+        this.isUserLoaded = true;
       });
-      console.log(this.user);
-      this.getAllergyList(this.user._id);
-      this.getDietList(this.user._id);
-      this.getFriendsList(this.user._id);
-      this.isUserLoaded = true;
+
     }
 
   addFriend(): void {
@@ -66,8 +67,11 @@ export class UserProfileComponent implements OnInit {
     this.accountService
       .modifyUser(this.user._id, this.user)
       .subscribe((res: User) => {
-        // reload component?
+        this.accountService.getUserById(this.user._id).subscribe((user) => {
+          this.user = user;
+        })
       });
+        // sessionStorage.setItem('currentUser', JSON.stringify(this.user));
   }
 
   validateUpdateFields(): void {
@@ -88,11 +92,11 @@ export class UserProfileComponent implements OnInit {
         "userName"
       ) as HTMLInputElement).value;
     }
-    if ((document.getElementById("password") as HTMLInputElement).value != "") {
-      this.user.password = (document.getElementById(
-        "password"
-      ) as HTMLInputElement).value;
-    }
+    // if ((document.getElementById("password") as HTMLInputElement).value != "") {
+    //   this.user.password = (document.getElementById(
+    //     "password"
+    //   ) as HTMLInputElement).value;
+    // }
     if ((document.getElementById("email") as HTMLInputElement).value != "") {
       this.user.email = (document.getElementById(
         "email"

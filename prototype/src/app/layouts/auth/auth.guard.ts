@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const currentUser = this.authService.currentUserValue;
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
     console.log(currentUser);
     if (currentUser) {
       return true; // authorized 

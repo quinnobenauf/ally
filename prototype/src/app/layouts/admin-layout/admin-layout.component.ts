@@ -24,10 +24,10 @@ export class AdminLayoutComponent implements OnInit {
   constructor( public location: Location, 
                private router: Router,
                private authService: AuthService) {
-                   this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
-                       console.log(user);
-                       this.currentUser = user;
-                   })
+                //    this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
+                //        console.log(user);
+                //        this.currentUser = user;
+                //    })
                }
 
   ngOnInit() {
