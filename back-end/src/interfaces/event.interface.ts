@@ -1,12 +1,10 @@
-import User from './user.interface';
-
 interface Event {
     title: string;
-    invited: User[];
-    guests: User[];
+    host: string;
+    invited: [string];
+    guests: [string];
     date: Date;
-    location: String;
-    host: User;
+    location: string;
 }
 
 export default Event;

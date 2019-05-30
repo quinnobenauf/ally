@@ -23,25 +23,21 @@ export class UserProfileComponent implements OnInit {
   friends: User[] = new Array<User>();
   isUserLoaded: boolean = false;
   
-
   constructor(private accountService: UserService,
               private allergyService: AllergyService,
-              private dietService: DietService,
-              private authService: AuthService) { }
+              private dietService: DietService) { }
 
   ngOnInit() {
-
     // fetch user data then fetch allergy list
-      this.user = JSON.parse(sessionStorage.getItem('currentUser'));
-      this.accountService.getUserById(this.user._id).subscribe((user) => {
-        this.user = user;
-        this.getAllergyList(this.user._id);
-        this.getDietList(this.user._id);
-        this.getFriendsList(this.user._id);
-        this.isUserLoaded = true;
-      });
-
-    }
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
+    this.accountService.getUserById(this.user._id).subscribe((user) => {
+      this.user = user;
+      this.getAllergyList(this.user._id);
+      this.getDietList(this.user._id);
+      this.getFriendsList(this.user._id);
+      this.isUserLoaded = true;
+    });
+  }
 
   addFriend(): void {
     var userName = (document.getElementById(
@@ -51,7 +47,7 @@ export class UserProfileComponent implements OnInit {
       var user = this.accountService
         .getUserById(userName)
         .subscribe((user: User) => {
-          this.friends.push(user);
+          this.friends.push(user[0]);
           this.user.friends = this.friends;
           console.log("THIS.FRIENDS ADDFRIEND(): ", this.user.friends);
           this.updateProfile();
