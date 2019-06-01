@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Subscription } from 'rxjs';
 
 import { User } from '../../interfaces/user';
 import { Allergy } from '../../interfaces/allergy';
@@ -7,8 +8,7 @@ import { Diet } from '../../interfaces/diet';
 import { UserService } from '../../services/user.service';
 import { AllergyService } from '../../services/allergy.service';
 import { DietService } from '../../services/diet.service';
-import { AuthService } from '../../auth/auth.service';
-import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: "app-user-profile",
@@ -49,7 +49,6 @@ export class UserProfileComponent implements OnInit {
         .subscribe((user: User) => {
           this.friends.push(user[0]);
           this.user.friends = this.friends;
-          console.log("THIS.FRIENDS ADDFRIEND(): ", this.user.friends);
           this.updateProfile();
         });
     }
@@ -67,7 +66,7 @@ export class UserProfileComponent implements OnInit {
           this.user = user;
         })
       });
-      window.location.reload();
+      // window.location.reload();
   }
 
   validateUpdateFields(): void {
@@ -88,11 +87,6 @@ export class UserProfileComponent implements OnInit {
         "userName"
       ) as HTMLInputElement).value;
     }
-    // if ((document.getElementById("password") as HTMLInputElement).value != "") {
-    //   this.user.password = (document.getElementById(
-    //     "password"
-    //   ) as HTMLInputElement).value;
-    // }
     if ((document.getElementById("email") as HTMLInputElement).value != "") {
       this.user.email = (document.getElementById(
         "email"
@@ -115,7 +109,6 @@ export class UserProfileComponent implements OnInit {
         this.diets.push(diet);
       });
     });
-    console.log("DIETS " + this.diets);
   }
 
   // fetch allergy list
@@ -138,7 +131,6 @@ export class UserProfileComponent implements OnInit {
     this.accountService.getFriendsList(id).subscribe((res: User[]) => {
       res.forEach(friend => {
         this.friends.push(friend);
-        console.log("FRIEND: ", friend.firstName);
       });
     });
   }
