@@ -26,7 +26,7 @@ export class UserProfileComponent implements OnInit {
     private accountService: UserService,
     private allergyService: AllergyService,
     private dietService: DietService,
-    private authService: AuthService
+    //private authService: AuthService
   ) {}
 
   ngOnInit() {
