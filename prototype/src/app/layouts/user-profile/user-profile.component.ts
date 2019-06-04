@@ -9,7 +9,6 @@ import { UserService } from '../../services/user.service';
 import { AllergyService } from '../../services/allergy.service';
 import { DietService } from '../../services/diet.service';
 
-
 @Component({
   selector: "app-user-profile",
   templateUrl: "./user-profile.component.html",
@@ -22,15 +21,18 @@ export class UserProfileComponent implements OnInit {
   diets: Diet[] = new Array<Diet>();
   friends: User[] = new Array<User>();
   isUserLoaded: boolean = false;
-  
-  constructor(private accountService: UserService,
-              private allergyService: AllergyService,
-              private dietService: DietService) { }
+
+  constructor(
+    private accountService: UserService,
+    private allergyService: AllergyService,
+    private dietService: DietService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     // fetch user data then fetch allergy list
-    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
-    this.accountService.getUserById(this.user._id).subscribe((user) => {
+    this.user = JSON.parse(sessionStorage.getItem("currentUser"));
+    this.accountService.getUserById(this.user._id).subscribe(user => {
       this.user = user;
       this.getAllergyList(this.user._id);
       this.getDietList(this.user._id);
@@ -46,9 +48,9 @@ export class UserProfileComponent implements OnInit {
     if (userName != "") {
       var user = this.accountService
         .getUserById(userName)
-        .subscribe((user: User) => {
-          this.friends.push(user[0]);
-          this.user.friends = this.friends;
+        .subscribe((res: User) => {
+          this.friends.push(res[0]);
+          this.user.friends.push(res[0]._id);
           this.updateProfile();
         });
     }
@@ -56,13 +58,12 @@ export class UserProfileComponent implements OnInit {
 
   // update user profile (restrictions)
   updateProfile(): void {
-    console.log("THIS.FRIENDS UPDATING: ", this.user.friends);
     this.validateUpdateFields();
 
     this.accountService
       .modifyUser(this.user._id, this.user)
       .subscribe((res: User) => {
-        this.accountService.getUserById(this.user._id).subscribe((user) => {
+        this.accountService.getUserById(this.user._id).subscribe(user => {
           this.user = user;
         })
       });
