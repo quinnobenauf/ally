@@ -17,17 +17,14 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  // TODO
   getAllusers(): Observable<any> {
     return this.http.get(this.usersUrl, httpOptions);
   }
 
-  // TODO
   getUserById(id: string): Observable<User> {
     return this.http.get<User>(`${this.usersUrl}/${id}`, httpOptions);
   }
 
-  // TODO
   modifyUser(id: string, user: User): Observable<any> {
     return this.http.put(`${this.usersUrl}/${id}`, user, httpOptions);
   }

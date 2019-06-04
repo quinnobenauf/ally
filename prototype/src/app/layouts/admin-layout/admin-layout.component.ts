@@ -22,8 +22,7 @@ export class AdminLayoutComponent implements OnInit {
   currentUserSubscription: Subscription;
 
   constructor( public location: Location, 
-               private router: Router,
-               private authService: AuthService) {
+               private router: Router) {
                 //    this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
                 //        console.log(user);
                 //        this.currentUser = user;

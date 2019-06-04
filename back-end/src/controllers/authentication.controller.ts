@@ -23,21 +23,21 @@ class AuthenticationController implements Controller {
         this.router.post(`${this.path}/login`, this.login);
     }
 
-    // private createToken(user: User): TokenData {
-    //     const expiresIn = 60*60; // 1 hour
-    //     const secret = process.env.JWT_SECRET;
-    //     const dataStoredInToken: DataStoredInToken = {
-    //         _id: user._id
-    //     };
-    //     return {
-    //         expiresIn,
-    //         token: jwt.sign(dataStoredInToken, secret, { expiresIn })
-    //     };
-    // }
+    private createToken(user: User): TokenData {
+        const expiresIn = 60*60; // 1 hour
+        const secret = process.env.JWT_SECRET;
+        const dataStoredInToken: DataStoredInToken = {
+            _id: user._id
+        };
+        return {
+            expiresIn,
+            token: jwt.sign(dataStoredInToken, secret, { expiresIn })
+        };
+    }
 
-    // private createCookie(tokenData: TokenData) {
-    //     return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`;
-    // }
+    private createCookie(tokenData: TokenData) {
+        return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`;
+    }
 
     private register = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         const userData = req.body;
@@ -62,13 +62,14 @@ class AuthenticationController implements Controller {
         const user = await this.user.findOne({ email: loginData.email });
         if (user) {
             console.log('here');
-            console.log(user);
+            // console.log(user);
             const isPasswordMatching = user.password === loginData.password; //await bcrypt.compare(hash, user.password);
             console.log(isPasswordMatching);
             if (isPasswordMatching) {
                 // user.password = undefined;
-                // const tokenData = this.createToken(user);
-                // res.setHeader('Set-Cookie', [this.createCookie(tokenData)]);
+                const tokenData = this.createToken(user);
+                console.log(tokenData);
+                res.setHeader('Set-Cookie', [this.createCookie(tokenData)]);
                 res.send(user);
             } else {
                 next(new WrongCredentialsException());

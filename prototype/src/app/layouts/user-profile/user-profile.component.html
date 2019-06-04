@@ -23,13 +23,16 @@
           </div>
           <div class="card-body">
             <h6>Your Friends</h6>
-            <div cdkDropList #userFriendsList="cdkDropList" [cdkDropListData]="user.friends"
-              [cdkDropListConnectedTo]="[friendsList]" class="friendsList"
-              (cdkDropListDropped)="drop($event)">
-              <div class="restrictionBox" *ngFor="let friend of friends" cdkDrag>
-                {{ friend.firstName }} {{ friend.lastName}}
-              </div>
-            </div>
+            <mat-list role="list">
+              <mat-list-item *ngFor="let friend of friends" role="list-item">
+                <img matListAvatar src="./assets/img/profile.png" alt="avatar">
+                <h3 matLine> {{ friend.firstName }} {{ friend.lastName }} </h3>
+                <p matLine>
+                  <span> {{friend.userName}} </span>
+                  <!-- <span class="demo-2"> -- {{ friend.email }} </span> -->
+                </p>
+              </mat-list-item>
+            </mat-list>
           </div>
         </div>
       </div>
