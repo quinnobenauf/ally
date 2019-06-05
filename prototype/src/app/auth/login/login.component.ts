@@ -1,16 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { Component, OnInit } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import {
+  FormBuilder,
+  FormControl,
+  Validators,
+  FormGroup
+} from "@angular/forms";
+import { first } from "rxjs/operators";
 
-import { AuthService } from '../auth.service';
-import { AlertService } from '../../services/alert.service';
-import { User } from '../../interfaces/user';
+import { AuthService } from "../auth.service";
+import { AlertService } from "../../services/alert.service";
+import { User } from "../../interfaces/user";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
   user: User;
@@ -22,37 +27,44 @@ export class LoginComponent implements OnInit {
   passwordCtrl: FormControl;
   redirectUrl: string;
 
-  constructor(private authService: AuthService,
-              private alertService: AlertService,
-              private formBuilder: FormBuilder,       
-              private router: Router,
-              private route: ActivatedRoute) { 
-                if (this.authService.currentUserValue) {
-                  this.router.navigate(['/']);
-                }
-              }
+  constructor(
+    public authService: AuthService,
+    private alertService: AlertService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    if (this.authService.currentUserValue) {
+      this.router.navigate(["/"]);
+    }
+  }
 
   ngOnInit() {
-    this.user = new User;
-    this.userNameCtrl = this.formBuilder.control('', Validators.required);
-    this.passwordCtrl = this.formBuilder.control('', Validators.required);
+    this.user = new User();
+    this.userNameCtrl = this.formBuilder.control("", Validators.required);
+    this.passwordCtrl = this.formBuilder.control("", Validators.required);
 
     this.loginForm = this.formBuilder.group({
       userName: this.userNameCtrl,
-      password: this.passwordCtrl,
+      password: this.passwordCtrl
     });
 
-    this.redirectUrl = this.route.snapshot.queryParams['redirectUrl'] || '/';
+    this.redirectUrl = this.route.snapshot.queryParams["redirectUrl"] || "/";
     console.log(this.redirectUrl);
   }
 
-  get userName() { return this.loginForm.get('userName'); }
-  get password() { return this.loginForm.get('password'); }
+  get userName() {
+    return this.loginForm.get("userName");
+  }
+  get password() {
+    return this.loginForm.get("password");
+  }
 
   onSubmit() {
     this.submitted = true;
     this.loading = true;
-    this.authService.login(this.userNameCtrl.value, this.passwordCtrl.value)
+    this.authService
+      .login(this.userNameCtrl.value, this.passwordCtrl.value)
       .pipe(first())
       .subscribe(
         data => {
@@ -62,7 +74,7 @@ export class LoginComponent implements OnInit {
         error => {
           this.alertService.error(error);
           this.loading = false;
-        });
+        }
+      );
   }
-
 }
