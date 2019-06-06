@@ -29,24 +29,27 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  register(user: User) {
+    return this.http.post<User>(`${this.authUrl}/register`, JSON.stringify(user), httpOptions);
+  }
+
   login(email: string, password: string) {
     var user = new User;
     user.email = email;
     user.password = password;
-    return this.http.post<any>(`${this.authUrl}/login`, JSON.stringify(user), httpOptions)
+    return this.http.post<User>(`${this.authUrl}/login`, JSON.stringify(user), httpOptions)
       .pipe(map(res => {
         if (user) {
           sessionStorage.setItem('currentUser', JSON.stringify(res));
           this.currentUserSubject.next(res);
           this.isLoggedIn = true;
         }
-        console.log(res);
         return res;
     }));
   }
 
   logout(): void {
-    localStorage.removeItem('currentUser');
+    sessionStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
 

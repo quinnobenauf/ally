@@ -8,6 +8,7 @@ import { MaterialModule } from './layouts/material.module';
 import { AppComponent } from './app.component';
 import { CreateUserComponent } from './auth/create-user/create-user.component';
 import { LoginComponent } from './auth/login/login.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { LoginComponent } from './auth/login/login.component';
   declarations: [
     AppComponent,
     CreateUserComponent,
-    LoginComponent
+    LoginComponent,
+    AlertComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
