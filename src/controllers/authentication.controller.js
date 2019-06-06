@@ -57,7 +57,7 @@ var validation_middleware_1 = require("../middlewares/validation.middleware");
 var AuthenticationController = /** @class */ (function () {
     function AuthenticationController() {
         var _this = this;
-        this.path = '/auth';
+        this.path = "/auth";
         this.router = express.Router();
         this.user = user_model_1["default"];
         this.register = function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
@@ -80,7 +80,7 @@ var AuthenticationController = /** @class */ (function () {
                         console.log(user);
                         user.password = undefined;
                         tokenData = this.createToken(user);
-                        res.setHeader('Set-Cookie', [this.createCookie(tokenData)]);
+                        res.setHeader("Set-Cookie", [this.createCookie(tokenData)]);
                         res.send(user);
                         _a.label = 5;
                     case 5: return [2 /*return*/];
@@ -105,7 +105,7 @@ var AuthenticationController = /** @class */ (function () {
                             user.password = undefined;
                             tokenData = this.createToken(user);
                             console.log(tokenData);
-                            res.setHeader('Set-Cookie', [this.createCookie(tokenData)]);
+                            res.setHeader("Set-Cookie", [this.createCookie(tokenData)]);
                             res.send(user);
                         }
                         else {

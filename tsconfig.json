@@ -1,19 +1,16 @@
 {
-    "compilerOptions": {
-        "sourceMap": true,
-        "experimentalDecorators": true,
-        "moduleResolution": "node",
-        "strictPropertyInitialization": false,
-        "noImplicitAny": true,
-        "lib": ["es2017"],
-        "target": "es2017",
-        "outDir": "./dist",
-        "baseUrl": "./src"
-    },
-    "include": [
-        "src/**/*.ts"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+  "compilerOptions": {
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "strictPropertyInitialization": false,
+    "noImplicitAny": true,
+    "lib": ["es2017"],
+    "target": "es2017",
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "allowJs": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
