@@ -4,7 +4,7 @@
   "description": "backend service for ally-prototype",
   "main": "./src/server.js",
   "scripts": {
-    "start": "ts-node ./src/server.ts",
+    "start": "node ./src/server.js",
     "test": "./mocha"
   },
   "author": "Jared Alonzo",
