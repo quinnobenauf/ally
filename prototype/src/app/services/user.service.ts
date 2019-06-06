@@ -35,7 +35,11 @@ export class UserService {
   }
 
   createUser(user: User): Observable<User> {
-    return this.http.post<User>(this.usersUrl, JSON.stringify(user), httpOptions);
+    return this.http.post<User>(
+      this.usersUrl,
+      JSON.stringify(user),
+      httpOptions
+    );
   }
 
   getFriendsList(id: string): Observable<any> {
