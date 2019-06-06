@@ -8,6 +8,8 @@ import WrongCredentialsException from '../exceptions/WrongCredentialsException';
 import DataStoredInToken from 'interfaces/dataStoredInToken.interface';
 import User from '../interfaces/user.interface';
 import TokenData from '../interfaces/tokendata.interface';
+import CreateUserDto from '../dtos/createUser.dto';
+import validationMiddleware from '../middlewares/validation.middleware';
 
 class AuthenticationController implements Controller {
     public path = '/auth';
@@ -19,7 +21,7 @@ class AuthenticationController implements Controller {
     }
 
     public initializeRoutes() {
-        this.router.post(`${this.path}/register`, this.register);
+        this.router.post(`${this.path}/register`, validationMiddleware(CreateUserDto), this.register);
         this.router.post(`${this.path}/login`, this.login);
     }
 
@@ -49,10 +51,11 @@ class AuthenticationController implements Controller {
                 ...userData,
                 password: hashedPassword,
             });
+            console.log(user);
             user.password = undefined;
-            // const tokenData = this.createToken(user);
-            // res.setHeader('Set-Cookie', [this.createCookie(tokenData)]);
-            res.send(user)
+            const tokenData = this.createToken(user);
+            res.setHeader('Set-Cookie', [this.createCookie(tokenData)]);
+            res.send(user);
         }
     }
 
@@ -61,12 +64,9 @@ class AuthenticationController implements Controller {
         console.log(loginData);
         const user = await this.user.findOne({ email: loginData.email });
         if (user) {
-            console.log('here');
-            // console.log(user);
-            const isPasswordMatching = user.password === loginData.password; //await bcrypt.compare(hash, user.password);
-            console.log(isPasswordMatching);
+            const isPasswordMatching = await bcrypt.compare(loginData.password, user.password);
             if (isPasswordMatching) {
-                // user.password = undefined;
+                user.password = undefined;
                 const tokenData = this.createToken(user);
                 console.log(tokenData);
                 res.setHeader('Set-Cookie', [this.createCookie(tokenData)]);

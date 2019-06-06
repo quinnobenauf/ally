@@ -18,7 +18,6 @@ class UsersController implements Controller {
     this.router.get(`${this.path}/:id`, this.getUserById);
     this.router.put(`${this.path}/:id`, this.modifyUser);
     this.router.delete(`${this.path}/:id`, this.deleteUser);
-    this.router.post(this.path, this.createUser);
     this.router.get(`${this.path}/:id/friends`, this.getFriends);
   }
 
@@ -134,15 +133,6 @@ class UsersController implements Controller {
         next(new UserNotFoundException(id));
       }
     });
-  };
-
-  private createUser = (req: express.Request, res: express.Response) => {
-    const userData: User = req.body;
-    const createdUser = new this.user(userData);
-    createdUser.save().then(savedUser => {
-      res.send(savedUser);
-    });
-    console.log(userData);
   };
 }
 
