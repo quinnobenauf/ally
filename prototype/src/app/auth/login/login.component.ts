@@ -74,6 +74,7 @@ export class LoginComponent implements OnInit {
         },
         error => {
           console.log("WHOOPS");
+          console.log(error);
           this.alertService.error(error);
           this.loading = false;
         }
