@@ -47,7 +47,7 @@ class App {
   }
 
   public listen() {
-    this.app.listen(process.env.PORT, () => {
+    this.app.listen(process.env.PORT || 8080, () => {
       console.log(`Listening on port ${process.env.PORT}`);
     });
   }
