@@ -38,9 +38,6 @@ var App = /** @class */ (function () {
             .then(function () {
             console.log("connected to db");
         });
-        // mongoose.connect('mongodb://localhost:3000/ally').then(() => {
-        //     console.log('connected to db');
-        // });
     };
     App.prototype.listen = function () {
         this.app.listen(process.env.PORT, function () {

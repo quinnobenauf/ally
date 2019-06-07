@@ -44,9 +44,6 @@ class App {
       .then(() => {
         console.log("connected to db");
       });
-    // mongoose.connect('mongodb://localhost:3000/ally').then(() => {
-    //     console.log('connected to db');
-    // });
   }
 
   public listen() {
