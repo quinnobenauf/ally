@@ -69,10 +69,11 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data);
+          console.log("LOGGING IN?");
           this.router.navigate([this.redirectUrl]);
         },
         error => {
+          console.log("WHOOPS");
           this.alertService.error(error);
           this.loading = false;
         }

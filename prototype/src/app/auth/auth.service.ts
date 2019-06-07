@@ -49,10 +49,12 @@ export class AuthService {
       .pipe(
         map(res => {
           if (user) {
+            console.log("ALREADY LOGGED IN??");
             sessionStorage.setItem("currentUser", JSON.stringify(res));
             this.currentUserSubject.next(res);
             this.isLoggedIn = true;
           }
+          console.log("RES: ", res);
           return res;
         })
       );
