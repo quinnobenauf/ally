@@ -93,7 +93,7 @@ var AuthenticationController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         loginData = req.body;
-                        console.log(loginData);
+                        console.log("YOOOOOOO");
                         return [4 /*yield*/, this.user.findOne({ email: loginData.email })];
                     case 1:
                         user = _a.sent();

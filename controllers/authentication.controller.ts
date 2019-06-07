@@ -75,7 +75,7 @@ class AuthenticationController implements Controller {
     next: express.NextFunction
   ) => {
     const loginData = req.body;
-    console.log(loginData);
+    console.log("YOOOOOOO");
     const user = await this.user.findOne({ email: loginData.email });
     if (user) {
       const isPasswordMatching = await bcrypt.compare(
