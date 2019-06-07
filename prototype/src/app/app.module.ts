@@ -23,7 +23,7 @@ import { AlertComponent } from './alert/alert.component';
     AppComponent,
     CreateUserComponent,
     LoginComponent,
-    AlertComponent
+    AlertComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

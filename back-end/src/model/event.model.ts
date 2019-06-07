@@ -1,13 +1,17 @@
 import * as mongoose from "mongoose";
 import Event from "../interfaces/event.interface";
 
+const userSchema = new mongoose.Schema({
+  _id: mongoose.Schema.Types.ObjectId,
+  type: String
+});
+
 const eventSchema = new mongoose.Schema(
   {
     title: String,
-    host: mongoose.Schema.Types.ObjectId,
-    invited: [mongoose.Schema.Types.ObjectId],
-    guests: [mongoose.Schema.Types.ObjectId],
-    date: Date,
+    host: String,
+    guests: [userSchema],
+    date: String,
     location: String
   },
   { versionKey: false }

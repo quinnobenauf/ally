@@ -1,10 +1,9 @@
 interface Event {
-    title: string;
-    host: string;
-    invited: [string];
-    guests: [string];
-    date: Date;
-    location: string;
+    title: String;
+    host: String;
+    guests: [String];
+    date: String;
+    location: String;
 }
 
 export default Event;

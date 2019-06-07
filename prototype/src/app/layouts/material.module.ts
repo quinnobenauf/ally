@@ -29,10 +29,9 @@ import {
   MatSnackBarModule,
   MatTableModule,
   MatSortModule,
-  MatPaginatorModule } from '@angular/material'
+  MatPaginatorModule } from '@angular/material';
 
 @NgModule({
-  declarations: [],
   imports: [
     MatCheckboxModule,
     MatButtonModule,
