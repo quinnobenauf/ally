@@ -40,6 +40,7 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
+    console.log("ATTEMPT LOGIN");
     var user = new User();
     user.email = email;
     user.password = password;
