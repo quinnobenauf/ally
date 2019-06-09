@@ -46,12 +46,22 @@ export class EventsComponent implements OnInit {
         event._id = item._id;
         event.title = item.title;
         event.host = item.host;
-        event.guests = item.guests;
+        event.guests = this.getGuestList(item);
         event.date = item.date;
         event.location = item.location;
         this.events.push(event);
       });
     });
+  }
+
+  getGuestList(event: Event): Array<User> {
+    var newGuests = new Array<User>();
+    event.guests.forEach(guest => {
+      this.accountService.getUserById(String(guest)).subscribe(user => {
+        newGuests.push(user);
+      });
+    })
+    return newGuests;
   }
 
   // fetch friends list
@@ -70,31 +80,54 @@ export class EventsComponent implements OnInit {
       return;
     }
     this.selectedEvent = event;
+    var currentGuests = new Array<User>();
+    this.friends.filter(friend => {
+      event.guests.forEach(guest => {
+        if (guest._id == friend._id)
+          currentGuests.push(friend);
+      })
+    });
+    this.friendsList.setValue(currentGuests);
   }
-
+ 
   done() {
     if (this.selectedEvent._id == null){
-      //add new event
-      var event = new Event();
-      event.title = (document.getElementById(
-        "eventTitle"
-      ) as HTMLInputElement).value;
-      event.date = (document.getElementById(
-        "eventDate"
-      ) as HTMLInputElement).value;
-      event.location = (document.getElementById(
-        "location"
-      ) as HTMLInputElement).value;
-      event.host = this.user._id;
-      // get this call working
-      this.eventService.createEvent(event)
-      .subscribe(newEvent => this.events.push(newEvent));
-      // add the returned event to events
+      var newEvent = this.constructEvent();
+      this.eventService.createEvent(newEvent)
+    .subscribe();
+    this.events.push(newEvent)
     }
     else{
-      //update event
+      var newEvent = this.constructEvent();
+      newEvent._id = this.selectedEvent._id;
+      var res = this.eventService.modifyEvent(this.selectedEvent._id, newEvent).subscribe();
+      var index = -1;
+      this.events.forEach(event => {
+        if (event._id == this.selectedEvent._id){
+          index = this.events.indexOf(event);
+        }
+      })
+      this.events[index] = newEvent;
     }
     this.modalService.dismissAll();
+    this.friendsList.setValue(null);
+  }
+
+  constructEvent(): Event {
+    var event = new Event();
+    event.title = (document.getElementById(
+      "eventTitle"
+    ) as HTMLInputElement).value;
+    event.date = (document.getElementById(
+      "eventDate"
+    ) as HTMLInputElement).value;
+    event.location = (document.getElementById(
+      "location"
+    ) as HTMLInputElement).value;
+    event.host = this.user._id;
+    event.guests = this.friendsList.value;
+    return event;
+    // add the returned event to events
   }
 
   delete() {

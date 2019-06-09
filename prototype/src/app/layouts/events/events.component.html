@@ -30,7 +30,7 @@
             <mat-form-field class="example-full-width">
               <mat-label>Guests</mat-label>
               <mat-select [formControl]="friendsList" multiple>
-                <mat-option *ngFor="let friend of friends" [value]="friend._id">{{ friend.userName }} 
+                <mat-option *ngFor="let friend of friends" [value]="friend">{{ friend.userName }} 
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -84,7 +84,7 @@
                           <mat-form-field>
                             <mat-label>Guests</mat-label>
                             <mat-select>
-                              <mat-option *ngFor="let guest of event.guests" [value]="guest._id"> {{ guest }}
+                              <mat-option *ngFor="let guest of event.guests" [value]="guest._id" disabled> {{ guest.userName }}
                               </mat-option>
                             </mat-select>
                           </mat-form-field>
@@ -99,7 +99,6 @@
                   <button style="background-color: transparent; border-color: transparent" (click)="open(content)">
                     <span style="color:#e53935;"><i class="material-icons" style=" font-size: 55px">add_box</i></span>
                   </button>
-
                 </div>
               </div>
             </div>

@@ -26,9 +26,24 @@ export class EventService {
   createEvent(event: Event): Observable<Event> {
     return this.http.post<Event>(
       this.eventsUrl,
-      JSON.stringify(event),
+      this.createBodyEvent(event),
       httpOptions
       );
+  }
+
+  modifyEvent(id: string, event: Event): Observable<any> {
+    return this.http.put(`${this.eventsUrl}${id}`, this.createBodyEvent(event), httpOptions);
+  }
+
+  createBodyEvent(event: Event): any {
+    var newGuests = new Array<string>();
+    event.guests.forEach(guest => {
+      var newGuest = new User();
+      newGuests.push(guest._id);
+    });
+    var eventJson = JSON.parse(JSON.stringify(event));
+    eventJson["guests"] = JSON.parse(JSON.stringify(newGuests));
+    return eventJson;
   }
 
   deleteEvent(event: Event): Observable<{}> {
