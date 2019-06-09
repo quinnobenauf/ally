@@ -98,13 +98,16 @@ var AuthenticationController = /** @class */ (function () {
                     case 1:
                         user = _a.sent();
                         if (!user) return [3 /*break*/, 3];
+                        console.log("USER EXISTS?");
                         return [4 /*yield*/, bcrypt.compare(loginData.password, user.password)];
                     case 2:
                         isPasswordMatching = _a.sent();
+                        console.log("CHECKING PASSWORDS");
                         if (isPasswordMatching) {
+                            console.log("PASSWORD MATCHES?");
                             user.password = undefined;
                             tokenData = this.createToken(user);
-                            console.log(tokenData);
+                            console.log("MAKE A TOKEN");
                             res.setHeader("Set-Cookie", [this.createCookie(tokenData)]);
                             res.send(user);
                         }
