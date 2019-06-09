@@ -21,7 +21,7 @@ class EventsController implements Controller {
     this.router.put(`${this.path}/:id`, this.modifyEvent);
     this.router.delete(`${this.path}/:id`, this.deleteEvent);
     this.router.post(this.path, this.createEvent);
-    this.router.get("${this.path}/:id/allergies", this.getGuestAllergies);
+    this.router.get(`${this.path}/:id/allergies`, this.getGuestAllergies);
   }
 
   private getAllEvents = (req: express.Request, res: express.Response) => {
