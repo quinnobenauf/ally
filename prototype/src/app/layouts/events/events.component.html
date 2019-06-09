@@ -7,28 +7,35 @@
       </button>
     </div>
     <div class="modal-body">
-        <form>
-            <div class="row">
-              <div class="col-md-5">
-                <mat-form-field class="example-full-width">
-                  <input matInput placeholder="Event Title" type="text" id="eventTitle" value="{{selectedEvent.title}}">
-                </mat-form-field>
-              </div>
-              <div class="col-md-3">
-                <mat-form-field class="example-full-width">
-                  <input matInput placeholder="Event Date" type="datetime" id="eventDate"  value="{{selectedEvent.date}}">
-                </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field class="example-full-width">
-                  <input matInput placeholder="Location" type="text" id="location"  value="{{selectedEvent.location}}">
-                </mat-form-field>
-              </div>
-            </div>
-          </form>
+      <form>
+        <div class="row">
+          <div class="col-md-5">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Event Title" type="text" id="eventTitle" value="{{selectedEvent.title}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Event Date" type="datetime" id="eventDate" value="{{selectedEvent.date}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Location" type="text" id="location" value="{{selectedEvent.location}}">
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
     </div>
     <div class="modal-footer">
-      <button type="submit" class="btn btn-danger" (click)="done()">Save</button>
+      <div class="row">
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-danger" (click)="delete()">delete</button>
+        </div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-danger" (click)="done()">Save</button>
+          </div>
+      </div>
     </div>
   </ng-template>
   <div class="container-fluid">
@@ -79,9 +86,9 @@
               <div class="row">
                 <div class="col-md-12" style="text-align: center">
                   <button style="background-color: transparent; border-color: transparent" (click)="open(content)">
-                      <span style="color:#e53935;"><i class="material-icons" style=" font-size: 55px">add_box</i></span>
+                    <span style="color:#e53935;"><i class="material-icons" style=" font-size: 55px">add_box</i></span>
                   </button>
-                  
+
                 </div>
               </div>
             </div>

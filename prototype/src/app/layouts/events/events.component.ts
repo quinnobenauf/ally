@@ -17,6 +17,7 @@ export class EventsComponent implements OnInit {
   user: User = new User();
   events: Event[] = new Array<Event>();
   selectedEvent: Event = new Event();
+  friends: User[] = new Array<User>();
   constructor(
     private accountService: UserService,
     private eventService: EventService,
@@ -30,6 +31,7 @@ export class EventsComponent implements OnInit {
       this.user = user;
       this.getEventList(this.user._id);
     });
+    this.getFriendsList(this.user._id);
   }
 
   getEventList(id: string): void {
@@ -43,6 +45,15 @@ export class EventsComponent implements OnInit {
         event.date = item.date;
         event.location = item.location;
         this.events.push(event);
+      });
+    });
+  }
+
+  // fetch friends list
+  getFriendsList(id: string) {
+    this.accountService.getFriendsList(id).subscribe((res: User[]) => {
+      res.forEach(friend => {
+        this.friends.push(friend);
       });
     });
   }
@@ -71,13 +82,26 @@ export class EventsComponent implements OnInit {
       ) as HTMLInputElement).value;
       event.host = this.user._id;
       // get this call working
-      var newEvent = this.eventService.createEvent(event);
+      this.eventService.createEvent(event)
+      .subscribe(newEvent => this.events.push(newEvent));
       // add the returned event to events
     }
     else{
       //update event
     }
     this.modalService.dismissAll();
+  }
+
+  delete() {
+    if (this.selectedEvent._id != null){
+      this.eventService.deleteEvent(this.selectedEvent).subscribe()
+      // get this working
+      var index = this.events.indexOf(this.selectedEvent);
+      if (index !== -1) {
+          this.events.splice(index, 1);
+      }
+      this.modalService.dismissAll();
+    }
   }
 
   createNewEvent(): void
