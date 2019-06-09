@@ -65,12 +65,12 @@ class EventsController implements Controller {
           'location': eventData.location
         }
       }).then(event => {
-        //res.send(event);
+        if (event) {
+          res.send(200);
+        } else {
+          res.send(400);
+        }
     });
-
-    this.event.updateOne({'_id': id}, {$set: {'guests': eventData.guests}}).then(event => {
-      res.send(event);
-    })
   }
 
   private deleteEvent = (req: express.Request, res: express.Response) => {
