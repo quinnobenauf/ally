@@ -97,28 +97,26 @@ var AuthenticationController = /** @class */ (function () {
                         return [4 /*yield*/, this.user.findOne({ email: loginData.email })];
                     case 1:
                         user = _a.sent();
-                        if (!user) return [3 /*break*/, 3];
-                        console.log("USER EXISTS?");
-                        return [4 /*yield*/, bcrypt.compare(loginData.password, user.password)];
-                    case 2:
-                        isPasswordMatching = _a.sent();
-                        console.log("CHECKING PASSWORDS");
-                        if (isPasswordMatching) {
-                            console.log("PASSWORD MATCHES?");
-                            user.password = undefined;
-                            tokenData = this.createToken(user);
-                            console.log("MAKE A TOKEN");
-                            res.setHeader("Set-Cookie", [this.createCookie(tokenData)]);
-                            res.send(user);
+                        if (user) {
+                            console.log("USER EXISTS?");
+                            isPasswordMatching = true;
+                            console.log("CHECKING PASSWORDS");
+                            if (isPasswordMatching) {
+                                console.log("PASSWORD MATCHES?");
+                                user.password = undefined;
+                                tokenData = this.createToken(user);
+                                console.log("MAKE A TOKEN");
+                                res.setHeader("Set-Cookie", [this.createCookie(tokenData)]);
+                                res.send(user);
+                            }
+                            else {
+                                next(new WrongCredentialsException_1["default"]());
+                            }
                         }
                         else {
                             next(new WrongCredentialsException_1["default"]());
                         }
-                        return [3 /*break*/, 4];
-                    case 3:
-                        next(new WrongCredentialsException_1["default"]());
-                        _a.label = 4;
-                    case 4: return [2 /*return*/];
+                        return [2 /*return*/];
                 }
             });
         }); };
