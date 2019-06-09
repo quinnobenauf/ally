@@ -119,11 +119,15 @@ var AuthenticationController = /** @class */ (function () {
                 }
             });
         }); };
+        console.log("INSIDE CONSTRUCTOR");
         this.initializeRoutes();
     }
     AuthenticationController.prototype.initializeRoutes = function () {
+        console.log("INITIALIZING ROUTES");
         this.router.post(this.path + "/register", validation_middleware_1["default"](createUser_dto_1["default"]), this.register);
+        console.log("REGISTER INITIALIZED");
         this.router.post(this.path + "/login", this.login);
+        console.log("LOGIN INITIALIZED");
     };
     AuthenticationController.prototype.createToken = function (user) {
         var expiresIn = 60 * 60; // 1 hour

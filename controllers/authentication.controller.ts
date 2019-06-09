@@ -17,16 +17,20 @@ class AuthenticationController implements Controller {
   private user = userModel;
 
   constructor() {
+    console.log("INSIDE CONSTRUCTOR");
     this.initializeRoutes();
   }
 
   public initializeRoutes() {
+    console.log("INITIALIZING ROUTES");
     this.router.post(
       `${this.path}/register`,
       validationMiddleware(CreateUserDto),
       this.register
     );
+    console.log("REGISTER INITIALIZED");
     this.router.post(`${this.path}/login`, this.login);
+    console.log("LOGIN INITIALIZED");
   }
 
   private createToken(user: User): TokenData {
