@@ -83,8 +83,8 @@
                         <div class="col-md-2">
                           <mat-form-field>
                             <mat-label>Guests</mat-label>
-                            <mat-select [formControl]="guestList" multiple>
-                              <mat-option *ngFor="let guest of event.guests" [value]="guest._id">{{ guest.firstName }}
+                            <mat-select>
+                              <mat-option *ngFor="let guest of event.guests" [value]="guest._id"> {{ guest }}
                               </mat-option>
                             </mat-select>
                           </mat-form-field>

@@ -93,11 +93,13 @@ class UsersController implements Controller {
         }
       )
       .then(user => {
+        if (user) {
+          res.send(200);
+        } else {
+          res.send(400);
+        }
         
       });
-        this.user.updateOne({'_id': id}, {$set: {'friends': userData.friends}}).then((user) => {
-            res.send(user);
-        });
   };
 
   private deleteUser = (
