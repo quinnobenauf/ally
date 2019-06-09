@@ -73,7 +73,7 @@
                           <mat-form-field>
                             <mat-label>Guests</mat-label>
                             <mat-select>
-                              <mat-option *ngFor="let guest of event.guests" [value]="guest._id">{{ guest.firstName }}
+                              <mat-option *ngFor="let guest of event.guests" [value]="guest._id"> {{ guest }}
                               </mat-option>
                             </mat-select>
                           </mat-form-field>

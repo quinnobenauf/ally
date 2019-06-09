@@ -18,6 +18,7 @@ class EventsController implements Controller {
         this.router.get(this.path, this.getAllEvents);
         this.router.get(`${this.path}/host/:id`, this.getEventsByHost);
         this.router.get(`${this.path}/:id`, this.getEventById);
+        this.router.put(`${this.path}/:id`, this.modifyEvent);
         this.router.delete(`${this.path}/:id`, this.deleteEvent);
         this.router.post(this.path, this.createEvent);
     }
@@ -49,6 +50,28 @@ class EventsController implements Controller {
             res.send(events);
         });
   };
+
+  private modifyEvent = (req: express.Request, res: express.Response) => {
+    const id = req.params.id;
+    const eventData: Event = req.body;
+    this.event.updateOne(
+      { '_id': id },
+      {
+        $set: {
+          'guests': eventData.guests,
+          'title': eventData.title,
+          'host': eventData.host,
+          'date': eventData.date,
+          'location': eventData.location
+        }
+      }).then(event => {
+        //res.send(event);
+    });
+
+    this.event.updateOne({'_id': id}, {$set: {'guests': eventData.guests}}).then(event => {
+      res.send(event);
+    })
+  }
 
   private deleteEvent = (req: express.Request, res: express.Response) => {
     const id = req.params.id;
