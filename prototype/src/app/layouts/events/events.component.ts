@@ -5,8 +5,11 @@ import { UserService } from '../../services/user.service';
 import { EventService } from '../../services/event.service';
 import { Event } from '../../interfaces/event'
 
+import {FormControl} from '@angular/forms';
+
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
+import { stringify } from '@angular/core/src/util';
 
 @Component({
   selector: 'app-events',
@@ -14,6 +17,8 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit {
+  friendsList = new FormControl();
+  guestList = new FormControl();
   user: User = new User();
   events: Event[] = new Array<Event>();
   selectedEvent: Event = new Event();
@@ -27,11 +32,11 @@ export class EventsComponent implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(sessionStorage.getItem("currentUser"));
     this.selectedEvent = new Event();
+    this.getEventList(this.user._id);
     this.accountService.getUserById(this.user._id).subscribe(user => {
       this.user = user;
-      this.getEventList(this.user._id);
+      this.getFriendsList(this.user._id);
     });
-    this.getFriendsList(this.user._id);
   }
 
   getEventList(id: string): void {
@@ -106,8 +111,6 @@ export class EventsComponent implements OnInit {
 
   createNewEvent(): void
   {
-
     this.modalService.open(null, {size: 'lg', centered: true});
   }
-
 }

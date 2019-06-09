@@ -25,6 +25,17 @@
             </mat-form-field>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <mat-label>Guests</mat-label>
+              <mat-select [formControl]="friendsList" multiple>
+                <mat-option *ngFor="let friend of friends" [value]="friend._id">{{ friend.userName }} 
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
       </form>
     </div>
     <div class="modal-footer">
@@ -33,8 +44,8 @@
           <button type="submit" class="btn btn-danger" (click)="delete()">delete</button>
         </div>
         <div class="col-md-6">
-            <button type="submit" class="btn btn-danger" (click)="done()">Save</button>
-          </div>
+          <button type="submit" class="btn btn-danger" (click)="done()">Save</button>
+        </div>
       </div>
     </div>
   </ng-template>
@@ -72,7 +83,7 @@
                         <div class="col-md-2">
                           <mat-form-field>
                             <mat-label>Guests</mat-label>
-                            <mat-select>
+                            <mat-select [formControl]="guestList" multiple>
                               <mat-option *ngFor="let guest of event.guests" [value]="guest._id">{{ guest.firstName }}
                               </mat-option>
                             </mat-select>
