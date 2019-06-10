@@ -49,6 +49,40 @@
       </div>
     </div>
   </ng-template>
+  <ng-template #diets let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{selectedEvent.title}} Diets</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="row">
+          <div class="col-md-12">
+            <mat-list role="list">
+                <mat-list-item *ngFor="let allergy of selectedAllergies" role="list-item">
+                  <h3 matLine>Allergies</h3>
+                  <p matLine>
+                    <span>{{allergy.type}}</span>
+                  </p>
+                </mat-list-item>
+              </mat-list>
+          </div>
+          <div class="col-md-12">
+              <mat-list role="list">
+                  <mat-list-item *ngFor="let diet of selectedDiets" role="list-item">
+                    <h3 matLine>Other Food Preferences</h3>
+                    <p matLine>
+                      <span>{{diet.type}}</span>
+                    </p>
+                  </mat-list-item>
+                </mat-list>
+            </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -65,8 +99,10 @@
                     <div class="restrictionBox">
                       <div class="row">
                         <div class="col-md-1" style="text-align: center; align-content: center">
-                          <button mat-raised-button type="submit" (click)="open(content, event)"
+                          <button mat-raised-button type="submit" (click)="openEdit(content, event)"
                             class="btn btn-danger pull-right" style="margin-top:20px">Edit</button>
+                            <button mat-raised-button type="submit" (click)="openDiets(diets, event)"
+                            class="btn btn-danger pull-right" style="margin-top:20px">Diets</button>
                         </div>
                         <div class="col-md-3" style="text-align: center">
                           <p>Title</p>
@@ -96,7 +132,7 @@
               </div>
               <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                  <button style="background-color: transparent; border-color: transparent" (click)="open(content)">
+                  <button style="background-color: transparent; border-color: transparent" (click)="openEdit(content)">
                     <span style="color:#e53935;"><i class="material-icons" style=" font-size: 55px">add_box</i></span>
                   </button>
                 </div>

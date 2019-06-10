@@ -10,6 +10,8 @@ import {FormControl} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
 import { stringify } from '@angular/core/src/util';
+import { Allergy } from 'app/interfaces/allergy';
+import { Diet } from 'app/interfaces/diet';
 
 @Component({
   selector: 'app-events',
@@ -22,6 +24,8 @@ export class EventsComponent implements OnInit {
   user: User = new User();
   events: Event[] = new Array<Event>();
   selectedEvent: Event = new Event();
+  selectedDiets: Diet[] = new Array<Diet>();
+  selectedAllergies: Allergy[] = new Array<Allergy>();
   friends: User[] = new Array<User>();
   constructor(
     private accountService: UserService,
@@ -73,7 +77,7 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  open(content, event) {
+  openEdit(content, event) {
     this.modalService.open(content, {size: 'lg', centered: true});
     if (event == null) {
       this.selectedEvent = new Event();
@@ -88,6 +92,17 @@ export class EventsComponent implements OnInit {
       })
     });
     this.friendsList.setValue(currentGuests);
+  }
+
+  openDiets(diets, event) {
+    this.modalService.open(diets, {size: 'lg', centered: true});
+    if (event == null) {
+      this.selectedEvent = new Event();
+      return;
+    }
+    this.selectedEvent = event;
+    // this.selectedAllergies = get events allergies ()
+    // this.selectedDiets = get events diets ()
   }
  
   done() {
