@@ -74,9 +74,12 @@ var UsersController = /** @class */ (function () {
                 }
             })
                 .then(function (user) {
-            });
-            _this.user.updateOne({ '_id': id }, { $set: { 'friends': userData.friends } }).then(function (user) {
-                res.send(user);
+                if (user) {
+                    res.send(200);
+                }
+                else {
+                    res.send(400);
+                }
             });
         };
         this.deleteUser = function (req, res, next) {
