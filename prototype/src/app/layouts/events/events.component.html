@@ -1,0 +1,146 @@
+<div class="main-content">
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{selectedEvent.title}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="row">
+          <div class="col-md-5">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Event Title" type="text" id="eventTitle" value="{{selectedEvent.title}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Event Date" type="datetime" id="eventDate" value="{{selectedEvent.date}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Location" type="text" id="location" value="{{selectedEvent.location}}">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <mat-label>Guests</mat-label>
+              <mat-select [formControl]="friendsList" multiple>
+                <mat-option *ngFor="let friend of friends" [value]="friend">{{ friend.userName }} 
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-danger" (click)="delete()">delete</button>
+        </div>
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-danger" (click)="done()">Save</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #diets let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{selectedEvent.title}} Diets</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="row">
+          <div class="col-md-12">
+            <mat-list role="list">
+                <mat-list-item *ngFor="let allergy of selectedAllergies" role="list-item">
+                  <h3 matLine>Allergies</h3>
+                  <p matLine>
+                    <span>{{allergy.type}}</span>
+                  </p>
+                </mat-list-item>
+              </mat-list>
+          </div>
+          <div class="col-md-12">
+              <mat-list role="list">
+                  <mat-list-item *ngFor="let diet of selectedDiets" role="list-item">
+                    <h3 matLine>Other Food Preferences</h3>
+                    <p matLine>
+                      <span>{{diet.type}}</span>
+                    </p>
+                  </mat-list-item>
+                </mat-list>
+            </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Events</h4>
+            <p class="card-category">Events Hosted by You</p>
+          </div>
+          <div class="card-body">
+            <div class="col-md-12">
+              <div class="card" *ngFor="let event of events" style="margin: 10px">
+                <div class="card-body">
+                  <div class="restrictionChoices">
+                    <div class="restrictionBox">
+                      <div class="row">
+                        <div class="col-md-1" style="text-align: center; align-content: center">
+                          <button mat-raised-button type="submit" (click)="openEdit(content, event)"
+                            class="btn btn-danger pull-right" style="margin-top:20px">Edit</button>
+                            <button mat-raised-button type="submit" (click)="openDiets(diets, event)"
+                            class="btn btn-danger pull-right" style="margin-top:20px">Diets</button>
+                        </div>
+                        <div class="col-md-3" style="text-align: center">
+                          <p>Title</p>
+                          <p>{{ event.title }}</p>
+                        </div>
+                        <div class="col-md-3" style="text-align: center">
+                          <p>Date</p>
+                          <p>{{ event.date}}</p>
+                        </div>
+                        <div class="col-md-3" style="text-align: center">
+                          <p>Location</p>
+                          <p>{{event.location}}</p>
+                        </div>
+                        <div class="col-md-2">
+                          <mat-form-field>
+                            <mat-label>Guests</mat-label>
+                            <mat-select>
+                              <mat-option *ngFor="let guest of event.guests" [value]="guest._id" disabled> {{ guest.userName }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12" style="text-align: center">
+                  <button style="background-color: transparent; border-color: transparent" (click)="openEdit(content)">
+                    <span style="color:#e53935;"><i class="material-icons" style=" font-size: 55px">add_box</i></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

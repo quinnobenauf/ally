@@ -14,13 +14,15 @@ class EventsController implements Controller {
     this.initializeRoutes();
   }
 
-    public initializeRoutes() {
-        this.router.get(this.path, this.getAllEvents);
-        // this.router.get(`${this.path}/filter/:id`, this.filterEvents);
-        this.router.get(`${this.path}/:id`, this.getEventById);
-        this.router.delete(`${this.path}/:id`, this.deleteEvent);
-        this.router.post(this.path, this.createEvent);
-    }
+  public initializeRoutes() {
+    this.router.get(this.path, this.getAllEvents);
+    this.router.get(`${this.path}/host/:id`, this.getEventsByHost);
+    this.router.get(`${this.path}/:id`, this.getEventById);
+    this.router.put(`${this.path}/:id`, this.modifyEvent);
+    this.router.delete(`${this.path}/:id`, this.deleteEvent);
+    this.router.post(this.path, this.createEvent);
+    this.router.get(`${this.path}/:id/allergies`, this.getGuestAllergies);
+  }
 
   private getAllEvents = (req: express.Request, res: express.Response) => {
     this.event.find().then(events => {
@@ -41,6 +43,39 @@ class EventsController implements Controller {
     }
   };
 
+  private getEventsByHost = (req: express.Request, res: express.Response) => {
+    const id = req.params.id;
+    let query = { host: id };
+    this.event.find(query).then(events => {
+      res.send(events);
+    });
+  };
+
+  private modifyEvent = (req: express.Request, res: express.Response) => {
+    const id = req.params.id;
+    const eventData: Event = req.body;
+    this.event
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            guests: eventData.guests,
+            title: eventData.title,
+            host: eventData.host,
+            date: eventData.date,
+            location: eventData.location
+          }
+        }
+      )
+      .then(event => {
+        if (event) {
+          res.send(200);
+        } else {
+          res.send(400);
+        }
+      });
+  };
+
   private deleteEvent = (req: express.Request, res: express.Response) => {
     const id = req.params.id;
     this.event.findByIdAndDelete(id).then(successResponse => {
@@ -59,6 +94,13 @@ class EventsController implements Controller {
       res.send(savedEvent);
     });
     console.log(eventData);
+  };
+
+  private getGuestAllergies = (req: express.Request, res: express.Response) => {
+    const eventId = req.params.id;
+    this.event.findById(eventId).then(event => {
+      res.send(event.guests);
+    });
   };
 }
 

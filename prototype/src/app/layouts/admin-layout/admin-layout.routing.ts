@@ -3,9 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
-import { TableListComponent } from '../table-list/table-list.component';
 import { AdminLayoutComponent } from './admin-layout.component';
 import { AuthGuard } from '../../auth/auth.guard';
+import { EventsComponent } from '../events/events.component';
 
 const adminLayoutRoutes: Routes = [
     {
@@ -16,7 +16,7 @@ const adminLayoutRoutes: Routes = [
             { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
             { path: 'dashboard',      component: DashboardComponent },
             { path: 'user-profile',   component: UserProfileComponent },
-            { path: 'table-list',     component: TableListComponent }
+            { path: 'events',     component: EventsComponent }
         ]
     }
 ];

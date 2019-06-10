@@ -4,15 +4,17 @@ import Event from "../interfaces/event.interface";
 const eventSchema = new mongoose.Schema(
   {
     title: String,
-    host: mongoose.Schema.Types.ObjectId,
-    invited: [mongoose.Schema.Types.ObjectId],
+    host: String,
     guests: [mongoose.Schema.Types.ObjectId],
-    date: Date,
+    date: String,
     location: String
   },
   { versionKey: false }
 );
 
-const eventModel = mongoose.model<Event & mongoose.Document>("Event", eventSchema);
+const eventModel = mongoose.model<Event & mongoose.Document>(
+  "Event",
+  eventSchema
+);
 
 export default eventModel;

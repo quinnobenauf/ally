@@ -35,3 +35,25 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 Run `npm run dev` to start the node server. The server will connect automatically to mongodb and will log `connected to db` once it is connected.
 
 --------------
+
+## Feedback incorporated
+
+### How does this application support other food cultures?
+
+Answer: Added various religiously affiliated diets to the list of dietary restrictions such as "Kosher" and "Halal"
+
+### It would be nice if the guests did not have to RSVP, the host could just add people to a group to see what allergies they should be aware of
+
+Answer: Simplifed event creation. Just add friends and see the combined list of allergies and dietary restrictions. No need for them to RSVP.
+
+### Page forms (e.g. Events form) and content looks a little cluttered
+
+Answer: Simplified the look and feel of Events creation. Adopted a pre-made bootstrap UI for better looks instead of building from scratch.
+
+--------------
+
+## Trello URL
+
+[Ally Storyboard](https://trello.com/b/6AUfh34Q/user-story-board)
+
+
