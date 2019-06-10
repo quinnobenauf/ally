@@ -1,6 +1,10 @@
 import * as bcrypt from "bcrypt";
 import * as express from "express";
 import * as jwt from "jsonwebtoken";
+import * as passport from "passport";
+import * as session from "express-session";
+
+import PassportOAuth from "../middlewares/googlePassport.middleware";
 import Controller from "../interfaces/controller.interface";
 import userModel from "../model/user.model";
 import UserWithThatEmailAlreadyExistsException from "../exceptions/UserWithThatEmailAlreadyExistsException";
@@ -14,23 +18,40 @@ import validationMiddleware from "../middlewares/validation.middleware";
 class AuthenticationController implements Controller {
   public path = "/auth";
   public router = express.Router();
+  public googlePassport: PassportOAuth;
   private user = userModel;
 
   constructor() {
-    console.log("INSIDE CONSTRUCTOR");
+    this.googlePassport = new PassportOAuth();
+    this.router.use(session({ secret: "dogs" }));
+    this.router.use(passport.initialize());
+    this.router.use(passport.session());
     this.initializeRoutes();
   }
 
   public initializeRoutes() {
-    console.log("INITIALIZING ROUTES");
+    this.router.get(
+      `${this.path}/google`,
+      passport.authenticate("google", {
+        scope: ["profile", "email"]
+      })
+    );
+    this.router.get(
+      `${this.path}/google/callback`,
+      passport.authenticate("google", {
+        failureRedirect: ""
+      }),
+      (req, res) => {
+        console.log("req", req.params.user);
+        res.send(req.params.user);
+      }
+    );
     this.router.post(
       `${this.path}/register`,
       validationMiddleware(CreateUserDto),
       this.register
     );
-    console.log("REGISTER INITIALIZED");
     this.router.post(`${this.path}/login`, this.login);
-    console.log("LOGIN INITIALIZED");
   }
 
   private createToken(user: User): TokenData {

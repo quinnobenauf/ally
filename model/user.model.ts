@@ -15,7 +15,6 @@ const userSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   userName: String,
-  password: String,
   email: String,
   phone: String,
   allergies: [allergySchema],

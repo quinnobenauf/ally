@@ -3,12 +3,15 @@ import Controller from "../interfaces/controller.interface";
 import Event from "../interfaces/event.interface";
 import eventModel from "../model/event.model";
 import userModel from "../model/user.model";
+import Allergy from "../interfaces/allergy.interface";
+import User from "../interfaces/user.interface";
 
 class EventsController implements Controller {
   public path = "/events";
   public router = express.Router();
   private event = eventModel;
   private user = userModel;
+  private allergies: Allergy[] = new Array<Allergy>();
 
   constructor() {
     this.initializeRoutes();
@@ -99,7 +102,22 @@ class EventsController implements Controller {
   private getGuestAllergies = (req: express.Request, res: express.Response) => {
     const eventId = req.params.id;
     this.event.findById(eventId).then(event => {
-      res.send(event.guests);
+      console.log("EVENT: ", event);
+      event.guests.forEach(guest => {
+        console.log("GUEST: ", guest);
+        this.user.findById(guest).then(user => {
+          user.allergies.forEach(allergy => {
+            console.log("ALLERGY: ", allergy);
+            this.allergies.push(allergy);
+          });
+        });
+      });
+      this.allergies.forEach(allergy => {
+        console.log("ALLERGIES ARRAY: ", allergy);
+      });
+      // this res might be getting called too early
+      // need to wait for function to finish before sending res
+      res.send(this.allergies);
     });
   };
 }

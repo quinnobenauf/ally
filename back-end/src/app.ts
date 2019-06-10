@@ -39,7 +39,6 @@ class App {
   private mountControllers(controllers: Controller[]) {
     controllers.forEach(controller => {
       this.app.use("/", controller.router);
-      this.app.use("/", express.static(__dirname + "/angularDist"));
     });
   }
 
@@ -55,7 +54,7 @@ class App {
   }
 
   public listen() {
-    this.app.listen(process.env.PORT || 8080, () => {
+    this.app.listen(process.env.PORT, () => {
       console.log(`Listening on port ${process.env.PORT}`);
     });
   }

@@ -6,12 +6,12 @@ var user_model_1 = require("../model/user.model");
 var DietsController = /** @class */ (function () {
     function DietsController() {
         var _this = this;
-        this.path = '/diets';
+        this.path = "/diets";
         this.router = express.Router();
         this.diet = diet_model_1["default"];
         this.user = user_model_1["default"];
         this.getAllDiets = function (req, res) {
-            _this.user.find().then(function (diets) {
+            _this.diet.find().then(function (diets) {
                 res.send(diets);
             });
         };
@@ -23,7 +23,7 @@ var DietsController = /** @class */ (function () {
                 r.diets.forEach(function (element) {
                     diets.push(element.type);
                 });
-                var query = { 'type': { '$nin': diets } };
+                var query = { type: { $nin: diets } };
                 _this.diet.find(query).then(function (diets) {
                     res.send(diets);
                 });
@@ -37,7 +37,7 @@ var DietsController = /** @class */ (function () {
                 });
             }
             else {
-                _this.diet.find({ 'type': id }).then(function (diet) {
+                _this.diet.find({ type: id }).then(function (diet) {
                     res.send(diet);
                 });
             }

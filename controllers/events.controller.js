@@ -10,6 +10,7 @@ var EventsController = /** @class */ (function () {
         this.router = express.Router();
         this.event = event_model_1["default"];
         this.user = user_model_1["default"];
+        this.allergies = new Array();
         this.getAllEvents = function (req, res) {
             _this.event.find().then(function (events) {
                 res.send(events);
@@ -79,7 +80,22 @@ var EventsController = /** @class */ (function () {
         this.getGuestAllergies = function (req, res) {
             var eventId = req.params.id;
             _this.event.findById(eventId).then(function (event) {
-                res.send(event.guests);
+                console.log("EVENT: ", event);
+                event.guests.forEach(function (guest) {
+                    console.log("GUEST: ", guest);
+                    _this.user.findById(guest).then(function (user) {
+                        user.allergies.forEach(function (allergy) {
+                            console.log("ALLERGY: ", allergy);
+                            _this.allergies.push(allergy);
+                        });
+                    });
+                });
+                _this.allergies.forEach(function (allergy) {
+                    console.log("ALLERGIES ARRAY: ", allergy);
+                });
+                // this res might be getting called too early
+                // need to wait for function to finish before sending res
+                res.send(_this.allergies);
             });
         };
         this.initializeRoutes();

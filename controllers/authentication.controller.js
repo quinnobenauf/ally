@@ -49,6 +49,9 @@ exports.__esModule = true;
 var bcrypt = require("bcrypt");
 var express = require("express");
 var jwt = require("jsonwebtoken");
+var passport = require("passport");
+var session = require("express-session");
+var googlePassport_middleware_1 = require("../middlewares/googlePassport.middleware");
 var user_model_1 = require("../model/user.model");
 var UserWithThatEmailAlreadyExistsException_1 = require("../exceptions/UserWithThatEmailAlreadyExistsException");
 var WrongCredentialsException_1 = require("../exceptions/WrongCredentialsException");
@@ -120,15 +123,24 @@ var AuthenticationController = /** @class */ (function () {
                 }
             });
         }); };
-        console.log("INSIDE CONSTRUCTOR");
+        this.googlePassport = new googlePassport_middleware_1["default"]();
+        this.router.use(session({ secret: "dogs" }));
+        this.router.use(passport.initialize());
+        this.router.use(passport.session());
         this.initializeRoutes();
     }
     AuthenticationController.prototype.initializeRoutes = function () {
-        console.log("INITIALIZING ROUTES");
+        this.router.get(this.path + "/google", passport.authenticate("google", {
+            scope: ["profile", "email"]
+        }));
+        this.router.get(this.path + "/google/callback", passport.authenticate("google", {
+            failureRedirect: ""
+        }), function (req, res) {
+            console.log("req", req.params.user);
+            res.send(req.params.user);
+        });
         this.router.post(this.path + "/register", validation_middleware_1["default"](createUser_dto_1["default"]), this.register);
-        console.log("REGISTER INITIALIZED");
         this.router.post(this.path + "/login", this.login);
-        console.log("LOGIN INITIALIZED");
     };
     AuthenticationController.prototype.createToken = function (user) {
         var expiresIn = 60 * 60; // 1 hour

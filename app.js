@@ -5,7 +5,10 @@ var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var mongoose = require("mongoose");
 var cors = require("cors");
+var passport = require("passport");
+var session = require("express-session");
 var error_middleware_1 = require("./middlewares/error.middleware");
+var googlePassport_middleware_1 = require("./middlewares/googlePassport.middleware");
 var App = /** @class */ (function () {
     function App(controllers) {
         this.app = express();
@@ -13,11 +16,15 @@ var App = /** @class */ (function () {
         this.initializeMiddlewares();
         this.initializeErrorHandling();
         this.mountControllers(controllers);
+        this.googlePasspport = new googlePassport_middleware_1["default"]();
     }
     App.prototype.initializeMiddlewares = function () {
         this.app.use(bodyParser.json());
         this.app.use(cookieParser());
         this.app.use(cors());
+        this.app.use(session({ secret: "dogs" }));
+        this.app.use(passport.initialize());
+        this.app.use(passport.session());
     };
     App.prototype.initializeErrorHandling = function () {
         this.app.use(error_middleware_1["default"]);
