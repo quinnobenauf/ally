@@ -1,6 +1,10 @@
 import * as bcrypt from 'bcrypt';
 import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
+import * as passport from 'passport';
+import * as session from 'express-session';
+
+import PassportOAuth from '../middlewares/googlePassport.middleware';
 import Controller from '../interfaces/controller.interface';
 import userModel from '../model/user.model';
 import UserWithThatEmailAlreadyExistsException from '../exceptions/UserWithThatEmailAlreadyExistsException';
@@ -14,13 +18,28 @@ import validationMiddleware from '../middlewares/validation.middleware';
 class AuthenticationController implements Controller {
     public path = '/auth';
     public router = express.Router();
+    public googlePassport: PassportOAuth;
     private user = userModel;
 
     constructor() {
+        this.googlePassport = new PassportOAuth();
+        this.router.use(session({ secret: 'dogs' }));
+        this.router.use(passport.initialize());
+        this.router.use(passport.session());
         this.initializeRoutes();
     }
 
     public initializeRoutes() {
+        this.router.get(`${this.path}/google`, passport.authenticate('google', {
+            scope: ['profile', 'email']
+        }));
+        this.router.get(`${this.path}/google/callback`, passport.authenticate('google', {
+            failureRedirect: ''}), (req, res) => {
+                console.log('req', req.user);
+                res.send(req.user);
+                // console.log(req);
+            }
+        );
         this.router.post(`${this.path}/register`, validationMiddleware(CreateUserDto), this.register);
         this.router.post(`${this.path}/login`, this.login);
     }

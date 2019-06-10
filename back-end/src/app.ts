@@ -3,12 +3,16 @@ import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as mongoose from 'mongoose';
 import * as cors from 'cors';
+import * as passport from 'passport';
+import * as session from 'express-session';
 
 import Controller from './interfaces/controller.interface';
 import errorMiddleware from './middlewares/error.middleware';
+import GooglePassportOAuth from './middlewares/googlePassport.middleware';
 
 class App {
     public app: express.Application;
+    public googlePasspport: GooglePassportOAuth;
 
     constructor(controllers: Controller[]) {
         this.app = express();
@@ -16,12 +20,16 @@ class App {
         this.initializeMiddlewares();
         this.initializeErrorHandling();
         this.mountControllers(controllers);
+        this.googlePasspport = new GooglePassportOAuth();
     }
 
     private initializeMiddlewares() {
         this.app.use(bodyParser.json());
         this.app.use(cookieParser());
         this.app.use(cors());
+        this.app.use(session({ secret: "dogs" }));
+        this.app.use(passport.initialize());
+        this.app.use(passport.session());
     }
 
     private initializeErrorHandling() {
