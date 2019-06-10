@@ -101,8 +101,18 @@ export class EventsComponent implements OnInit {
       return;
     }
     this.selectedEvent = event;
-    // this.selectedAllergies = get events allergies ()
-    // this.selectedDiets = get events diets ()
+    this.selectedAllergies = null;
+    this.selectedDiets = null;
+    this.eventService.getEventAllergies(event).subscribe((res: Allergy[]) => {
+      res.forEach(item => {
+        this.selectedAllergies.push(item);
+      });
+    });
+    this.eventService.getEventDiets(event).subscribe((res: Allergy[]) => {
+      res.forEach(item => {
+        this.selectedDiets.push(item);
+      });
+    });
   }
  
   done() {

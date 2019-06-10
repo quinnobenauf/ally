@@ -31,6 +31,14 @@ export class EventService {
       );
   }
 
+  getEventAllergies(event: Event): Observable<any> {
+    return this.http.get(`${this.eventsUrl}host/${event._id}/allergies`, httpOptions);
+  }
+
+  getEventDiets(event: Event): Observable<any> {
+    return this.http.get(`${this.eventsUrl}host/${event._id}/diets`, httpOptions);
+  }
+
   modifyEvent(id: string, event: Event): Observable<any> {
     return this.http.put(`${this.eventsUrl}${id}`, this.createBodyEvent(event), httpOptions);
   }
@@ -50,7 +58,6 @@ export class EventService {
     const url = `${this.eventsUrl}${event._id}`;
     return this.http.delete(url, httpOptions);
   }
-
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
