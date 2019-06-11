@@ -64,4 +64,8 @@ export class AuthService {
     sessionStorage.removeItem("currentUser");
     this.currentUserSubject.next(null);
   }
+
+  googleAuth(){
+    return this.http.get(`/auth/google/`, httpOptions);
+  }
 }
