@@ -5,13 +5,13 @@ var assert = chai.assert;
 var host = 'http://ally-app.azurewebsites.net';
 chai.use(chaiHttp);
 
-describe('GET: Test Allergies API', function () {
+describe('GET: Test Diets API', function () {
     var requestResult;
     var response;
 
     before(function (done) {
         chai.request(host)
-        .get("/allergies")
+        .get("/diets")
         .end(function (err, res) {
             requestResult = res.body;
             response = res;
@@ -29,7 +29,7 @@ describe('GET: Test Allergies API', function () {
         expect(requestResult).to.have.length.above(0);
     });
 
-    it("The Allergiess in the response array have the expected properties", function() {
+    it("The Diets in the response array have the expected properties", function() {
         expect(response.body).to.satisfy(
 			function (body) {
 				for (var i = 0; i < body.length; i++) {
@@ -43,16 +43,16 @@ describe('GET: Test Allergies API', function () {
 
 });
 
-describe("POST: Test adding an Allergy", function () {
+describe("POST: Test adding a Diet", function () {
     var requestResult;
     var response;
-    var allergy = "Stinky Food"
-    var allergyId;
+    var diet = "Vegefishaterian"
+    var dietId;
 
     before(function (done) {
         chai.request(host)
-        .post("/allergies")
-        .send({"type" : allergy})
+        .post("/diets")
+        .send({"type" : diet})
         .end(function (err, res) {
             requestResult = res.body;
             response = res;
@@ -62,21 +62,21 @@ describe("POST: Test adding an Allergy", function () {
         });
     });
 
-    it('Test basic response properties of create Allergy', function () {
+    it('Test basic response properties of create Diet', function () {
         expect(response).to.have.status(200);
         expect(response).to.have.headers;
         expect(response).to.not.be.null;
         expect(response).to.be.json;
-        allergyId = response.body._id;
+        dietId = response.body._id;
     });
 
-    it("Verify Allergy added is in Response", function () {
-        expect(response.body).to.have.property('type').that.equals(allergy);
+    it("Verify Diet added is in Response", function () {
+        expect(response.body).to.have.property('type').that.equals(diet);
     })
 
     after(function (done) {
         chai.request(host)
-        .delete("/allergies/"+allergyId)
+        .delete("/diets/"+dietId)
         .end(function (err, res) {
             requestResult = res.body;
             response = res;
