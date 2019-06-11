@@ -36,11 +36,11 @@ export class EventService {
   }
 
   getEventAllergies(event: Event): Observable<any> {
-    return this.http.get(`${this.eventsUrl}host/${event._id}/allergies`, httpOptions);
+    return this.http.get(`${this.eventsUrl}${event._id}/allergies`, httpOptions);
   }
 
   getEventDiets(event: Event): Observable<any> {
-    return this.http.get(`${this.eventsUrl}host/${event._id}/diets`, httpOptions);
+    return this.http.get(`${this.eventsUrl}${event._id}/diets`, httpOptions);
   }
 
   modifyEvent(id: string, event: Event): Observable<any> {
