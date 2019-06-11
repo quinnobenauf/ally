@@ -17,13 +17,14 @@
         <div id="gSignInWrapper" style="margin-bottom: 20px; text-align: center">
           <div id="customBtn" class="customGPlusSignIn" (click)="googleSignIn()">
             <span class="icon"></span>
-            <span class="buttonText">Google</span>
+            <span (click)="googleSSO()" class="buttonText">Google</span>
           </div>
         </div>
         <div style="text-align: center">
           <button mat-raised-button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary">Login
           </button>
           <a routerLink="/register" class="btn btn-link">Register</a>
+          <button (click)="googleSSO()">Google</button>
         </div>
       </form>
     </mat-card-content>
