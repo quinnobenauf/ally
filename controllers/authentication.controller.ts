@@ -43,7 +43,7 @@ class AuthenticationController implements Controller {
       }),
       (req, res) => {
         console.log("req", req.params.user);
-        res.setHeader('Access-Control-Allow-Origin', 'http://ally-app.azurewebsites.net');
+        res.setHeader('Access-Control-Allow-Origin', '*');
         res.send(req.params.user);
       }
     );
