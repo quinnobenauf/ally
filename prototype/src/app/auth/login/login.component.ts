@@ -80,4 +80,18 @@ export class LoginComponent implements OnInit {
         }
       );
   }
+
+  googleSSO() {
+    this.authService.googleLogin()
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate([this.redirectUrl]);
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        }
+      )
+  }
 }

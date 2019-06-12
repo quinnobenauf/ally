@@ -60,8 +60,23 @@ export class AuthService {
       );
   }
 
+  googleLogin() {
+    return this.http.get<User>(`${this.authUrl}/google`, httpOptions)
+      .pipe(map(res => {
+        sessionStorage.setItem('currentUser', JSON.stringify(res));
+        this.currentUserSubject.next(res);
+        this.isLoggedIn = true;
+
+        return res;
+      }));
+  }
+
   logout(): void {
     sessionStorage.removeItem("currentUser");
     this.currentUserSubject.next(null);
+  }
+
+  googleAuth(){
+    return this.http.get(`/auth/google/`, httpOptions);
   }
 }

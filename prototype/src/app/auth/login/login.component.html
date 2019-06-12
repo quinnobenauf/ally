@@ -7,29 +7,17 @@
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
-          <input matInput placeholder="Email"
-            class="form-control"
-            formControlName="userName">
+          <input matInput placeholder="Email" class="form-control" formControlName="userName">
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput placeholder="Password"
-            class="form-control"
-            formControlName="password">
+          <input matInput placeholder="Password" class="form-control" formControlName="password">
         </mat-form-field>
         <div id="gSignInWrapper" style="margin-bottom: 20px; text-align: center">
-          <div id="customBtn" class="customGPlusSignIn">
+          <div id="customBtn" class="customGPlusSignIn" (click)="googleSSO()">
             <span class="icon"></span>
-            <span class="buttonText">Google</span>
+            <span (click)="googleSSO()" class="buttonText">Google</span>
           </div>
-        </div>
-        <div style="text-align: center">
-          <button mat-raised-button 
-            type="submit" 
-            [disabled]="!loginForm.valid"
-            class="btn btn-primary">Login
-          </button>
-          <a routerLink="/register" class="btn btn-link">Register</a>
         </div>
       </form>
     </mat-card-content>

@@ -4,7 +4,6 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var mongoose = require("mongoose");
-var cors = require("cors");
 var passport = require("passport");
 var session = require("express-session");
 var error_middleware_1 = require("./middlewares/error.middleware");
@@ -21,7 +20,6 @@ var App = /** @class */ (function () {
     App.prototype.initializeMiddlewares = function () {
         this.app.use(bodyParser.json());
         this.app.use(cookieParser());
-        this.app.use(cors());
         this.app.use(session({ secret: "dogs" }));
         this.app.use(passport.initialize());
         this.app.use(passport.session());

@@ -2,14 +2,15 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var expect = chai.expect;
 var assert = chai.assert;
+var host = 'http://ally-app.azurewebsites.net';
 chai.use(chaiHttp);
 
-describe('Test Allergies API', function () {
+describe('GET: Test Allergies API', function () {
     var requestResult;
     var response;
 
     before(function (done) {
-        chai.request("http://localhost:4100")
+        chai.request(host)
         .get("/allergies")
         .end(function (err, res) {
             requestResult = res.body;
@@ -42,14 +43,14 @@ describe('Test Allergies API', function () {
 
 });
 
-describe("Test adding an Allergy", function () {
+describe("POST: Test adding an Allergy", function () {
     var requestResult;
     var response;
     var allergy = "Stinky Food"
     var allergyId;
 
     before(function (done) {
-        chai.request("http://localhost:4100")
+        chai.request(host)
         .post("/allergies")
         .send({"type" : allergy})
         .end(function (err, res) {
@@ -74,7 +75,7 @@ describe("Test adding an Allergy", function () {
     })
 
     after(function (done) {
-        chai.request("http://localhost:4100")
+        chai.request(host)
         .delete("/allergies/"+allergyId)
         .end(function (err, res) {
             requestResult = res.body;
