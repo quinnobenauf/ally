@@ -61,8 +61,8 @@
         <div class="row">
           <div class="col-md-12">
             <mat-list role="list">
+                <h3 matLine>Allergies</h3>
                 <mat-list-item *ngFor="let allergy of selectedAllergies" role="list-item">
-                  <h3 matLine>Allergies</h3>
                   <p matLine>
                     <span>{{allergy.type}}</span>
                   </p>
@@ -71,8 +71,8 @@
           </div>
           <div class="col-md-12">
               <mat-list role="list">
+                  <h3 matLine>Other Food Preferences</h3>
                   <mat-list-item *ngFor="let diet of selectedDiets" role="list-item">
-                    <h3 matLine>Other Food Preferences</h3>
                     <p matLine>
                       <span>{{diet.type}}</span>
                     </p>
@@ -102,7 +102,7 @@
                           <button mat-raised-button type="submit" (click)="openEdit(content, event)"
                             class="btn btn-danger pull-right" style="margin-top:20px">Edit</button>
                             <button mat-raised-button type="submit" (click)="openDiets(diets, event)"
-                            class="btn btn-danger pull-right" style="margin-top:20px">Diets</button>
+                            class="btn btn-danger pull-right" style="margin-top:20px">Food Restrictions</button>
                         </div>
                         <div class="col-md-3" style="text-align: center">
                           <p>Title</p>

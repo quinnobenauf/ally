@@ -122,8 +122,10 @@ class EventsController implements Controller {
     const eventId = req.params.id;
     this.event.findById(eventId).then(event => {
       this.user.find({ _id: { $in: event.guests } }).then(guests => {
-        guests.forEach(async guest => {
-          await diets.push(guest.diets);
+        guests.forEach(guest => {
+          guest.diets.forEach(async diet => {
+            await diets.push(diet);
+          });
         });
         res.send(diets);
       });

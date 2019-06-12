@@ -140,16 +140,18 @@ var EventsController = /** @class */ (function () {
             var eventId = req.params.id;
             _this.event.findById(eventId).then(function (event) {
                 _this.user.find({ _id: { $in: event.guests } }).then(function (guests) {
-                    guests.forEach(function (guest) { return __awaiter(_this, void 0, void 0, function () {
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0: return [4 /*yield*/, diets.push(guest.diets)];
-                                case 1:
-                                    _a.sent();
-                                    return [2 /*return*/];
-                            }
-                        });
-                    }); });
+                    guests.forEach(function (guest) {
+                        guest.diets.forEach(function (diet) { return __awaiter(_this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, diets.push(diet)];
+                                    case 1:
+                                        _a.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); });
+                    });
                     res.send(diets);
                 });
             });
