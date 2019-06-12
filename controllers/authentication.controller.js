@@ -131,7 +131,7 @@ var AuthenticationController = /** @class */ (function () {
     }
     AuthenticationController.prototype.initializeRoutes = function () {
         this.router.get(this.path + "/google", passport.authenticate("google", {
-            scope: ["https://www.googleapis.com/auth/plus.login", "email"]
+            scope: ["profile", "email"]
         }));
         this.router.get(this.path + "/google/callback", passport.authenticate("google", {
             failureRedirect: "/",

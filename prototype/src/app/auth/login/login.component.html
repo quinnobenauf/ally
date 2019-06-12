@@ -18,12 +18,14 @@
           </button>
           <a routerLink="/register" class="btn btn-link">Register</a>
         </div>
-        <div id="gSignInWrapper" style="margin-bottom: 20px; text-align: center">
-          <div id="customBtn" class="customGPlusSignIn" (click)="googleSSO()">
-            <span class="icon"></span>
-            <span class="buttonText">Google</span>
+        <a href="/auth/google">
+          <div id="gSignInWrapper" style="margin-bottom: 20px; text-align: center">
+            <div id="customBtn" class="customGPlusSignIn">
+              <span class="icon"></span>
+              <span class="buttonText">Google</span>
+            </div>
           </div>
-        </div>
+        </a>
       </form>
     </mat-card-content>
   </mat-card>

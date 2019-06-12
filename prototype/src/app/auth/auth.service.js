@@ -12,7 +12,7 @@ var rxjs_1 = require("rxjs");
 var operators_1 = require("rxjs/operators");
 var user_1 = require("../interfaces/user");
 var httpOptions = {
-    headers: new http_1.HttpHeaders({ "Content-Type": "application/json" })
+    headers: new http_1.HttpHeaders({ "Access-Control-Allow-Origin": "*" })
 };
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
@@ -42,16 +42,31 @@ var AuthService = /** @class */ (function () {
             .post(this.authUrl + "/login", JSON.stringify(user), httpOptions)
             .pipe(operators_1.map(function (res) {
             if (user) {
+                console.log("ALREADY LOGGED IN??");
                 sessionStorage.setItem("currentUser", JSON.stringify(res));
                 _this.currentUserSubject.next(res);
                 _this.isLoggedIn = true;
             }
+            console.log("RES: ", res);
+            return res;
+        }));
+    };
+    AuthService.prototype.googleLogin = function () {
+        var _this = this;
+        return this.http.get(this.authUrl + "/google", httpOptions)
+            .pipe(operators_1.map(function (res) {
+            sessionStorage.setItem('currentUser', JSON.stringify(res));
+            _this.currentUserSubject.next(res);
+            _this.isLoggedIn = true;
             return res;
         }));
     };
     AuthService.prototype.logout = function () {
         sessionStorage.removeItem("currentUser");
         this.currentUserSubject.next(null);
+    };
+    AuthService.prototype.googleAuth = function () {
+        return this.http.get("/auth/google/", httpOptions);
     };
     AuthService = __decorate([
         core_1.Injectable({

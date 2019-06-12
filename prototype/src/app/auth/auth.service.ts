@@ -6,7 +6,7 @@ import { tap, delay, map } from "rxjs/operators";
 import { User } from "../interfaces/user";
 
 const httpOptions = {
-  // headers: new HttpHeaders({ "Content-Type": "application/json" })
+  headers: new HttpHeaders({ "Content-Type": "application/json" })
 };
 
 @Injectable({
