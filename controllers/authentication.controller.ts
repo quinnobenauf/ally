@@ -39,7 +39,8 @@ class AuthenticationController implements Controller {
     this.router.get(
       `${this.path}/google/callback`,
       passport.authenticate("google", {
-        failureRedirect: ""
+        failureRedirect: "/",
+        successRedirect: '/#/dashboard'
       }),
       (req, res) => {
         console.log("req", req.params.user);
