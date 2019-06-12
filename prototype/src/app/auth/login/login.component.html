@@ -13,6 +13,12 @@
         <mat-form-field>
           <input matInput placeholder="Password" class="form-control" formControlName="password">
         </mat-form-field>
+        <div style="text-align: center">
+          <button mat-raised-button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary">Login
+          </button>
+          <a routerLink="/register" class="btn btn-link">Register</a>
+          <button (click)="googleSSO()">Google</button>
+        </div>
         <div id="gSignInWrapper" style="margin-bottom: 20px; text-align: center">
           <div id="customBtn" class="customGPlusSignIn" (click)="googleSSO()">
             <span class="icon"></span>
