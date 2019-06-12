@@ -100,8 +100,8 @@ export class EventsComponent implements OnInit {
       return;
     }
     this.selectedEvent = event;
-    this.selectedAllergies = null;
-    this.selectedDiets = null;
+    this.selectedAllergies = new Array<Allergy>();
+    this.selectedDiets = new Array<Diet>();
     this.eventService.getEventAllergies(event).subscribe((res: Allergy[]) => {
       res.forEach(item => {
         console.log("ITEM: ", item);
