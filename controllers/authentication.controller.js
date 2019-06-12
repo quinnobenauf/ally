@@ -131,12 +131,13 @@ var AuthenticationController = /** @class */ (function () {
     }
     AuthenticationController.prototype.initializeRoutes = function () {
         this.router.get(this.path + "/google", passport.authenticate("google", {
-            scope: ["profile", "email"]
+            scope: ["https://www.googleapis.com/auth/plus.login", "email"]
         }));
         this.router.get(this.path + "/google/callback", passport.authenticate("google", {
             failureRedirect: ""
         }), function (req, res) {
             console.log("req", req.params.user);
+            res.setHeader('Access-Control-Allow-Origin', 'http://ally-app.azurewebsites.net');
             res.send(req.params.user);
         });
         this.router.post(this.path + "/register", validation_middleware_1["default"](createUser_dto_1["default"]), this.register);
