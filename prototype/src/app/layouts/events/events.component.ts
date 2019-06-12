@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
-import { User } from '../../interfaces/user';
-import { UserService } from '../../services/user.service';
-import { EventService } from '../../services/event.service';
-import { Event } from '../../interfaces/event'
+import { User } from "../../interfaces/user";
+import { UserService } from "../../services/user.service";
+import { EventService } from "../../services/event.service";
+import { Event } from "../../interfaces/event";
 
-import {FormControl} from '@angular/forms';
+import { FormControl } from "@angular/forms";
 
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import { Title } from '@angular/platform-browser';
-import { stringify } from '@angular/core/src/util';
-import { Allergy } from 'app/interfaces/allergy';
-import { Diet } from 'app/interfaces/diet';
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { Title } from "@angular/platform-browser";
+import { stringify } from "@angular/core/src/util";
+import { Allergy } from "app/interfaces/allergy";
+import { Diet } from "app/interfaces/diet";
 
 @Component({
-  selector: 'app-events',
-  templateUrl: './events.component.html',
-  styleUrls: ['./events.component.scss']
+  selector: "app-events",
+  templateUrl: "./events.component.html",
+  styleUrls: ["./events.component.scss"]
 })
 export class EventsComponent implements OnInit {
   friendsList = new FormControl();
@@ -30,8 +30,8 @@ export class EventsComponent implements OnInit {
   constructor(
     private accountService: UserService,
     private eventService: EventService,
-    private modalService: NgbModal) {
-   }
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit() {
     this.user = JSON.parse(sessionStorage.getItem("currentUser"));
@@ -64,7 +64,7 @@ export class EventsComponent implements OnInit {
       this.accountService.getUserById(String(guest)).subscribe(user => {
         newGuests.push(user);
       });
-    })
+    });
     return newGuests;
   }
 
@@ -78,7 +78,7 @@ export class EventsComponent implements OnInit {
   }
 
   openEdit(content, event) {
-    this.modalService.open(content, {size: 'lg', centered: true});
+    this.modalService.open(content, { size: "lg", centered: true });
     if (event == null) {
       this.selectedEvent = new Event();
       return;
@@ -87,51 +87,50 @@ export class EventsComponent implements OnInit {
     var currentGuests = new Array<User>();
     this.friends.filter(friend => {
       event.guests.forEach(guest => {
-        if (guest._id == friend._id)
-          currentGuests.push(friend);
-      })
+        if (guest._id == friend._id) currentGuests.push(friend);
+      });
     });
     this.friendsList.setValue(currentGuests);
   }
 
   openDiets(diets, event) {
-    this.modalService.open(diets, {size: 'lg', centered: true});
+    this.modalService.open(diets, { size: "lg", centered: true });
     if (event == null) {
       this.selectedEvent = new Event();
       return;
     }
     this.selectedEvent = event;
-    this.selectedAllergies = null;
-    this.selectedDiets = null;
+    this.selectedAllergies = new Array<Allergy>();
+    this.selectedDiets = new Array<Diet>();
     this.eventService.getEventAllergies(event).subscribe((res: Allergy[]) => {
-      res.forEach(item => {
-        this.selectedAllergies.push(item);
+      res.forEach(allergy => {
+        this.selectedAllergies.push(allergy);
       });
     });
     this.eventService.getEventDiets(event).subscribe((res: Allergy[]) => {
-      res.forEach(item => {
-        this.selectedDiets.push(item);
+      res.forEach(diet => {
+        this.selectedDiets.push(diet);
       });
     });
   }
- 
+
   done() {
-    if (this.selectedEvent._id == null){
+    if (this.selectedEvent._id == null) {
       var newEvent = this.constructEvent();
-      this.eventService.createEvent(newEvent)
-    .subscribe();
-    this.events.push(newEvent)
-    }
-    else{
+      this.eventService.createEvent(newEvent).subscribe();
+      this.events.push(newEvent);
+    } else {
       var newEvent = this.constructEvent();
       newEvent._id = this.selectedEvent._id;
-      var res = this.eventService.modifyEvent(this.selectedEvent._id, newEvent).subscribe();
+      var res = this.eventService
+        .modifyEvent(this.selectedEvent._id, newEvent)
+        .subscribe();
       var index = -1;
       this.events.forEach(event => {
-        if (event._id == this.selectedEvent._id){
+        if (event._id == this.selectedEvent._id) {
           index = this.events.indexOf(event);
         }
-      })
+      });
       this.events[index] = newEvent;
     }
     this.modalService.dismissAll();
@@ -156,19 +155,18 @@ export class EventsComponent implements OnInit {
   }
 
   delete() {
-    if (this.selectedEvent._id != null){
-      this.eventService.deleteEvent(this.selectedEvent).subscribe()
+    if (this.selectedEvent._id != null) {
+      this.eventService.deleteEvent(this.selectedEvent).subscribe();
       // get this working
       var index = this.events.indexOf(this.selectedEvent);
       if (index !== -1) {
-          this.events.splice(index, 1);
+        this.events.splice(index, 1);
       }
       this.modalService.dismissAll();
     }
   }
 
-  createNewEvent(): void
-  {
-    this.modalService.open(null, {size: 'lg', centered: true});
+  createNewEvent(): void {
+    this.modalService.open(null, { size: "lg", centered: true });
   }
 }

@@ -3,6 +3,7 @@ import Controller from "../interfaces/controller.interface";
 import Event from "../interfaces/event.interface";
 import eventModel from "../model/event.model";
 import userModel from "../model/user.model";
+import allergyModel from "../model/allergy.model";
 import Allergy from "../interfaces/allergy.interface";
 import User from "../interfaces/user.interface";
 
@@ -11,6 +12,7 @@ class EventsController implements Controller {
   public router = express.Router();
   private event = eventModel;
   private user = userModel;
+  private allergy = allergyModel;
   private allergies: Allergy[] = new Array<Allergy>();
 
   constructor() {
@@ -25,6 +27,7 @@ class EventsController implements Controller {
     this.router.delete(`${this.path}/:id`, this.deleteEvent);
     this.router.post(this.path, this.createEvent);
     this.router.get(`${this.path}/:id/allergies`, this.getGuestAllergies);
+    this.router.get(`${this.path}/:id/diets`, this.getGuestDiets);
   }
 
   private getAllEvents = (req: express.Request, res: express.Response) => {
@@ -100,24 +103,30 @@ class EventsController implements Controller {
   };
 
   private getGuestAllergies = (req: express.Request, res: express.Response) => {
+    var allergies = [];
     const eventId = req.params.id;
     this.event.findById(eventId).then(event => {
-      console.log("EVENT: ", event);
-      event.guests.forEach(guest => {
-        console.log("GUEST: ", guest);
-        this.user.findById(guest).then(user => {
-          user.allergies.forEach(allergy => {
-            console.log("ALLERGY: ", allergy);
-            this.allergies.push(allergy);
+      this.user.find({ _id: { $in: event.guests } }).then(guests => {
+        guests.forEach(guest => {
+          guest.allergies.forEach(async allergy => {
+            await allergies.push(allergy);
           });
         });
+        res.send(allergies);
       });
-      this.allergies.forEach(allergy => {
-        console.log("ALLERGIES ARRAY: ", allergy);
+    });
+  };
+
+  private getGuestDiets = (req: express.Request, res: express.Response) => {
+    var diets = [];
+    const eventId = req.params.id;
+    this.event.findById(eventId).then(event => {
+      this.user.find({ _id: { $in: event.guests } }).then(guests => {
+        guests.forEach(async guest => {
+          await diets.push(guest.diets);
+        });
+        res.send(diets);
       });
-      // this res might be getting called too early
-      // need to wait for function to finish before sending res
-      res.send(this.allergies);
     });
   };
 }
