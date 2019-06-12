@@ -101,24 +101,27 @@ class EventsController implements Controller {
 
   private getGuestAllergies = (req: express.Request, res: express.Response) => {
     const eventId = req.params.id;
-    this.event.findById(eventId).then(event => {
-      console.log("EVENT: ", event);
-      event.guests.forEach(guest => {
-        console.log("GUEST: ", guest);
-        this.user.findById(guest).then(user => {
-          user.allergies.forEach(allergy => {
-            console.log("ALLERGY: ", allergy);
-            this.allergies.push(allergy);
+    this.event
+      .findById(eventId)
+      .then(event => {
+        event.guests.forEach(guest => {
+          this.user.findById(guest).then(user => {
+            user.allergies.forEach(allergy => {
+              console.log("ALLERGY: ", allergy);
+              this.allergies.push(allergy);
+            });
           });
         });
+        //this.allergies.forEach(allergy => {
+        //  console.log("ALLERGIES ARRAY: ", allergy);
+        //});
+        // this res might be getting called too early
+        // need to wait for function to finish before sending res
+        //res.send(this.allergies);
+      })
+      .then(() => {
+        res.send(this.allergies);
       });
-      this.allergies.forEach(allergy => {
-        console.log("ALLERGIES ARRAY: ", allergy);
-      });
-      // this res might be getting called too early
-      // need to wait for function to finish before sending res
-      res.send(this.allergies);
-    });
   };
 }
 

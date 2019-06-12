@@ -79,10 +79,10 @@ var EventsController = /** @class */ (function () {
         };
         this.getGuestAllergies = function (req, res) {
             var eventId = req.params.id;
-            _this.event.findById(eventId).then(function (event) {
-                console.log("EVENT: ", event);
+            _this.event
+                .findById(eventId)
+                .then(function (event) {
                 event.guests.forEach(function (guest) {
-                    console.log("GUEST: ", guest);
                     _this.user.findById(guest).then(function (user) {
                         user.allergies.forEach(function (allergy) {
                             console.log("ALLERGY: ", allergy);
@@ -90,11 +90,14 @@ var EventsController = /** @class */ (function () {
                         });
                     });
                 });
-                _this.allergies.forEach(function (allergy) {
-                    console.log("ALLERGIES ARRAY: ", allergy);
-                });
+                //this.allergies.forEach(allergy => {
+                //  console.log("ALLERGIES ARRAY: ", allergy);
+                //});
                 // this res might be getting called too early
                 // need to wait for function to finish before sending res
+                //res.send(this.allergies);
+            })
+                .then(function () {
                 res.send(_this.allergies);
             });
         };
