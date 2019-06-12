@@ -104,12 +104,16 @@ export class EventsComponent implements OnInit {
     this.selectedDiets = new Array<Diet>();
     this.eventService.getEventAllergies(event).subscribe((res: Allergy[]) => {
       res.forEach(allergy => {
-        this.selectedAllergies.push(allergy);
+        if (!this.selectedAllergies.some(x => x._id == allergy._id)){
+          this.selectedAllergies.push(allergy);
+        }
       });
     });
     this.eventService.getEventDiets(event).subscribe((res: Diet[]) => {
       res.forEach(diet => {
-        this.selectedDiets.push(diet);
+        if (!this.selectedDiets.some(x => x._id == diet._id)){
+          this.selectedDiets.push(diet);
+        }
       });
     });
   }

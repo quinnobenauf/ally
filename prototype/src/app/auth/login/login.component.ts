@@ -83,9 +83,9 @@ export class LoginComponent implements OnInit {
 
   googleSSO() {
     this.authService.googleLogin()
-      .pipe(first())
       .subscribe(
         data => {
+          console.log("data:", data);
           this.router.navigate([this.redirectUrl]);
         },
         error => {
