@@ -33,12 +33,8 @@ class AuthenticationController implements Controller {
     this.router.get(
       `${this.path}/google`,
       passport.authenticate("google", {
-        scope: ["profile", "email"]
-      }),
-      (req, res) => {
-        res.setHeader('Access-Control-Allow-Origin', 'http://ally-app.azurewebsites.net');
-        res.send(req.params.user);
-      }
+        scope: ["https://www.googleapis.com/auth/plus.login", "email"]
+      })
     );
     this.router.get(
       `${this.path}/google/callback`,
