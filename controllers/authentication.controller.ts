@@ -40,11 +40,11 @@ class AuthenticationController implements Controller {
       `${this.path}/google/callback`,
       passport.authenticate("google", {
         failureRedirect: "/",
-        successRedirect: '/#/dashboard'
+        successRedirect: "/#/dashboard"
       }),
       (req, res) => {
         console.log("req", req.params.user);
-        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader("Access-Control-Allow-Origin", "*");
         res.send(req.params.user);
       }
     );
@@ -83,10 +83,10 @@ class AuthenticationController implements Controller {
     if (await this.user.findOne({ email: userData.email })) {
       next(new UserWithThatEmailAlreadyExistsException(userData.email));
     } else {
-      const hashedPassword = await bcrypt.hash(userData.password, 10);
+      // const hashedPassword = await bcrypt.hash(userData.password, 10);
       const user = await this.user.create({
         ...userData,
-        password: hashedPassword
+        password: userData.password
       });
       console.log(user);
       user.password = undefined;
@@ -102,15 +102,10 @@ class AuthenticationController implements Controller {
     next: express.NextFunction
   ) => {
     const loginData = req.body;
-    console.log("YOOOOOOO");
+
     const user = await this.user.findOne({ email: loginData.email });
     if (user) {
-      console.log("USER EXISTS?");
-      // const isPasswordMatching = await bcrypt.compare(
-      //   loginData.password,
-      //   user.password
-      // );
-      const isPasswordMatching = true;
+      const isPasswordMatching = loginData.password === user.password;
       console.log("CHECKING PASSWORDS");
       if (isPasswordMatching) {
         console.log("PASSWORD MATCHES?");
