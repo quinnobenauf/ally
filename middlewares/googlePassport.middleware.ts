@@ -30,6 +30,7 @@ class GooglePassportOAuth {
                         email: profile.emails[0].value
                     });
                     console.log(newUser);
+
                     return done(null, newUser);
                 } else {
                     return done(null, user);
