@@ -49,9 +49,11 @@ export class UserProfileComponent implements OnInit {
       var user = this.accountService
         .getUserById(userName)
         .subscribe((res: User) => {
-          this.friends.push(res[0]);
-          this.user.friends.push(res[0]._id);
-          this.updateProfile();
+          if (res[0] != null){
+            this.friends.push(res[0]);
+            this.user.friends.push(res[0]._id);
+            this.updateProfile();
+          }
         });
     }
   }
