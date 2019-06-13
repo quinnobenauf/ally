@@ -46,7 +46,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var bcrypt = require("bcrypt");
 var express = require("express");
 var jwt = require("jsonwebtoken");
 var passport = require("passport");
@@ -64,7 +63,7 @@ var AuthenticationController = /** @class */ (function () {
         this.router = express.Router();
         this.user = user_model_1["default"];
         this.register = function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
-            var userData, hashedPassword, user, tokenData;
+            var userData, user, tokenData;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -73,20 +72,17 @@ var AuthenticationController = /** @class */ (function () {
                     case 1:
                         if (!_a.sent()) return [3 /*break*/, 2];
                         next(new UserWithThatEmailAlreadyExistsException_1["default"](userData.email));
-                        return [3 /*break*/, 5];
-                    case 2: return [4 /*yield*/, bcrypt.hash(userData.password, 10)];
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, this.user.create(__assign({}, userData, { password: userData.password }))];
                     case 3:
-                        hashedPassword = _a.sent();
-                        return [4 /*yield*/, this.user.create(__assign({}, userData, { password: hashedPassword }))];
-                    case 4:
                         user = _a.sent();
                         console.log(user);
                         user.password = undefined;
                         tokenData = this.createToken(user);
                         res.setHeader("Set-Cookie", [this.createCookie(tokenData)]);
                         res.send(user);
-                        _a.label = 5;
-                    case 5: return [2 /*return*/];
+                        _a.label = 4;
+                    case 4: return [2 /*return*/];
                 }
             });
         }); };
@@ -96,13 +92,11 @@ var AuthenticationController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         loginData = req.body;
-                        console.log("YOOOOOOO");
                         return [4 /*yield*/, this.user.findOne({ email: loginData.email })];
                     case 1:
                         user = _a.sent();
                         if (user) {
-                            console.log("USER EXISTS?");
-                            isPasswordMatching = true;
+                            isPasswordMatching = loginData.password === user.password;
                             console.log("CHECKING PASSWORDS");
                             if (isPasswordMatching) {
                                 console.log("PASSWORD MATCHES?");
@@ -135,10 +129,10 @@ var AuthenticationController = /** @class */ (function () {
         }));
         this.router.get(this.path + "/google/callback", passport.authenticate("google", {
             failureRedirect: "/",
-            successRedirect: '/#/dashboard'
+            successRedirect: "/#/dashboard"
         }), function (req, res) {
             console.log("req", req.params.user);
-            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader("Access-Control-Allow-Origin", "*");
             res.send(req.params.user);
         });
         this.router.post(this.path + "/register", validation_middleware_1["default"](createUser_dto_1["default"]), this.register);
