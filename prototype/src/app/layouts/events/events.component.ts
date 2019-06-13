@@ -122,6 +122,7 @@ export class EventsComponent implements OnInit {
     if (this.selectedEvent._id == null) {
       var newEvent = this.constructEvent();
       this.eventService.createEvent(newEvent).subscribe((res: Event) => {
+        res.guests = newEvent.guests;
         this.events.push(res);
       });
     } else {
